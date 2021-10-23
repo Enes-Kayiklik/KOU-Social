@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Eventverse</string>
+    <string name="app_logo">App logo</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login">Sign in</string>
+    <string name="login_button">Login</string>
+    <string name="signup_button">Sign up</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="with_google">Sign Up with Google</string>
+    <string name="or">OR</string>
+    <string name="password_error">You have to enter at least 6 digit!</string>
+    <string name="email_error">Invalid email</string>
+</resources>
