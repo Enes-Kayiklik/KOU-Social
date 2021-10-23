@@ -5,9 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.TextFieldState
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.extension.isValidEmail
+import com.eneskayiklik.eventverse.core.util.extension.isValidPassword
 import com.eneskayiklik.eventverse.feature_auth.domain.use_case.LoginUseCase
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -27,6 +30,9 @@ class LoginViewModel @Inject constructor(
 
     private val _googleButtonState = MutableStateFlow(false)
     val googleButtonState: StateFlow<Boolean> = _googleButtonState
+
+    private val _loginButtonState = MutableStateFlow(false)
+    val loginButtonState: StateFlow<Boolean> = _loginButtonState
 
     private val _uiState = MutableSharedFlow<UiEvent>()
     val uiState: SharedFlow<UiEvent> = _uiState
@@ -62,12 +68,16 @@ class LoginViewModel @Inject constructor(
 
     private fun loginWithEmailAndPassword() {
         viewModelScope.launch {
-            val email = emailState.value
-            val password = passwordState.value
-            val result = loginUseCase.loginWithEmail(email.text, password.text)
+            val email = emailState.value.text
+            val password = passwordState.value.text
+            if (email.isValidEmail() && password.isValidPassword())
+                _loginButtonState.value = _loginButtonState.value.not()
+
+            val result = loginUseCase.loginWithEmail(email, password)
             _emailState.value = _emailState.value.copy(error = result.emailError)
             _passwordState.value = _passwordState.value.copy(error = result.passwordError)
             if (result.isSuccess) {
+                _loginButtonState.value = _loginButtonState.value.not()
                 _uiState.emit(UiEvent.Navigate(Screen.Timeline.route))
             }
         }
@@ -75,7 +85,8 @@ class LoginViewModel @Inject constructor(
 
     private fun loginWithGoogle() {
         viewModelScope.launch {
-            // do something
+            delay(3000L)
+            _googleButtonState.value = _googleButtonState.value.not()
         }
     }
 }

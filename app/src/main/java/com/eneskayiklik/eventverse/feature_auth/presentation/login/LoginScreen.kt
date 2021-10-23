@@ -4,7 +4,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -29,6 +28,7 @@ import com.eneskayiklik.eventverse.core.component.ExtendedTextField
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.GoogleButton
+import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
@@ -43,6 +43,7 @@ private fun LoginScreen(
     val email = viewModel.emailState.collectAsState().value
     val password = viewModel.passwordState.collectAsState().value
     val googleButton = viewModel.googleButtonState.collectAsState().value
+    val loginButton = viewModel.loginButtonState.collectAsState().value
 
     LaunchedEffect(key1 = true) {
         viewModel.uiState.collectLatest {
@@ -130,16 +131,13 @@ private fun LoginScreen(
             )
         }
         item("login_button") {
-            Button(
-                onClick = { viewModel.onLoginState(LoginState.OnLogin) },
-                Modifier
+            LoginButton(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
+                    .height(50.dp),
+                clicked = loginButton
             ) {
-                Text(
-                    text = stringResource(id = R.string.login_button),
-                    style = MaterialTheme.typography.button
-                )
+                viewModel.onLoginState(LoginState.OnLogin)
             }
         }
         item("or") {

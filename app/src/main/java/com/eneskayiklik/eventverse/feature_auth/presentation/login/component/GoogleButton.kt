@@ -34,6 +34,7 @@ fun GoogleButton(
     borderColor: Color = MaterialTheme.colors.primary,
     backgroundColor: Color = MaterialTheme.colors.surface,
     clicked: Boolean = false,
+    enabled: Boolean = clicked.not(),
     onClicked: () -> Unit
 ) {
     var rotation by remember { mutableStateOf(360F) }
@@ -50,8 +51,10 @@ fun GoogleButton(
 
     Surface(
         modifier = modifier.clickable {
-            onClicked()
-            rotation = 360F
+            if (enabled) {
+                onClicked()
+                rotation = 360F
+            }
         },
         shape = shape,
         border = BorderStroke(width = 1.dp, color = borderColor),
