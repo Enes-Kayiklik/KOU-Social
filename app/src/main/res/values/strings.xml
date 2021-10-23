@@ -11,4 +11,6 @@
     <string name="or">OR</string>
     <string name="password_error">You have to enter at least 6 digit!</string>
     <string name="email_error">Invalid email</string>
+    <string name="register_button">Sign up</string>
+    <string name="fullname">Fullname</string>
 </resources>

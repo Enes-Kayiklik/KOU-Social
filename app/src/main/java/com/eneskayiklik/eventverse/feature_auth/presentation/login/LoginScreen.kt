@@ -54,6 +54,7 @@ private fun LoginScreen(
                     }
                     onNavigate(it.id)
                 }
+                UiEvent.CleatBackStack -> clearBackStack()
             }
         }
     }
@@ -61,6 +62,7 @@ private fun LoginScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = MaterialTheme.colors.background)
             .padding(start = 16.dp, end = 16.dp)
     ) {
         item("header_view") {
@@ -182,7 +184,7 @@ private fun LoginScreen(
         item("signup_button") {
             Spacer(modifier = Modifier.height(8.dp))
             TextButton(
-                onClick = { viewModel.onLoginState(LoginState.OnRegister) },
+                onClick = { viewModel.onLoginState(LoginState.OnNavigateRegister) },
                 Modifier
                     .fillMaxWidth()
                     .height(50.dp)
