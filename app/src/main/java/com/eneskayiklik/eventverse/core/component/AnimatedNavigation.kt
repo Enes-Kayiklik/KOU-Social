@@ -12,7 +12,11 @@ import com.eneskayiklik.eventverse.feature_auth.presentation.interest.selectInte
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.loginComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.signup.signupComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.splash.splashComposable
-import com.eneskayiklik.eventverse.feature_timeline.presentation.timelineComposable
+import com.eneskayiklik.eventverse.feature_calendar.presentation.calendarComposable
+import com.eneskayiklik.eventverse.feature_create.presentation.createComposable
+import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposable
+import com.eneskayiklik.eventverse.feature_map.presentation.mapComposable
+import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
@@ -32,11 +36,16 @@ fun AnimatedNavigation(
         splashComposable(navController::navigate, navController::popBackStack)
         loginComposable(navController::navigate, navController::popBackStack)
         signupComposable(navController::navigate, navController::popBackStack)
-        timelineComposable(navController::navigate, navController::popBackStack)
+        exploreComposable(navController::navigate, navController::popBackStack)
+        calendarComposable(navController::navigate, navController::popBackStack)
+        mapComposable(navController::navigate, navController::popBackStack)
+        createComposable(navController::navigate, navController::popBackStack)
+        profileComposable(navController::navigate, navController::popBackStack)
         selectInterestComposable(
             navController::navigate,
             navController::popBackStack,
             scaffoldState
         )
+
     }
 }

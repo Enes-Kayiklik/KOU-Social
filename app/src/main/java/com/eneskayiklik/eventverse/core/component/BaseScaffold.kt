@@ -2,8 +2,8 @@ package com.eneskayiklik.eventverse.core.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -29,7 +29,7 @@ fun BaseScaffold(
     state: ScaffoldState,
     bottomNavItems: List<BottomNavItem> = listOf(
         BottomNavItem(
-            route = Screen.Timeline.route,
+            route = Screen.Explore.route,
             icon = Icons.Outlined.Explore,
             contentDescription = "Home"
         ),
@@ -57,15 +57,12 @@ fun BaseScaffold(
         bottomBar = {
             AnimatedVisibility(visible = showBottomBar) {
                 BottomAppBar(
-                    modifier = Modifier
-                        .fillMaxWidth(),
                     elevation = 5.dp,
                     backgroundColor = MaterialTheme.colors.background,
                 ) {
-                    BottomNavigation {
+                    Row(horizontalArrangement = Arrangement.SpaceEvenly) {
                         bottomNavItems.forEachIndexed { _, bottomNavItem ->
                             BaseBottomNavItem(
-                                modifier = Modifier.background(MaterialTheme.colors.background),
                                 icon = bottomNavItem.icon,
                                 contentDescription = bottomNavItem.contentDescription,
                                 selected = navController.currentDestination?.route?.startsWith(
@@ -74,7 +71,10 @@ fun BaseScaffold(
                                 enabled = bottomNavItem.icon != null
                             ) {
                                 if (navController.currentDestination?.route != bottomNavItem.route) {
-                                    navController.navigate(bottomNavItem.route)
+                                    navController.navigate(bottomNavItem.route) {
+                                        launchSingleTop = true
+                                        popUpTo(Screen.Explore.route)
+                                    }
                                 }
                             }
                         }

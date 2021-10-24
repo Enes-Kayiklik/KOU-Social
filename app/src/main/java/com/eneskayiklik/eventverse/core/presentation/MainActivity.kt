@@ -63,8 +63,9 @@ private fun MainScreen() {
 
 private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
     return backStackEntry?.destination?.route in listOf(
-        Screen.Timeline.route,
+        Screen.Explore.route,
         Screen.Map.route,
-        Screen.Calendar.route
+        Screen.Calendar.route,
+        Screen.Profile.route
     )
 }

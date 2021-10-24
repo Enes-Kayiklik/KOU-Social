@@ -85,7 +85,7 @@ class LoginViewModel @Inject constructor(
             _passwordState.value = _passwordState.value.copy(error = result.passwordError)
             if (result.isSuccess) {
                 _loginButtonState.value = _loginButtonState.value.not()
-                _uiState.emit(UiEvent.Navigate(Screen.Timeline.route))
+                _uiState.emit(UiEvent.Navigate(Screen.Explore.route))
             }
         }
     }

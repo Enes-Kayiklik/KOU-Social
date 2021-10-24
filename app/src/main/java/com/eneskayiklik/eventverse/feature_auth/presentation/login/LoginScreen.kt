@@ -52,7 +52,7 @@ private fun LoginScreen(
                 }
                 is UiEvent.Navigate -> {
                     when (it.id) {
-                        Screen.Timeline.route -> clearBackStack()
+                        Screen.Explore.route -> clearBackStack()
                     }
                     onNavigate(it.id)
                 }

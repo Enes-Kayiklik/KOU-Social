@@ -67,6 +67,8 @@ class SignupViewModel @Inject constructor(
             LoginState.OnRegister -> {
                 registerWithEmailAndPassword()
             }
+            LoginState.OnLogin -> {
+            }
         }
     }
 
