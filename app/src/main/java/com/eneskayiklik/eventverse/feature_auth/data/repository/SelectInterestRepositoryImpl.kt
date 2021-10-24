@@ -24,7 +24,7 @@ class SelectInterestRepositoryImpl : SelectInterestRepository {
                 4, "Development", Icons.Rounded.DeveloperMode, false
             ),
             InterestModel(
-                5, "Travel", Icons.Rounded.TravelExplore, false
+                5, "Travel", Icons.Rounded.AirplaneTicket, false
             ),
             InterestModel(
                 6, "Movie", Icons.Rounded.Movie, false
@@ -33,7 +33,7 @@ class SelectInterestRepositoryImpl : SelectInterestRepository {
                 7, "Banking", Icons.Rounded.Atm, false
             ),
             InterestModel(
-                8, "Painting", Icons.Rounded.Brush, false
+                8, "Art", Icons.Rounded.Brush, false
             ),
         )
     }

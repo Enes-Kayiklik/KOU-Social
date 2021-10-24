@@ -3,6 +3,7 @@ package com.eneskayiklik.eventverse.core.component
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.eneskayiklik.eventverse.core.util.Screen
@@ -18,13 +19,18 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 @ExperimentalAnimationApi
 @Composable
 fun AnimatedNavigation(
-    navController: NavHostController
+    navController: NavHostController,
+    scaffoldState: ScaffoldState
 ) {
     AnimatedNavHost(navController = navController, startDestination = Screen.Splash.route) {
         splashComposable(navController::navigate, navController::popBackStack)
         loginComposable(navController::navigate, navController::popBackStack)
         signupComposable(navController::navigate, navController::popBackStack)
         timelineComposable(navController::navigate, navController::popBackStack)
-        selectInterestComposable(navController::navigate, navController::popBackStack)
+        selectInterestComposable(
+            navController::navigate,
+            navController::popBackStack,
+            scaffoldState
+        )
     }
 }

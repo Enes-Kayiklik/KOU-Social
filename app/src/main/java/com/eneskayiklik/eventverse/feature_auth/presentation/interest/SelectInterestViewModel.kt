@@ -35,16 +35,25 @@ class SelectInterestViewModel @Inject constructor(
     fun onEvent(event: SelectInterestEvent) {
         when (event) {
             SelectInterestEvent.OnSelectInterest -> selectInterests()
+            is SelectInterestEvent.SelectInterestResult -> {
+            }
         }
     }
 
     private fun selectInterests() {
         viewModelScope.launch {
             _isSelectClicked.value = _isSelectClicked.value.not()
-            val result = interestUseCase.setInterests(_interests.value)
-            if (result) {
-                _isSelectClicked.value = false
-                _uiState.emit(UiEvent.Navigate(Screen.Timeline.route))
+            when (val result = interestUseCase.setInterests(_interests.value)) {
+                is SelectInterestEvent.SelectInterestResult -> {
+                    _isSelectClicked.value = false
+                    if (result.isSuccess) {
+                        _uiState.emit(UiEvent.Navigate(Screen.Timeline.route))
+                    } else {
+                        _uiState.emit(UiEvent.ShowSnackbar(result.message))
+                    }
+                }
+                else -> {
+                }
             }
         }
     }

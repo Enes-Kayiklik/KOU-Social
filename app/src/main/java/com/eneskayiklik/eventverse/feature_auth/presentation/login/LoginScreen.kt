@@ -48,6 +48,8 @@ private fun LoginScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiState.collectLatest {
             when (it) {
+                is UiEvent.ShowSnackbar -> {
+                }
                 is UiEvent.Navigate -> {
                     when (it.id) {
                         Screen.Timeline.route -> clearBackStack()
