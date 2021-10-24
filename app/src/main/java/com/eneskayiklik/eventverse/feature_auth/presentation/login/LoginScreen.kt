@@ -8,8 +8,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -94,7 +94,7 @@ private fun LoginScreen(
                     )
                 },
                 error = email.error,
-                leadingIcon = Icons.Outlined.Email,
+                leadingIcon = Icons.Rounded.Email,
                 label = stringResource(id = R.string.email),
                 keyboardType = KeyboardType.Email,
                 modifier = Modifier.fillMaxWidth()
@@ -110,7 +110,7 @@ private fun LoginScreen(
                     )
                 },
                 error = password.error,
-                leadingIcon = Icons.Outlined.Lock,
+                leadingIcon = Icons.Rounded.Lock,
                 label = stringResource(id = R.string.password),
                 keyboardType = KeyboardType.Password,
                 isPasswordVisible = password.isPasswordShowing,
