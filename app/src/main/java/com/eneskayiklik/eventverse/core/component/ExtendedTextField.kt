@@ -2,6 +2,7 @@ package com.eneskayiklik.eventverse.core.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,10 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.rounded.Visibility
+import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -45,6 +48,10 @@ fun ExtendedTextField(
     onPasswordToggleClick: (Boolean) -> Unit = {},
     onValueChange: (String) -> Unit
 ) {
+    val passwordVisibilityScale by animateFloatAsState(
+        if (isPasswordToggleDisplayed && text.isNotEmpty()) 1F else 0F
+    )
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -86,26 +93,24 @@ fun ExtendedTextField(
                 }
                 icon
             } else null,
-            trailingIcon = if (isPasswordToggleDisplayed) {
-                val icon: @Composable () -> Unit = {
-                    IconButton(
-                        onClick = {
-                            onPasswordToggleClick(!isPasswordVisible)
-                        }
-                    ) {
-                        Icon(
-                            imageVector = if (isPasswordVisible) {
-                                Icons.Filled.VisibilityOff
-                            } else {
-                                Icons.Filled.Visibility
-                            },
-                            tint = MaterialTheme.colors.onSurface,
-                            contentDescription = stringResource(id = R.string.password)
-                        )
+            trailingIcon = {
+                IconButton(
+                    modifier = Modifier.scale(passwordVisibilityScale),
+                    onClick = {
+                        onPasswordToggleClick(isPasswordVisible.not())
                     }
+                ) {
+                    Icon(
+                        imageVector = if (isPasswordVisible) {
+                            Icons.Rounded.VisibilityOff
+                        } else {
+                            Icons.Rounded.Visibility
+                        },
+                        tint = MaterialTheme.colors.onSurface,
+                        contentDescription = stringResource(id = R.string.password)
+                    )
                 }
-                icon
-            } else null,
+            },
             modifier = Modifier
                 .fillMaxWidth()
         )
