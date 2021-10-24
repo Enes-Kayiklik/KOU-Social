@@ -37,7 +37,7 @@ private fun SplashScreen(
     val offsetState by animateDpAsState(
         targetValue = if (startAnimation) 0.dp else 100.dp,
         animationSpec = tween(
-            durationMillis = 1000,
+            durationMillis = 500,
             easing = FastOutSlowInEasing
         )
     )
@@ -50,7 +50,7 @@ private fun SplashScreen(
 
     LaunchedEffect(key1 = true) {
         startAnimation = true
-        delay(1000)
+        delay(500)
         clearBackStack()
         onNavigate(Screen.Login.route)
     }
