@@ -1,15 +1,20 @@
 package com.eneskayiklik.eventverse.core.component
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.feature_auth.presentation.interest.selectInterestComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.loginComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.signup.signupComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.splash.splashComposable
 import com.eneskayiklik.eventverse.feature_timeline.presentation.timelineComposable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
 fun AnimatedNavigation(
@@ -20,5 +25,6 @@ fun AnimatedNavigation(
         loginComposable(navController::navigate, navController::popBackStack)
         signupComposable(navController::navigate, navController::popBackStack)
         timelineComposable(navController::navigate, navController::popBackStack)
+        selectInterestComposable(navController::navigate, navController::popBackStack)
     }
 }

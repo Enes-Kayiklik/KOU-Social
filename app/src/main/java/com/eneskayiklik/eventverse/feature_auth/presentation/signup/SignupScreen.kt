@@ -181,7 +181,7 @@ fun NavGraphBuilder.signupComposable(
                 animationSpec = tween(durationMillis = 300)
             )
         },
-        exitTransition = { _, _ ->
+        popExitTransition = { _, _ ->
             slideOutHorizontally(
                 targetOffsetX = { fullWidth -> fullWidth },
                 animationSpec = tween(durationMillis = 300)

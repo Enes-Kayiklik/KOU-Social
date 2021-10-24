@@ -48,7 +48,10 @@ class LoginViewModel @Inject constructor(
                 _passwordState.value = _passwordState.value.copy(text = data.password, error = "")
             }
             LoginState.OnLogin -> {
-                loginWithEmailAndPassword()
+                viewModelScope.launch {
+                    _uiState.emit(UiEvent.Navigate(Screen.SelectInterest.route))
+                }
+                // loginWithEmailAndPassword()
             }
             LoginState.OnGoogle -> {
                 _googleButtonState.value = _googleButtonState.value.not()
