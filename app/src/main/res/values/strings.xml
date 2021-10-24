@@ -14,4 +14,5 @@
     <string name="register_button">Sign up</string>
     <string name="fullname">Fullname</string>
     <string name="ok">OK</string>
+    <string name="create_event">Create Event</string>
 </resources>

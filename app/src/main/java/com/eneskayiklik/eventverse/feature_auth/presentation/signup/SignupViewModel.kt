@@ -9,6 +9,7 @@ import com.eneskayiklik.eventverse.core.util.extension.isValidPassword
 import com.eneskayiklik.eventverse.feature_auth.domain.use_case.LoginUseCase
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -35,6 +36,9 @@ class SignupViewModel @Inject constructor(
     private val _uiState = MutableSharedFlow<UiEvent>()
     val uiState: SharedFlow<UiEvent> = _uiState
 
+    private val _googleButtonState = MutableStateFlow(false)
+    val googleButtonState: StateFlow<Boolean> = _googleButtonState
+
     fun onLoginState(
         data: LoginState
     ) {
@@ -48,7 +52,9 @@ class SignupViewModel @Inject constructor(
             is LoginState.OnFullname -> {
                 _fullnameState.value = _fullnameState.value.copy(text = data.fullname, error = "")
             }
-            LoginState.OnLogin -> {
+            LoginState.OnGoogle -> {
+                _googleButtonState.value = _googleButtonState.value.not()
+                loginWithGoogle()
             }
             LoginState.OnGoogle -> {
             }
@@ -78,6 +84,13 @@ class SignupViewModel @Inject constructor(
                 _signupButtonState.value = _signupButtonState.value.not()
                 _uiState.emit(UiEvent.CleatBackStack)
             }
+        }
+    }
+
+    private fun loginWithGoogle() {
+        viewModelScope.launch {
+            delay(3000L)
+            _googleButtonState.value = _googleButtonState.value.not()
         }
     }
 }
