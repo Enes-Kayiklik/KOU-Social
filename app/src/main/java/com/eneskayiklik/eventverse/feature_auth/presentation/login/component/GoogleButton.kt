@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -45,7 +47,7 @@ fun GoogleButton(
         )
     )
     LaunchedEffect(key1 = rotation, key2 = clicked) {
-        delay(1500L)
+        delay(1000L)
         if (clicked) rotation += 360F
     }
 
@@ -76,7 +78,13 @@ fun GoogleButton(
                 painter = painterResource(id = icon),
                 contentDescription = "Google Button",
             )
-            AnimatedVisibility(visible = clicked.not()) {
+            AnimatedVisibility(
+                visible = clicked.not(), enter = expandHorizontally(
+                    animationSpec = tween(durationMillis = 500)
+                ), exit = shrinkHorizontally(
+                    animationSpec = tween(durationMillis = 500)
+                )
+            ) {
                 Row {
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(text = text, style = MaterialTheme.typography.h2)
