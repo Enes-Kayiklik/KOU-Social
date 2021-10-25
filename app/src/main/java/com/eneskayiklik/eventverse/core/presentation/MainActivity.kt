@@ -54,7 +54,11 @@ private fun MainScreen() {
             navController = navController,
             showBottomBar = shouldShowBottomBar(navBackStackEntry),
             state = scaffoldState,
-            onFabClick = { navController.navigate(Screen.CreateEvent.route) }
+            onFabClick = {
+                if (navController.currentDestination?.route != Screen.CreateEvent.route) navController.navigate(
+                    Screen.CreateEvent.route
+                )
+            }
         ) {
             AnimatedNavigation(navController, scaffoldState)
         }

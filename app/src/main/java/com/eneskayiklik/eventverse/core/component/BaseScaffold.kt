@@ -31,23 +31,23 @@ fun BaseScaffold(
         BottomNavItem(
             route = Screen.Explore.route,
             icon = Icons.Outlined.Explore,
-            contentDescription = "Home"
+            contentDescription = stringResource(id = R.string.explore)
         ),
         BottomNavItem(
             route = Screen.Calendar.route,
             icon = Icons.Outlined.CalendarToday,
-            contentDescription = "Message"
+            contentDescription = stringResource(id = R.string.calendar)
         ),
         BottomNavItem(),
         BottomNavItem(
             route = Screen.Map.route,
             icon = Icons.Outlined.Map,
-            contentDescription = "Activity"
+            contentDescription = stringResource(id = R.string.map)
         ),
         BottomNavItem(
             route = Screen.Profile.route,
             icon = Icons.Outlined.Person,
-            contentDescription = "Profile"
+            contentDescription = stringResource(id = R.string.profile)
         ),
     ),
     onFabClick: () -> Unit = {},
@@ -72,8 +72,8 @@ fun BaseScaffold(
                             ) {
                                 if (navController.currentDestination?.route != bottomNavItem.route) {
                                     navController.navigate(bottomNavItem.route) {
-                                        launchSingleTop = true
                                         popUpTo(Screen.Explore.route)
+                                        // launchSingleTop = true
                                     }
                                 }
                             }
@@ -99,6 +99,7 @@ fun BaseScaffold(
         isFloatingActionButtonDocked = true,
         floatingActionButtonPosition = FabPosition.Center,
         modifier = modifier,
-        content = { content() }
-    )
+    ) {
+        content()
+    }
 }

@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
@@ -34,14 +35,15 @@ fun LoginButton(
         ) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.button
+                style = MaterialTheme.typography.button,
+                color = Color.White,
             )
             AnimatedVisibility(visible = clicked) {
                 Row {
                     Spacer(modifier = Modifier.width(8.dp))
                     CircularProgressIndicator(
                         modifier = Modifier.size(14.dp),
-                        color = MaterialTheme.colors.onPrimary,
+                        color = MaterialTheme.colors.primary,
                         strokeWidth = 2.dp
                     )
                 }

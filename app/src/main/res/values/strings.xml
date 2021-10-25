@@ -15,4 +15,8 @@
     <string name="fullname">Fullname</string>
     <string name="ok">OK</string>
     <string name="create_event">Create Event</string>
+    <string name="explore">Explore</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
+    <string name="map">Map</string>
 </resources>
