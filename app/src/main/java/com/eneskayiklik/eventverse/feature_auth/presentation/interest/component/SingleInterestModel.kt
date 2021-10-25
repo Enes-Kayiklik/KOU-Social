@@ -38,7 +38,7 @@ fun SingleInterestModel(
 
     Surface(
         modifier = Modifier
-            .padding(4.dp),
+            .padding(6.dp),
         onClick = { onItemClick(data.id) },
         shape = RoundedCornerShape(8.dp),
         color = backgroundColor
