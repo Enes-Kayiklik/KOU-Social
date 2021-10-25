@@ -8,8 +8,8 @@ import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -26,6 +26,7 @@ import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.ui.theme.Shapes
 import kotlinx.coroutines.delay
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 fun GoogleButton(
@@ -52,12 +53,13 @@ fun GoogleButton(
     }
 
     Surface(
-        modifier = modifier.clickable {
+        onClick = {
             if (enabled) {
                 onClicked()
                 rotation = 360F
             }
         },
+        modifier = modifier,
         shape = shape,
         border = BorderStroke(width = 1.dp, color = borderColor),
         color = backgroundColor

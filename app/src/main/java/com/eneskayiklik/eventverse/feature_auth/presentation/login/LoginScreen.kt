@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -33,6 +34,7 @@ import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginSta
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 private fun LoginScreen(
@@ -200,6 +202,7 @@ private fun LoginScreen(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.loginComposable(
     onNavigate: (String) -> Unit,

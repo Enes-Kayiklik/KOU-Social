@@ -2,17 +2,21 @@ package com.eneskayiklik.eventverse.core.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Explore
-import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -41,7 +45,7 @@ fun BaseScaffold(
         BottomNavItem(),
         BottomNavItem(
             route = Screen.Map.route,
-            icon = Icons.Outlined.Map,
+            icon = Icons.Outlined.LocationOn,
             contentDescription = stringResource(id = R.string.map)
         ),
         BottomNavItem(
@@ -55,9 +59,17 @@ fun BaseScaffold(
 ) {
     Scaffold(
         bottomBar = {
-            AnimatedVisibility(visible = showBottomBar) {
+            AnimatedVisibility(
+                visible = showBottomBar,
+                enter = slideInVertically(
+                    initialOffsetY = { it }
+                ),
+                exit = slideOutVertically(
+                    targetOffsetY = { it }
+                )
+            ) {
                 BottomAppBar(
-                    elevation = 5.dp,
+                    modifier = Modifier.shadow(elevation = 0.dp, clip = false, shape = CircleShape),
                     backgroundColor = MaterialTheme.colors.background,
                 ) {
                     Row(horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -70,7 +82,8 @@ fun BaseScaffold(
                                 ) == true,
                                 enabled = bottomNavItem.icon != null
                             ) {
-                                if (navController.currentDestination?.route != bottomNavItem.route) {
+                                val destination = navController.currentDestination?.route
+                                if (destination != bottomNavItem.route) {
                                     navController.navigate(bottomNavItem.route) {
                                         popUpTo(Screen.Explore.route)
                                         // launchSingleTop = true
@@ -84,7 +97,7 @@ fun BaseScaffold(
         },
         scaffoldState = state,
         floatingActionButton = {
-            AnimatedVisibility(visible = showBottomBar) {
+            if (showBottomBar) {
                 FloatingActionButton(
                     backgroundColor = MaterialTheme.colors.primary,
                     onClick = onFabClick
