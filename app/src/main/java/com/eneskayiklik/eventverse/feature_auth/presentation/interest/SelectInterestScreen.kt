@@ -1,9 +1,7 @@
 package com.eneskayiklik.eventverse.feature_auth.presentation.interest
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,10 +13,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,7 +43,6 @@ private fun SelectInterestScreen(
     val interestList = viewModel.interests.collectAsState().value
     val selectButton = viewModel.isSelectClicked.collectAsState().value
     val listState = rememberLazyListState()
-    val buttonScale by animateFloatAsState(targetValue = if (listState.firstVisibleItemIndex == 0) 1F else 0F)
     val okText = stringResource(id = R.string.ok)
 
     LaunchedEffect(key1 = true) {
@@ -79,29 +74,34 @@ private fun SelectInterestScreen(
         Column {
             Spacer(modifier = Modifier.height(48.dp))
             Text(
-                text = "Interests",
+                text = stringResource(id = R.string.interest_title),
                 style = MaterialTheme.typography.h1.copy(fontSize = 32.sp),
                 modifier = Modifier.padding(start = 4.dp)
             )
             Text(
-                text = "Lorem ipsum dolor sit amet elit.",
+                text = stringResource(id = R.string.interest_desc),
                 style = MaterialTheme.typography.subtitle1,
                 modifier = Modifier.padding(start = 4.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             InterestGrid(interestList, state = listState, onSelect = viewModel::onSelectInterest)
         }
-        LoginButton(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .padding(start = 4.dp, end = 4.dp, bottom = 16.dp)
-                .height(50.dp)
-                .scale(buttonScale),
-            text = "Select & Go",
-            clicked = selectButton
+        AnimatedVisibility(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            visible = listState.firstVisibleItemIndex == 0,
+            enter = expandHorizontally(),
+            exit = shrinkHorizontally()
         ) {
-            viewModel.onEvent(SelectInterestEvent.OnSelectInterest)
+            LoginButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 4.dp, end = 4.dp, bottom = 16.dp)
+                    .height(50.dp),
+                text = stringResource(id = R.string.select_and_go),
+                clicked = selectButton
+            ) {
+                viewModel.onEvent(SelectInterestEvent.OnSelectInterest)
+            }
         }
     }
 }
@@ -134,11 +134,13 @@ fun NavGraphBuilder.selectInterestComposable(
 ) {
     composable(
         route = Screen.SelectInterest.route,
-        enterTransition = { _, _ ->
-            slideInHorizontally(
-                initialOffsetX = { fullWidth -> fullWidth },
-                animationSpec = tween(durationMillis = 300)
-            )
+        enterTransition = { initial, _ ->
+            val comingFrom = initial.destination.route ?: ""
+            if (comingFrom.startsWith(Screen.Login.route))
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) else null
         },
     ) {
         SelectInterestScreen(onNavigate, clearBackStack, scaffoldState)

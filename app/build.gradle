@@ -68,9 +68,12 @@ dependencies {
 
     // Accompanist Navigation Animation
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
-
     // Insets
     implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
+    // Pager
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+    // Coil
+    implementation("io.coil-kt:coil-compose:1.4.0")
 
     // Dagger - Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"

@@ -22,16 +22,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.google.accompanist.navigation.animation.composable
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 private fun SplashScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
+    viewModel: SplashViewModel = hiltViewModel()
 ) {
     var startAnimation by remember { mutableStateOf(false) }
     val offsetState by animateDpAsState(
@@ -49,10 +52,22 @@ private fun SplashScreen(
     )
 
     LaunchedEffect(key1 = true) {
+        viewModel.uiState.collectLatest {
+            when (it) {
+                is UiEvent.ShowSnackbar -> {
+                }
+                is UiEvent.Navigate -> {
+                    clearBackStack()
+                    onNavigate(it.id)
+                }
+                UiEvent.CleatBackStack -> clearBackStack()
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = true) {
         startAnimation = true
-        delay(500)
-        clearBackStack()
-        onNavigate(Screen.Login.route)
+        viewModel.initUser()
     }
 
     Box(
