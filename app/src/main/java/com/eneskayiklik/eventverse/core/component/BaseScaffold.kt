@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.ui.theme.White
 import com.eneskayiklik.eventverse.core.util.BottomNavItem
 import com.eneskayiklik.eventverse.core.util.Screen
 
@@ -70,7 +71,7 @@ fun BaseScaffold(
             ) {
                 BottomAppBar(
                     modifier = Modifier.shadow(elevation = 0.dp, clip = false, shape = CircleShape),
-                    backgroundColor = MaterialTheme.colors.background,
+                    backgroundColor = MaterialTheme.colors.surface,
                 ) {
                     Row(horizontalArrangement = Arrangement.SpaceEvenly) {
                         bottomNavItems.forEachIndexed { _, bottomNavItem ->
@@ -104,6 +105,7 @@ fun BaseScaffold(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
+                        tint = White,
                         contentDescription = stringResource(id = R.string.create_event)
                     )
                 }

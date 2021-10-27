@@ -19,7 +19,7 @@ class SplashViewModel @Inject constructor() : ViewModel() {
     fun initUser() {
         viewModelScope.launch {
             delay(500L)
-            _uiState.emit(UiEvent.Navigate(Screen.Explore.route))
+            _uiState.emit(UiEvent.Navigate(Screen.Login.route))
         }
     }
 }

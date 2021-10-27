@@ -25,7 +25,7 @@ fun SingleUpcomingPage(
     Surface(
         modifier = Modifier
             .width(240.dp),
-        shape = RoundedCornerShape(15.dp),
+        shape = RoundedCornerShape(10.dp),
         elevation = 2.dp,
         onClick = onItemClick
     ) {

@@ -16,8 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.eneskayiklik.eventverse.core.ui.theme.Black300
-import com.eneskayiklik.eventverse.core.ui.theme.Gray
 import com.eneskayiklik.eventverse.core.ui.theme.White
 import com.eneskayiklik.eventverse.feature_auth.domain.model.InterestModel
 
@@ -29,11 +27,11 @@ fun SingleInterestModel(
 ) {
     val backgroundColor by animateColorAsState(
         targetValue =
-        if (data.isSelected) MaterialTheme.colors.primary else Gray
+        if (data.isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.surface
     )
     val iconTint by animateColorAsState(
         targetValue =
-        if (data.isSelected) White else Black300
+        if (data.isSelected) White else MaterialTheme.colors.onSurface
     )
 
     Surface(

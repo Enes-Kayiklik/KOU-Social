@@ -23,6 +23,7 @@ import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.HeaderSection
+import com.eneskayiklik.eventverse.feature_explore.presentation.component.select_location.SelectLocationSection
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.upcoming.SingleUpcomingPage
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -53,6 +54,16 @@ private fun ExploreScreen(
             onEndIconClick = { }
         )
         LazyColumn {
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+                SelectLocationSection(
+                    modifier = Modifier.fillMaxWidth(),
+                    selectedLocation = "Osmaniye"
+                ) {
+
+                }
+            }
+
             item {
                 Spacer(modifier = Modifier.height(10.dp))
                 HeaderSection(modifier = Modifier.padding(start = 16.dp), title = "Upcoming Events")
