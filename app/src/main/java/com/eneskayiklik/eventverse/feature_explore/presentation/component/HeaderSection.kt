@@ -22,7 +22,7 @@ fun HeaderSection(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = title, style = MaterialTheme.typography.h1.copy(fontSize = 20.sp))
+        Text(text = title, style = MaterialTheme.typography.h1.copy(fontSize = 18.sp))
         if (endActionTitle != null) {
             Text(
                 text = endActionTitle,

@@ -2,54 +2,64 @@ package com.eneskayiklik.eventverse.feature_explore.presentation.component.upcom
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import coil.transform.RoundedCornersTransformation
-import com.eneskayiklik.eventverse.feature_explore.domain.model.UpcomingEventModel
-import com.google.accompanist.pager.ExperimentalPagerApi
+import com.eneskayiklik.eventverse.feature_explore.domain.model.ExploreEventModel
 
 @ExperimentalMaterialApi
-@ExperimentalPagerApi
 @Composable
 fun SingleUpcomingPage(
-    data: UpcomingEventModel,
-    onItemClick: () -> Unit
+    data: ExploreEventModel,
+    onItemClick: (id: String) -> Unit
 ) {
     Surface(
         modifier = Modifier
-            .width(240.dp),
-        shape = RoundedCornerShape(10.dp),
+            .width(230.dp),
         elevation = 2.dp,
-        onClick = onItemClick
+        onClick = {
+            onItemClick(data.title)
+        }
     ) {
         Column(
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier.padding(0.dp)
         ) {
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(130.dp),
+                    .height(140.dp),
                 painter = rememberImagePainter(data = data.imgUrl, builder = {
                     crossfade(true)
-                    transformations(RoundedCornersTransformation(15F))
                 }),
                 contentScale = ContentScale.Crop,
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = data.title, maxLines = 1)
-            Spacer(modifier = Modifier.height(10.dp))
-            Row {
-                Icon(imageVector = Icons.Default.LocationOn, contentDescription = "")
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(text = data.location, style = MaterialTheme.typography.h2)
+            Column(
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Text(
+                    text = data.date,
+                    style = MaterialTheme.typography.h2,
+                    color = MaterialTheme.colors.primary
+                )
+                Text(
+                    text = data.title,
+                    style = MaterialTheme.typography.h1.copy(fontSize = 18.sp),
+                    maxLines = 3
+                )
+                /*Spacer(modifier = Modifier.height(10.dp))
+                Row {
+                    Icon(imageVector = Icons.Default.LocationOn, contentDescription = "")
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(text = data.location, style = MaterialTheme.typography.h2)
+                }*/
             }
         }
     }

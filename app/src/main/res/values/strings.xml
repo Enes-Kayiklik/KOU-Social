@@ -25,4 +25,5 @@
     <string name="interest_desc">Lorem ipsum dolor sit amet elit.</string>
     <string name="location">Location</string>
     <string name="change_location">Change Location</string>
+    <string name="popular_section">Popular Now</string>
 </resources>

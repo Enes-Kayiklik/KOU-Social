@@ -1,7 +1,7 @@
 package com.eneskayiklik.eventverse.feature_explore.domain.repository
 
-import com.eneskayiklik.eventverse.feature_explore.domain.model.UpcomingEventModel
+import com.eneskayiklik.eventverse.feature_explore.domain.model.ExploreEventModel
 
 interface ExploreRepository {
-    suspend fun getUpcomingEvents(): List<UpcomingEventModel>
+    suspend fun getUpcomingEvents(): List<ExploreEventModel>
 }

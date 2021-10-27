@@ -6,8 +6,6 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
@@ -22,14 +20,12 @@ import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
-import com.eneskayiklik.eventverse.feature_explore.presentation.component.HeaderSection
+import com.eneskayiklik.eventverse.feature_explore.presentation.component.popular_now.PopularNowSection
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.select_location.SelectLocationSection
-import com.eneskayiklik.eventverse.feature_explore.presentation.component.upcoming.SingleUpcomingPage
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalMaterialApi
-@ExperimentalPagerApi
 @Composable
 private fun ExploreScreen(
     onNavigate: (String) -> Unit,
@@ -53,6 +49,7 @@ private fun ExploreScreen(
             onStartIconClick = { },
             onEndIconClick = { }
         )
+
         LazyColumn {
             item {
                 Spacer(modifier = Modifier.height(10.dp))
@@ -60,26 +57,43 @@ private fun ExploreScreen(
                     modifier = Modifier.fillMaxWidth(),
                     selectedLocation = "Osmaniye"
                 ) {
-
+                    // TODO("select city on click")
                 }
             }
 
             item {
                 Spacer(modifier = Modifier.height(10.dp))
-                HeaderSection(modifier = Modifier.padding(start = 16.dp), title = "Upcoming Events")
-                Spacer(modifier = Modifier.height(10.dp))
+                PopularNowSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    items = upcoming
+                ) {
+                    // TODO("On item selected")
+                }
             }
 
             item {
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 2.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                Spacer(modifier = Modifier.height(10.dp))
+                PopularNowSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    items = upcoming
                 ) {
-                    items(upcoming) { data ->
-                        SingleUpcomingPage(data = data) {
+                    // TODO("On item selected")
+                }
+            }
 
-                        }
-                    }
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+                PopularNowSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    items = upcoming
+                ) {
+                    // TODO("On item selected")
                 }
             }
         }

@@ -2,7 +2,7 @@ package com.eneskayiklik.eventverse.feature_explore.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eneskayiklik.eventverse.feature_explore.domain.model.UpcomingEventModel
+import com.eneskayiklik.eventverse.feature_explore.domain.model.ExploreEventModel
 import com.eneskayiklik.eventverse.feature_explore.domain.use_case.ExploreUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,8 +16,8 @@ class ExploreViewModel @Inject constructor(
 ) : ViewModel(
 
 ) {
-    private val _upcomingEvents = MutableStateFlow<List<UpcomingEventModel>>(emptyList())
-    val upcomingEvents: StateFlow<List<UpcomingEventModel>> = _upcomingEvents
+    private val _upcomingEvents = MutableStateFlow<List<ExploreEventModel>>(emptyList())
+    val upcomingEvents: StateFlow<List<ExploreEventModel>> = _upcomingEvents
 
     init {
         getUpcomingEvents()

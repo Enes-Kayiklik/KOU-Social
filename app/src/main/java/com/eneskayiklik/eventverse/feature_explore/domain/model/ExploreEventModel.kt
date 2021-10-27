@@ -1,6 +1,6 @@
 package com.eneskayiklik.eventverse.feature_explore.domain.model
 
-data class UpcomingEventModel(
+data class ExploreEventModel(
     val imgUrl: String,
     val location: String,
     val title: String,
