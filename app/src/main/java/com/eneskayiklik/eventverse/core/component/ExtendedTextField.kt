@@ -34,6 +34,7 @@ fun ExtendedTextField(
     modifier: Modifier = Modifier,
     text: String = "",
     label: String = "",
+    placeholder: String = "",
     error: String = "",
     style: TextStyle = TextStyle(
         color = MaterialTheme.colors.onBackground
@@ -67,12 +68,22 @@ fun ExtendedTextField(
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = backgroundColor
             ),
-            label = {
-                Text(
-                    text = label,
-                    style = MaterialTheme.typography.body1
-                )
-            },
+            label = if (label.isNotEmpty()) {
+                {
+                    Text(
+                        text = label,
+                        style = MaterialTheme.typography.body1
+                    )
+                }
+            } else null,
+            placeholder = if (placeholder.isNotEmpty()) {
+                {
+                    Text(
+                        text = placeholder,
+                        style = MaterialTheme.typography.body1
+                    )
+                }
+            } else null,
             isError = error.isNotEmpty(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
@@ -93,24 +104,26 @@ fun ExtendedTextField(
                 }
                 icon
             } else null,
-            trailingIcon = {
-                IconButton(
-                    modifier = Modifier.scale(passwordVisibilityScale),
-                    onClick = {
-                        onPasswordToggleClick(isPasswordVisible.not())
+            trailingIcon = if (isPasswordToggleDisplayed) {
+                {
+                    IconButton(
+                        modifier = Modifier.scale(passwordVisibilityScale),
+                        onClick = {
+                            onPasswordToggleClick(isPasswordVisible.not())
+                        }
+                    ) {
+                        Icon(
+                            imageVector = if (isPasswordVisible) {
+                                Icons.Rounded.VisibilityOff
+                            } else {
+                                Icons.Rounded.Visibility
+                            },
+                            tint = MaterialTheme.colors.onSurface,
+                            contentDescription = stringResource(id = R.string.password)
+                        )
                     }
-                ) {
-                    Icon(
-                        imageVector = if (isPasswordVisible) {
-                            Icons.Rounded.VisibilityOff
-                        } else {
-                            Icons.Rounded.Visibility
-                        },
-                        tint = MaterialTheme.colors.onSurface,
-                        contentDescription = stringResource(id = R.string.password)
-                    )
                 }
-            },
+            } else null,
             modifier = Modifier
                 .fillMaxWidth()
         )

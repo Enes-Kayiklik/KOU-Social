@@ -9,15 +9,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.Bookmarks
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
-import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.popular_now.PopularNowSection
@@ -44,8 +42,7 @@ private fun ExploreScreen(
                 .background(MaterialTheme.colors.primary)
                 .padding(top = 20.dp)
                 .height(60.dp),
-            startIcon = Icons.Rounded.Settings,
-            endIcon = painterResource(id = R.drawable.ic_ticket),
+            endIcon = Icons.Rounded.Bookmarks,
             onStartIconClick = { },
             onEndIconClick = { }
         )

@@ -1,7 +1,6 @@
 package com.eneskayiklik.eventverse.feature_explore.presentation.component
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -9,7 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
@@ -20,18 +18,23 @@ import com.eneskayiklik.eventverse.core.ui.theme.White
 fun EventverseAppbar(
     modifier: Modifier = Modifier,
     startIcon: ImageVector? = null,
-    endIcon: Painter? = null,
-    title: String = stringResource(id = R.string.app_name).lowercase(),
+    endIcon: ImageVector? = null,
+    title: String = stringResource(id = R.string.app_name),
     onStartIconClick: () -> Unit = { },
     onEndIconClick: () -> Unit = { },
 ) {
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    Box(modifier = modifier) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            text = title,
+            color = White,
+            style = MaterialTheme.typography.h1.copy(fontSize = 20.sp),
+        )
         if (startIcon != null) {
-            IconButton(onClick = onStartIconClick) {
+            IconButton(
+                modifier = Modifier.align(Alignment.CenterStart),
+                onClick = onStartIconClick
+            ) {
                 Icon(
                     imageVector = startIcon,
                     tint = White,
@@ -39,15 +42,10 @@ fun EventverseAppbar(
                 )
             }
         }
-        Text(
-            text = title,
-            color = White,
-            style = MaterialTheme.typography.h1.copy(fontSize = 20.sp)
-        )
         if (endIcon != null) {
-            IconButton(onClick = onEndIconClick) {
+            IconButton(modifier = Modifier.align(Alignment.CenterEnd), onClick = onEndIconClick) {
                 Icon(
-                    painter = endIcon,
+                    imageVector = endIcon,
                     tint = White,
                     contentDescription = stringResource(id = R.string.settings)
                 )

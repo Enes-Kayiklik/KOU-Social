@@ -26,4 +26,12 @@
     <string name="location">Location</string>
     <string name="change_location">Change Location</string>
     <string name="popular_section">Popular Now</string>
+    <string name="event_name">Event Name</string>
+    <string name="description">Give us a bit more information about Event</string>
+    <string name="description_short">Description</string>
+    <string name="about_event">About Event</string>
+    <string name="event_photo">Event Photo</string>
+    <string name="select_image">Select Photo</string>
+    <string name="select_photo">Click here for add event image</string>
+    <string name="date_and_time"><![CDATA[Date & Time]]></string>
 </resources>
