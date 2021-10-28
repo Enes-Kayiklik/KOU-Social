@@ -48,7 +48,7 @@ fun LazyListScope.eventPhotoSection(
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.surface)
                 .padding(16.dp)
-                .height(140.dp)
+                .height(170.dp)
                 .clickable { }, contentAlignment = Alignment.Center
         ) {
             Canvas(modifier = Modifier.fillMaxSize()) {

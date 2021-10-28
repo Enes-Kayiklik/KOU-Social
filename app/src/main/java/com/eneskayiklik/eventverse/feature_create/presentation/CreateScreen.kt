@@ -1,13 +1,13 @@
 package com.eneskayiklik.eventverse.feature_create.presentation
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -21,12 +21,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.aboutEventSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.dateTimeSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.eventPhotoSection
+import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.locationSection
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
 import com.google.accompanist.navigation.animation.composable
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
@@ -35,6 +38,7 @@ private fun CreateScreen(
     clearBackStack: () -> Unit,
     viewModel: CreateViewModel = hiltViewModel()
 ) {
+    val listState = rememberLazyListState()
     val title = viewModel.titleState.collectAsState().value
     val description = viewModel.descriptionState.collectAsState().value
 
@@ -58,17 +62,42 @@ private fun CreateScreen(
                 onStartIconClick = clearBackStack,
             )
 
-            LazyColumn {
+            LazyColumn(
+                state = listState
+            ) {
                 aboutEventSection(title, description, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 eventPhotoSection()
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 dateTimeSection()
+                item { Spacer(modifier = Modifier.height(10.dp)) }
+                locationSection()
+                item { Spacer(modifier = Modifier.height(10.dp)) }
+            }
+        }
+        AnimatedVisibility(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = 12.dp),
+            visible = listState.firstVisibleItemIndex == 0,
+            enter = expandHorizontally(),
+            exit = shrinkHorizontally()
+        ) {
+            LoginButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 4.dp, end = 4.dp, bottom = 16.dp)
+                    .height(50.dp),
+                text = stringResource(id = R.string.create_event),
+                clicked = false
+            ) {
+
             }
         }
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.createComposable(
