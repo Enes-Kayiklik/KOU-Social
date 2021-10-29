@@ -15,20 +15,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.eneskayiklik.eventverse.core.component.AnimatedNavigation
+import com.eneskayiklik.eventverse.core.component.BaseAnimatedNavigation
 import com.eneskayiklik.eventverse.core.component.BaseScaffold
 import com.eneskayiklik.eventverse.core.ui.theme.EventverseTheme
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
-@ExperimentalPagerApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +40,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
@@ -63,7 +60,7 @@ private fun MainScreen() {
                 )
             }
         ) {
-            AnimatedNavigation(navController, scaffoldState)
+            BaseAnimatedNavigation(navController, scaffoldState)
         }
     }
 }

@@ -1,37 +1,28 @@
 package com.eneskayiklik.eventverse.feature_create.presentation.component.date_time
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
-import com.eneskayiklik.eventverse.R
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import com.eneskayiklik.eventverse.feature_create.presentation.util.DatePickerDialogImpl
+import com.eneskayiklik.eventverse.feature_create.presentation.util.PickerState
 import com.eneskayiklik.eventverse.feature_create.presentation.util.PickerType
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.MaterialDialogState
-import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.datetime.time.timepicker
+import com.eneskayiklik.eventverse.feature_create.presentation.util.rememberPickerState
 import java.time.LocalDate
 import java.time.LocalTime
 
 @Composable
 fun MaterialDialogPicker(
-    dialogState: MaterialDialogState,
+    state: PickerState = rememberPickerState(),
     pickerType: PickerType = PickerType.DATE,
     onDate: (LocalDate) -> Unit = {},
     onTime: (LocalTime) -> Unit = {}
 ) {
-    MaterialDialog(
-        dialogState = dialogState,
-        buttons = {
-            positiveButton(stringResource(id = R.string.ok))
-            negativeButton(stringResource(id = R.string.cancel))
-        }
-    ) {
+    val context = LocalContext.current
+    val picker = remember { DatePickerDialogImpl(context, state) }
+    if (state.showing) {
         when (pickerType) {
-            PickerType.DATE -> {
-                datepicker(onDateChange = onDate)
-            }
-            PickerType.TIME -> {
-                timepicker(onTimeChange = onTime)
-            }
+            PickerType.DATE -> picker.showDatePicker(onDate)
+            PickerType.TIME -> picker.showTimePicker(onTime)
         }
     }
 }

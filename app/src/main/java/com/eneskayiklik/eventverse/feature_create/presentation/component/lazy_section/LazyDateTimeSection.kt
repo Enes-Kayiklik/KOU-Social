@@ -19,11 +19,7 @@ import com.eneskayiklik.eventverse.feature_create.presentation.CreateViewModel
 import com.eneskayiklik.eventverse.feature_create.presentation.component.HeaderSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.MaterialDialogPicker
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.TimeSelectionItem
-import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateSectionState
-import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
-import com.eneskayiklik.eventverse.feature_create.presentation.util.PickerSection
-import com.eneskayiklik.eventverse.feature_create.presentation.util.PickerType
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import com.eneskayiklik.eventverse.feature_create.presentation.util.*
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -53,12 +49,12 @@ private fun DateSection(
     state: CreateSectionState,
     viewModel: CreateViewModel
 ) {
-    val dialogState = rememberMaterialDialogState()
+    val pickerState = rememberPickerState()
     var dialogType by remember { mutableStateOf(PickerType.DATE) }
     var pickerSection by remember { mutableStateOf(PickerSection.START) }
 
     MaterialDialogPicker(
-        dialogState = dialogState,
+        state = pickerState,
         dialogType, onDate = {
             when (pickerSection) {
                 PickerSection.START -> {
@@ -105,7 +101,7 @@ private fun DateSection(
             ) {
                 dialogType = PickerType.DATE
                 pickerSection = PickerSection.START
-                dialogState.show()
+                pickerState.show()
             }
             TimeSelectionItem(
                 modifier = Modifier.weight(1F),
@@ -115,7 +111,7 @@ private fun DateSection(
             ) {
                 dialogType = PickerType.TIME
                 pickerSection = PickerSection.START
-                dialogState.show()
+                pickerState.show()
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -131,7 +127,7 @@ private fun DateSection(
             ) {
                 dialogType = PickerType.DATE
                 pickerSection = PickerSection.END
-                dialogState.show()
+                pickerState.show()
             }
             TimeSelectionItem(
                 modifier = Modifier.weight(1F),
@@ -141,7 +137,7 @@ private fun DateSection(
             ) {
                 dialogType = PickerType.TIME
                 pickerSection = PickerSection.END
-                dialogState.show()
+                pickerState.show()
             }
         }
     }

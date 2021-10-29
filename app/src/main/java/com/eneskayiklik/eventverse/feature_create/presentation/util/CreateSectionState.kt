@@ -20,12 +20,12 @@ data class CreateSectionState(
         DateTimeFormatter.ofPattern("dd.MM.yyyy")
     )
     val formattedStartHour: String = startTime.format(
-        DateTimeFormatter.ofPattern("hh:mm")
+        DateTimeFormatter.ofPattern("HH:mm")
     )
     val formattedEndDate: String = endDate.format(
         DateTimeFormatter.ofPattern("dd.MM.yyyy")
     )
     val formattedEndHour: String = endTime.format(
-        DateTimeFormatter.ofPattern("hh:mm")
+        DateTimeFormatter.ofPattern("HH:mm")
     )
 }

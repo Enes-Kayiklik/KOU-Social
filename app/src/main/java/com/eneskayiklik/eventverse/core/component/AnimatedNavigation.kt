@@ -19,14 +19,12 @@ import com.eneskayiklik.eventverse.feature_map.presentation.mapComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.pager.ExperimentalPagerApi
 
-@ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun AnimatedNavigation(
+fun BaseAnimatedNavigation(
     navController: NavHostController,
     scaffoldState: ScaffoldState
 ) {

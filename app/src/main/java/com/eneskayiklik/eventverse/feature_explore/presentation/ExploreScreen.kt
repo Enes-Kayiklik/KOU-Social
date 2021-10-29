@@ -21,7 +21,6 @@ import com.eneskayiklik.eventverse.feature_explore.presentation.component.Eventv
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.popular_now.PopularNowSection
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.select_location.SelectLocationSection
 import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalMaterialApi
 @Composable
@@ -98,7 +97,6 @@ private fun ExploreScreen(
 }
 
 @ExperimentalMaterialApi
-@ExperimentalPagerApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.exploreComposable(
     onNavigate: (String) -> Unit,
