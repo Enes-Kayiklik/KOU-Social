@@ -39,8 +39,7 @@ private fun CreateScreen(
     viewModel: CreateViewModel = hiltViewModel()
 ) {
     val listState = rememberLazyListState()
-    val title = viewModel.titleState.collectAsState().value
-    val description = viewModel.descriptionState.collectAsState().value
+    val state = viewModel.state.collectAsState().value
 
     Box(
         modifier = Modifier
@@ -65,11 +64,11 @@ private fun CreateScreen(
             LazyColumn(
                 state = listState
             ) {
-                aboutEventSection(title, description, viewModel)
+                aboutEventSection(state.title, state.description, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 eventPhotoSection()
                 item { Spacer(modifier = Modifier.height(10.dp)) }
-                dateTimeSection()
+                dateTimeSection(state, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 locationSection()
                 item { Spacer(modifier = Modifier.height(10.dp)) }

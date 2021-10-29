@@ -35,4 +35,5 @@
     <string name="select_photo">Click here for add event image</string>
     <string name="date_and_time"><![CDATA[Date & Time]]></string>
     <string name="location_section">Select Location</string>
+    <string name="cancel">Cancel</string>
 </resources>

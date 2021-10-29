@@ -1,7 +1,7 @@
 package com.eneskayiklik.eventverse.feature_create.presentation
 
 import androidx.lifecycle.ViewModel
-import com.eneskayiklik.eventverse.core.util.TextFieldState
+import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateSectionState
 import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,26 +12,55 @@ import javax.inject.Inject
 class CreateViewModel @Inject constructor(
 
 ) : ViewModel() {
-    private val _titleState = MutableStateFlow(TextFieldState())
-    val titleState: StateFlow<TextFieldState> = _titleState
-
-    private val _descriptionState = MutableStateFlow(TextFieldState())
-    val descriptionState: StateFlow<TextFieldState> = _descriptionState
+    private val _state = MutableStateFlow(CreateSectionState())
+    val state: StateFlow<CreateSectionState> = _state
 
     fun onCreateState(
         data: CreateState
     ) {
         when (data) {
             is CreateState.OnDescription -> {
-                _descriptionState.value = _descriptionState.value.copy(
-                    text = data.description
-                )
+                updateDescription(data.description)
             }
             is CreateState.OnTitle -> {
-                _titleState.value = _titleState.value.copy(
-                    text = data.title
+                updateTitle(data.title)
+            }
+            is CreateState.OnEndDate -> {
+                _state.value = _state.value.copy(
+                    endDate = data.date
+                )
+            }
+            is CreateState.OnStartDate -> {
+                _state.value = _state.value.copy(
+                    startDate = data.date
+                )
+            }
+            is CreateState.OnEndTime -> {
+                _state.value = _state.value.copy(
+                    endTime = data.time
+                )
+            }
+            is CreateState.OnStartTime -> {
+                _state.value = _state.value.copy(
+                    startTime = data.time
                 )
             }
         }
+    }
+
+    private fun updateDescription(description: String) {
+        _state.value = _state.value.copy(
+            description = _state.value.description.copy(
+                text = description
+            )
+        )
+    }
+
+    private fun updateTitle(title: String) {
+        _state.value = _state.value.copy(
+            title = _state.value.title.copy(
+                text = title
+            )
+        )
     }
 }

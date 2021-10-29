@@ -48,6 +48,5 @@ fun AnimatedNavigation(
             navController::popBackStack,
             scaffoldState
         )
-
     }
 }

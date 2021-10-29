@@ -10,17 +10,27 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material.icons.rounded.Timelapse
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.feature_create.presentation.CreateViewModel
 import com.eneskayiklik.eventverse.feature_create.presentation.component.HeaderSection
+import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.MaterialDialogPicker
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.TimeSelectionItem
+import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateSectionState
+import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
+import com.eneskayiklik.eventverse.feature_create.presentation.util.PickerSection
+import com.eneskayiklik.eventverse.feature_create.presentation.util.PickerType
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
-fun LazyListScope.dateTimeSection() {
+fun LazyListScope.dateTimeSection(
+    state: CreateSectionState,
+    viewModel: CreateViewModel
+) {
     stickyHeader {
         HeaderSection(
             title = stringResource(id = R.string.date_and_time),
@@ -33,13 +43,50 @@ fun LazyListScope.dateTimeSection() {
     }
 
     item {
-        DateSection()
+        DateSection(state, viewModel)
     }
 }
 
 @ExperimentalMaterialApi
 @Composable
-private fun DateSection() {
+private fun DateSection(
+    state: CreateSectionState,
+    viewModel: CreateViewModel
+) {
+    val dialogState = rememberMaterialDialogState()
+    var dialogType by remember { mutableStateOf(PickerType.DATE) }
+    var pickerSection by remember { mutableStateOf(PickerSection.START) }
+
+    MaterialDialogPicker(
+        dialogState = dialogState,
+        dialogType, onDate = {
+            when (pickerSection) {
+                PickerSection.START -> {
+                    viewModel.onCreateState(
+                        CreateState.OnStartDate(it)
+                    )
+                }
+                PickerSection.END -> {
+                    viewModel.onCreateState(
+                        CreateState.OnEndDate(it)
+                    )
+                }
+            }
+        }, onTime = {
+            when (pickerSection) {
+                PickerSection.START -> {
+                    viewModel.onCreateState(
+                        CreateState.OnStartTime(it)
+                    )
+                }
+                PickerSection.END -> {
+                    viewModel.onCreateState(
+                        CreateState.OnEndTime(it)
+                    )
+                }
+            }
+        }
+    )
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,18 +100,22 @@ private fun DateSection() {
             TimeSelectionItem(
                 modifier = Modifier.weight(1F),
                 headerText = "Start Date",
-                text = "10.08.2021",
+                text = state.formattedStartDate,
                 Icons.Rounded.DateRange
             ) {
-
+                dialogType = PickerType.DATE
+                pickerSection = PickerSection.START
+                dialogState.show()
             }
             TimeSelectionItem(
                 modifier = Modifier.weight(1F),
                 headerText = "Start Time",
-                text = "09:00",
+                text = state.formattedStartHour,
                 Icons.Rounded.Timelapse
             ) {
-
+                dialogType = PickerType.TIME
+                pickerSection = PickerSection.START
+                dialogState.show()
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -75,18 +126,22 @@ private fun DateSection() {
             TimeSelectionItem(
                 modifier = Modifier.weight(1F),
                 headerText = "End Date",
-                text = "10.08.2021",
+                text = state.formattedEndDate,
                 Icons.Rounded.DateRange
             ) {
-
+                dialogType = PickerType.DATE
+                pickerSection = PickerSection.END
+                dialogState.show()
             }
             TimeSelectionItem(
                 modifier = Modifier.weight(1F),
                 headerText = "End Time",
-                text = "09:00",
+                text = state.formattedEndHour,
                 Icons.Rounded.Timelapse
             ) {
-
+                dialogType = PickerType.TIME
+                pickerSection = PickerSection.END
+                dialogState.show()
             }
         }
     }
