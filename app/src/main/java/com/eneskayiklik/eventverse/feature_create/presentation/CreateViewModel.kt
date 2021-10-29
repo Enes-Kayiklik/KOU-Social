@@ -45,6 +45,11 @@ class CreateViewModel @Inject constructor(
                     startTime = data.time
                 )
             }
+            is CreateState.OnImageSelected -> {
+                _state.value = _state.value.copy(
+                    coverImage = data.uri
+                )
+            }
         }
     }
 

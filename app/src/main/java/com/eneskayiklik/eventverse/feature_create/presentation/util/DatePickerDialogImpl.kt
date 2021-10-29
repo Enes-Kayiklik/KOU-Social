@@ -20,6 +20,7 @@ class DatePickerDialogImpl(private val context: Context, private val state: Pick
             state.hide()
         }, current.year, current.month.value - 1, current.dayOfMonth)
         dialog.setOnDismissListener { state.hide() }
+        dialog.datePicker.minDate = System.currentTimeMillis()
         dialog.show()
     }
 

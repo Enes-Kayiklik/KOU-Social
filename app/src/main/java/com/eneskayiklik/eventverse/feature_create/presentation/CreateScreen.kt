@@ -66,7 +66,7 @@ private fun CreateScreen(
             ) {
                 aboutEventSection(state.title, state.description, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
-                eventPhotoSection()
+                eventPhotoSection(state.coverImage, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 dateTimeSection(state, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
