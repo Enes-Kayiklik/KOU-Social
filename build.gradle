@@ -2,6 +2,7 @@
 buildscript {
     ext {
         compose_version = '1.0.4'
+        accompanist_navigation_version = '0.18.0'
         accompanist_version = '0.20.0'
     }
     repositories {

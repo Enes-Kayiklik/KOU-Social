@@ -87,7 +87,7 @@ fun BaseScaffold(
                                 if (destination != bottomNavItem.route) {
                                     navController.navigate(bottomNavItem.route) {
                                         popUpTo(Screen.Explore.route)
-                                        // launchSingleTop = true
+                                        launchSingleTop = true
                                     }
                                 }
                             }

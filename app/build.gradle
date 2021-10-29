@@ -67,7 +67,10 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     // Accompanist Navigation Animation
-    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
+    implementation("com.google.accompanist:accompanist-navigation-animation:$accompanist_navigation_version", {
+        "Latest version a little bit buggy"
+    })
+
     // Insets
     implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
     // Pager
