@@ -39,7 +39,7 @@ fun BaseAnimatedNavigation(
         exploreComposable(navController::navigate, navController::popBackStack)
         calendarComposable(navController::navigate, navController::popBackStack)
         mapComposable(navController::navigate, navController::popBackStack)
-        createComposable(navController::navigate, navController::popBackStack)
+        createComposable(navController::navigate, navController::popBackStack, scaffoldState)
         profileComposable(navController::navigate, navController::popBackStack)
         selectInterestComposable(
             navController::navigate,

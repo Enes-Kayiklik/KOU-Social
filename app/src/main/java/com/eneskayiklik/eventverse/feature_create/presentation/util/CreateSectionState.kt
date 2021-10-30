@@ -2,8 +2,11 @@ package com.eneskayiklik.eventverse.feature_create.presentation.util
 
 import android.net.Uri
 import com.eneskayiklik.eventverse.core.util.TextFieldState
+import com.eneskayiklik.eventverse.feature_create.domain.model.CreateEventModel
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 data class CreateSectionState(
@@ -27,5 +30,20 @@ data class CreateSectionState(
     )
     val formattedEndHour: String = endTime.format(
         DateTimeFormatter.ofPattern("HH:mm")
+    )
+    val startTimeLong: Long = LocalDateTime.of(startDate, startTime)
+        .toEpochSecond(ZoneOffset.UTC)
+    val endTimeLong: Long = LocalDateTime.of(endDate, endTime)
+        .toEpochSecond(ZoneOffset.UTC)
+}
+
+fun CreateSectionState.toCreateEventModel(): CreateEventModel {
+    return CreateEventModel(
+        title = title.text,
+        description = description.text,
+        startTimeLong * 1000,
+        endTimeLong * 1000,
+        "",
+        ""
     )
 }

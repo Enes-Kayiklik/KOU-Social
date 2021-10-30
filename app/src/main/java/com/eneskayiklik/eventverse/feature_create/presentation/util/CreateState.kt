@@ -12,4 +12,5 @@ sealed class CreateState {
     data class OnEndDate(val date: LocalDate) : CreateState()
     data class OnEndTime(val time: LocalTime) : CreateState()
     data class OnImageSelected(val uri: Uri) : CreateState()
+    object OnCreate : CreateState()
 }

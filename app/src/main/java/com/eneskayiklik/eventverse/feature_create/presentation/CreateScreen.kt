@@ -9,9 +9,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,13 +23,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.aboutEventSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.dateTimeSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.eventPhotoSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.locationSection
+import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
 import com.google.accompanist.navigation.animation.composable
+import kotlinx.coroutines.flow.collectLatest
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -36,10 +41,33 @@ import com.google.accompanist.navigation.animation.composable
 private fun CreateScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
+    scaffoldState: ScaffoldState,
     viewModel: CreateViewModel = hiltViewModel()
 ) {
     val listState = rememberLazyListState()
     val state = viewModel.state.collectAsState().value
+    val createButton = viewModel.createButtonState.collectAsState().value
+    val okText = stringResource(id = R.string.ok)
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiState.collectLatest {
+            when (it) {
+                is UiEvent.ShowSnackbar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = it.message,
+                        actionLabel = okText
+                    )
+                }
+                is UiEvent.Navigate -> {
+                    when (it.id) {
+                        Screen.Explore.route -> clearBackStack()
+                    }
+                    onNavigate(it.id)
+                }
+                UiEvent.CleatBackStack -> clearBackStack()
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -88,9 +116,9 @@ private fun CreateScreen(
                     .padding(start = 4.dp, end = 4.dp, bottom = 16.dp)
                     .height(50.dp),
                 text = stringResource(id = R.string.create_event),
-                clicked = false
+                clicked = createButton
             ) {
-
+                viewModel.onCreateState(CreateState.OnCreate)
             }
         }
     }
@@ -102,6 +130,7 @@ private fun CreateScreen(
 fun NavGraphBuilder.createComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
+    scaffoldState: ScaffoldState,
 ) {
     composable(
         route = Screen.CreateEvent.route,
@@ -118,6 +147,6 @@ fun NavGraphBuilder.createComposable(
             )
         }
     ) {
-        CreateScreen(onNavigate, clearBackStack)
+        CreateScreen(onNavigate, clearBackStack, scaffoldState)
     }
 }
