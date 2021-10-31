@@ -27,7 +27,7 @@ fun LazyListScope.dateTimeSection(
     state: CreateSectionState,
     viewModel: CreateViewModel
 ) {
-    stickyHeader {
+    item {
         HeaderSection(
             title = stringResource(id = R.string.date_and_time),
             modifier = Modifier

@@ -16,8 +16,8 @@ class CreateEventUseCase @Inject constructor(
     suspend fun createEvent(
         event: CreateSectionState
     ): CreateResult {
-        if (event.title.text.isEmpty())
-            return CreateResult(message = "Title should not be empty.")
+        if (event.title.text.length > 3)
+            return CreateResult(message = "Title length must be greater than 3.")
         val timeCheck = calculateValidDate(event.startTimeLong, event.endTimeLong)
         return timeCheck ?: createRepository.createEvent(event.toCreateEventModel())
     }

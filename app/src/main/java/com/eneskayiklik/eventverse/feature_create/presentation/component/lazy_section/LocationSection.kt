@@ -18,7 +18,7 @@ import com.eneskayiklik.eventverse.feature_explore.presentation.component.select
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 fun LazyListScope.locationSection() {
-    stickyHeader {
+    item {
         HeaderSection(
             title = stringResource(id = R.string.location_section),
             modifier = Modifier

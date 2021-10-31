@@ -25,7 +25,7 @@ fun LazyListScope.aboutEventSection(
     description: TextFieldState,
     viewModel: CreateViewModel
 ) {
-    stickyHeader {
+    item {
         HeaderSection(
             title = stringResource(id = R.string.about_event),
             modifier = Modifier

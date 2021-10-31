@@ -33,7 +33,7 @@ fun LazyListScope.eventPhotoSection(
     coverImage: Uri?,
     viewModel: CreateViewModel
 ) {
-    stickyHeader {
+    item {
         HeaderSection(
             title = stringResource(id = R.string.event_photo),
             modifier = Modifier
