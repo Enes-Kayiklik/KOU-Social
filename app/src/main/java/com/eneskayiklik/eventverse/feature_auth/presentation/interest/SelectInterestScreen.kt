@@ -27,6 +27,7 @@ import com.eneskayiklik.eventverse.feature_auth.domain.model.InterestModel
 import com.eneskayiklik.eventverse.feature_auth.presentation.interest.component.SingleInterestModel
 import com.eneskayiklik.eventverse.feature_auth.presentation.interest.util.SelectInterestEvent
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -69,10 +70,10 @@ private fun SelectInterestScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background)
-            .padding(start = 12.dp, end = 12.dp)
+            .statusBarsPadding()
+            .padding(start = 12.dp, end = 12.dp, top = 16.dp)
     ) {
         Column {
-            Spacer(modifier = Modifier.height(48.dp))
             Text(
                 text = stringResource(id = R.string.interest_title),
                 style = MaterialTheme.typography.h1.copy(fontSize = 32.sp),

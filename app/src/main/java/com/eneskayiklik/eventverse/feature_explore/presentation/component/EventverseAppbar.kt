@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
@@ -37,7 +38,7 @@ fun EventverseAppbar(
             ) {
                 Icon(
                     imageVector = startIcon,
-                    tint = White,
+                    tint = Color.White,
                     contentDescription = stringResource(id = R.string.settings)
                 )
             }
@@ -46,7 +47,7 @@ fun EventverseAppbar(
             IconButton(modifier = Modifier.align(Alignment.CenterEnd), onClick = onEndIconClick) {
                 Icon(
                     imageVector = endIcon,
-                    tint = White,
+                    tint = Color.White,
                     contentDescription = stringResource(id = R.string.settings)
                 )
             }

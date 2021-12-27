@@ -31,6 +31,7 @@ import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.GoogleButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -67,6 +68,7 @@ private fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background)
+            .statusBarsPadding()
             .padding(start = 16.dp, end = 16.dp)
     ) {
         item("header_view") {

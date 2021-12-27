@@ -31,6 +31,7 @@ import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_se
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.locationSection
 import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -82,7 +83,7 @@ private fun CreateScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colors.primary)
-                    .padding(top = 20.dp)
+                    .statusBarsPadding()
                     .height(60.dp),
                 title = stringResource(id = R.string.create_event),
                 startIcon = Icons.Rounded.ArrowBack,
@@ -99,27 +100,20 @@ private fun CreateScreen(
                 dateTimeSection(state, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 locationSection()
-                item { Spacer(modifier = Modifier.height(10.dp)) }
+                // Empty space for create button
+                item { Spacer(modifier = Modifier.height(84.dp)) }
             }
         }
-        AnimatedVisibility(
+        LoginButton(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(horizontal = 12.dp),
-            visible = listState.firstVisibleItemIndex == 0,
-            enter = expandHorizontally(),
-            exit = shrinkHorizontally()
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .height(50.dp),
+            text = stringResource(id = R.string.create_event),
+            clicked = createButton
         ) {
-            LoginButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 4.dp, end = 4.dp, bottom = 16.dp)
-                    .height(50.dp),
-                text = stringResource(id = R.string.create_event),
-                clicked = createButton
-            ) {
-                viewModel.onCreateState(CreateState.OnCreate)
-            }
+            viewModel.onCreateState(CreateState.OnCreate)
         }
     }
 }

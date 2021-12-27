@@ -20,6 +20,7 @@ import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.popular_now.PopularNowSection
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.select_location.SelectLocationSection
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 
 @ExperimentalMaterialApi
@@ -39,7 +40,7 @@ private fun ExploreScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.primary)
-                .padding(top = 20.dp)
+                .statusBarsPadding()
                 .height(60.dp),
             endIcon = Icons.Rounded.Bookmarks,
             onStartIconClick = { },
