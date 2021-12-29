@@ -19,8 +19,10 @@ fun AboutEventSection(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
+    attendee: String,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
+    onAttendeeChange: (String) -> Unit,
 ) {
     Column(modifier = modifier) {
         SectionTitle(title = stringResource(id = R.string.event_name))
@@ -44,6 +46,18 @@ fun AboutEventSection(
             keyboardType = KeyboardType.Text,
             singleLine = false,
             maxLines = Int.MAX_VALUE,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        SectionTitle(title = stringResource(id = R.string.attendee_count))
+        Spacer(modifier = Modifier.height(5.dp))
+        ExtendedTextField(
+            text = attendee,
+            onValueChange = onAttendeeChange,
+            // error = password.error,
+            placeholder = stringResource(id = R.string.max_attendee_count),
+            keyboardType = KeyboardType.Number,
+            maxLines = 1,
             modifier = Modifier.fillMaxWidth()
         )
     }

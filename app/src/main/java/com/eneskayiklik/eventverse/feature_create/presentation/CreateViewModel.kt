@@ -37,6 +37,9 @@ class CreateViewModel @Inject constructor(
             is CreateState.OnTitle -> {
                 updateTitle(data.title)
             }
+            is CreateState.OnAttendee -> {
+                updateAttendee(data.attendee)
+            }
             is CreateState.OnEndDate -> {
                 _state.value = _state.value.copy(
                     endDate = data.date
@@ -94,6 +97,13 @@ class CreateViewModel @Inject constructor(
         _state.value = _state.value.copy(
             title = _state.value.title.copy(
                 text = title
+            )
+        )
+    }
+    private fun updateAttendee(attendee: String) {
+        _state.value = _state.value.copy(
+            attendee = _state.value.attendee.copy(
+                text = attendee
             )
         )
     }

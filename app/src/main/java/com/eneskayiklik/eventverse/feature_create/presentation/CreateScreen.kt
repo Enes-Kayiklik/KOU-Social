@@ -93,7 +93,7 @@ private fun CreateScreen(
             LazyColumn(
                 state = listState
             ) {
-                aboutEventSection(state.title, state.description, viewModel)
+                aboutEventSection(state, viewModel::onCreateState)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 eventPhotoSection(state.coverImage, viewModel)
                 item { Spacer(modifier = Modifier.height(10.dp)) }

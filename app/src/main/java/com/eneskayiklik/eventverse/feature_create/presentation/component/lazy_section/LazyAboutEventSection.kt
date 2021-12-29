@@ -12,18 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.core.util.TextFieldState
-import com.eneskayiklik.eventverse.feature_create.presentation.CreateViewModel
 import com.eneskayiklik.eventverse.feature_create.presentation.component.AboutEventSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.HeaderSection
+import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateSectionState
 import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
 
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 fun LazyListScope.aboutEventSection(
-    title: TextFieldState,
-    description: TextFieldState,
-    viewModel: CreateViewModel
+    state: CreateSectionState,
+    onCreateState: (CreateState) -> Unit
 ) {
     item {
         HeaderSection(
@@ -41,10 +39,12 @@ fun LazyListScope.aboutEventSection(
             modifier = Modifier
                 .background(MaterialTheme.colors.surface)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
-            title = title.text,
-            description = description.text,
-            onTitleChange = { viewModel.onCreateState(CreateState.OnTitle(it)) },
-            onDescriptionChange = { viewModel.onCreateState(CreateState.OnDescription(it)) }
+            title = state.title.text,
+            description = state.description.text,
+            attendee = state.attendee.text,
+            onAttendeeChange = { onCreateState(CreateState.OnAttendee(it)) },
+            onTitleChange = { onCreateState(CreateState.OnTitle(it)) },
+            onDescriptionChange = { onCreateState(CreateState.OnDescription(it)) }
         )
     }
 }

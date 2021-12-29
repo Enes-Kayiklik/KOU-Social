@@ -36,4 +36,6 @@
     <string name="date_and_time"><![CDATA[Date & Time]]></string>
     <string name="location_section">Select Location</string>
     <string name="cancel">Cancel</string>
+    <string name="max_attendee_count">Max Attendee Count</string>
+    <string name="attendee_count">Attendee Count</string>
 </resources>

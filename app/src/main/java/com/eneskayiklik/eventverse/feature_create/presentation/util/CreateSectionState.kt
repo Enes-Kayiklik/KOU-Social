@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter
 data class CreateSectionState(
     val title: TextFieldState = TextFieldState(),
     val description: TextFieldState = TextFieldState(),
+    val attendee: TextFieldState = TextFieldState(),
     val startDate: LocalDate = LocalDate.now(),
     val endDate: LocalDate = LocalDate.now().plusDays(1),
     val startTime: LocalTime = LocalTime.now(),
