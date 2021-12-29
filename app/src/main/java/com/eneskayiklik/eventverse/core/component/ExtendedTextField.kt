@@ -47,6 +47,7 @@ fun ExtendedTextField(
     isPasswordToggleDisplayed: Boolean = keyboardType == KeyboardType.Password,
     isPasswordVisible: Boolean = false,
     onPasswordToggleClick: (Boolean) -> Unit = {},
+    onValueChangeLogic: (String) -> Boolean = { true },
     onValueChange: (String) -> Unit
 ) {
     val passwordVisibilityScale by animateFloatAsState(
@@ -61,7 +62,7 @@ fun ExtendedTextField(
         OutlinedTextField(
             value = text,
             onValueChange = {
-                onValueChange(it)
+                if (onValueChangeLogic(it)) onValueChange(it)
             },
             maxLines = maxLines,
             textStyle = style,

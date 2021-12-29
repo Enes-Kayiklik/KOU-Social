@@ -58,6 +58,7 @@ fun AboutEventSection(
             placeholder = stringResource(id = R.string.max_attendee_count),
             keyboardType = KeyboardType.Number,
             maxLines = 1,
+            onValueChangeLogic = { it.count() <= 3 && (it.isEmpty() || it.last().isDigit()) },
             modifier = Modifier.fillMaxWidth()
         )
     }
