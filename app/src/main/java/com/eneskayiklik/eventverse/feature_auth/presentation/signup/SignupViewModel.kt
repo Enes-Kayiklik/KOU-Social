@@ -84,7 +84,7 @@ class SignupViewModel @Inject constructor(
             _passwordState.value = _passwordState.value.copy(error = result.passwordError)
             if (result.isSuccess) {
                 _signupButtonState.value = _signupButtonState.value.not()
-                _uiState.emit(UiEvent.CleatBackStack)
+                _uiState.emit(UiEvent.ClearBackStack)
             }
         }
     }

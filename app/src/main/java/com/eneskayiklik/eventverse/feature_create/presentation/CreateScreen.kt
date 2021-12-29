@@ -65,7 +65,7 @@ private fun CreateScreen(
                     }
                     onNavigate(it.id)
                 }
-                UiEvent.CleatBackStack -> clearBackStack()
+                UiEvent.ClearBackStack -> clearBackStack()
             }
         }
     }

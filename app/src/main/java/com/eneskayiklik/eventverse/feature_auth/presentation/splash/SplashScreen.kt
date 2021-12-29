@@ -60,7 +60,7 @@ private fun SplashScreen(
                     clearBackStack()
                     onNavigate(it.id)
                 }
-                UiEvent.CleatBackStack -> clearBackStack()
+                UiEvent.ClearBackStack -> clearBackStack()
             }
         }
     }

@@ -61,7 +61,7 @@ private fun SelectInterestScreen(
                     }
                     onNavigate(it.id)
                 }
-                UiEvent.CleatBackStack -> clearBackStack()
+                UiEvent.ClearBackStack -> clearBackStack()
             }
         }
     }

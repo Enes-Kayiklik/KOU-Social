@@ -80,7 +80,7 @@ class CreateViewModel @Inject constructor(
                 _uiState.emit(UiEvent.ShowSnackbar(result.message))
             } else {
                 _createButtonState.value = false
-                _uiState.emit(UiEvent.CleatBackStack)
+                _uiState.emit(UiEvent.ClearBackStack)
             }
         }
     }
