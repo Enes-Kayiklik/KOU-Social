@@ -95,9 +95,9 @@ private fun CreateScreen(
             ) {
                 aboutEventSection(state, viewModel::onCreateState)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
-                eventPhotoSection(state.coverImage, viewModel)
+                eventPhotoSection(state.coverImage, viewModel::onCreateState)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
-                dateTimeSection(state, viewModel)
+                dateTimeSection(state, viewModel::onCreateState)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
                 locationSection()
                 // Empty space for create button

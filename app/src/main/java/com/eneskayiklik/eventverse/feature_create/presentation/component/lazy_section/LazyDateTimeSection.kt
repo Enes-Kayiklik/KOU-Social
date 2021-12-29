@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.feature_create.presentation.CreateViewModel
 import com.eneskayiklik.eventverse.feature_create.presentation.component.HeaderSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.MaterialDialogPicker
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.TimeSelectionItem
@@ -25,7 +24,7 @@ import com.eneskayiklik.eventverse.feature_create.presentation.util.*
 @ExperimentalFoundationApi
 fun LazyListScope.dateTimeSection(
     state: CreateSectionState,
-    viewModel: CreateViewModel
+    onCreateState: (CreateState) -> Unit
 ) {
     item {
         HeaderSection(
@@ -39,7 +38,7 @@ fun LazyListScope.dateTimeSection(
     }
 
     item {
-        DateSection(state, viewModel)
+        DateSection(state, onCreateState)
     }
 }
 
@@ -47,7 +46,7 @@ fun LazyListScope.dateTimeSection(
 @Composable
 private fun DateSection(
     state: CreateSectionState,
-    viewModel: CreateViewModel
+    onCreateState: (CreateState) -> Unit
 ) {
     val pickerState = rememberPickerState()
     var dialogType by remember { mutableStateOf(PickerType.DATE) }
@@ -58,12 +57,12 @@ private fun DateSection(
         dialogType, onDate = {
             when (pickerSection) {
                 PickerSection.START -> {
-                    viewModel.onCreateState(
+                    onCreateState(
                         CreateState.OnStartDate(it)
                     )
                 }
                 PickerSection.END -> {
-                    viewModel.onCreateState(
+                    onCreateState(
                         CreateState.OnEndDate(it)
                     )
                 }
@@ -71,12 +70,12 @@ private fun DateSection(
         }, onTime = {
             when (pickerSection) {
                 PickerSection.START -> {
-                    viewModel.onCreateState(
+                    onCreateState(
                         CreateState.OnStartTime(it)
                     )
                 }
                 PickerSection.END -> {
-                    viewModel.onCreateState(
+                    onCreateState(
                         CreateState.OnEndTime(it)
                     )
                 }

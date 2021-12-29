@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.feature_create.presentation.CreateViewModel
 import com.eneskayiklik.eventverse.feature_create.presentation.component.HeaderSection
 import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
 
@@ -31,7 +30,7 @@ import com.eneskayiklik.eventverse.feature_create.presentation.util.CreateState
 @ExperimentalFoundationApi
 fun LazyListScope.eventPhotoSection(
     coverImage: Uri?,
-    viewModel: CreateViewModel
+    onCreateState: (CreateState) -> Unit
 ) {
     item {
         HeaderSection(
@@ -48,8 +47,7 @@ fun LazyListScope.eventPhotoSection(
         val launcher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetContent()
         ) {
-            if (it != null)
-                viewModel.onCreateState(CreateState.OnImageSelected(it))
+            if (it != null) onCreateState(CreateState.OnImageSelected(it))
         }
 
         if (coverImage != null) {
