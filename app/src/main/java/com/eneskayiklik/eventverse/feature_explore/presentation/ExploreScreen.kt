@@ -47,7 +47,9 @@ private fun ExploreScreen(
             onEndIconClick = { }
         )
 
-        LazyColumn {
+        LazyColumn(
+            contentPadding = PaddingValues(bottom = 50.dp)
+        ) {
             item {
                 Spacer(modifier = Modifier.height(10.dp))
                 SelectLocationSection(
