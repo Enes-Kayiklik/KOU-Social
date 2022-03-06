@@ -42,7 +42,9 @@ fun ExtendedTextField(
     backgroundColor: Color = MaterialTheme.colors.surface,
     singleLine: Boolean = true,
     maxLines: Int = 1,
+    enabled: Boolean = true,
     leadingIcon: ImageVector? = null,
+    trailingIcon: ImageVector? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     isPasswordToggleDisplayed: Boolean = keyboardType == KeyboardType.Password,
     isPasswordVisible: Boolean = false,
@@ -94,6 +96,7 @@ fun ExtendedTextField(
             } else {
                 VisualTransformation.None
             },
+            enabled = enabled,
             singleLine = singleLine,
             leadingIcon = if (leadingIcon != null) {
                 val icon: @Composable () -> Unit = {
@@ -105,26 +108,42 @@ fun ExtendedTextField(
                 }
                 icon
             } else null,
-            trailingIcon = if (isPasswordToggleDisplayed) {
-                {
-                    IconButton(
-                        modifier = Modifier.scale(passwordVisibilityScale),
-                        onClick = {
-                            onPasswordToggleClick(isPasswordVisible.not())
+            trailingIcon = when {
+                isPasswordToggleDisplayed -> {
+                    {
+                        IconButton(
+                            modifier = Modifier.scale(passwordVisibilityScale),
+                            onClick = {
+                                onPasswordToggleClick(isPasswordVisible.not())
+                            }
+                        ) {
+                            Icon(
+                                imageVector = if (isPasswordVisible) {
+                                    Icons.Rounded.VisibilityOff
+                                } else {
+                                    Icons.Rounded.Visibility
+                                },
+                                tint = MaterialTheme.colors.onSurface,
+                                contentDescription = stringResource(id = R.string.password)
+                            )
                         }
-                    ) {
-                        Icon(
-                            imageVector = if (isPasswordVisible) {
-                                Icons.Rounded.VisibilityOff
-                            } else {
-                                Icons.Rounded.Visibility
-                            },
-                            tint = MaterialTheme.colors.onSurface,
-                            contentDescription = stringResource(id = R.string.password)
-                        )
                     }
                 }
-            } else null,
+                trailingIcon != null -> {
+                    {
+                        IconButton(
+                            onClick = { }
+                        ) {
+                            Icon(
+                                imageVector = trailingIcon,
+                                tint = MaterialTheme.colors.onSurface,
+                                contentDescription = stringResource(id = R.string.password)
+                            )
+                        }
+                    }
+                }
+                else -> null
+            },
             modifier = Modifier
                 .fillMaxWidth()
         )

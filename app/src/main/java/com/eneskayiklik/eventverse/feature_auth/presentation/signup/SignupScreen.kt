@@ -1,9 +1,6 @@
 package com.eneskayiklik.eventverse.feature_auth.presentation.signup
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
-import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Password
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.runtime.Composable
@@ -37,9 +33,10 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
+import com.eneskayiklik.eventverse.feature_auth.data.event.SignupEvent
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.GoogleButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
-import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
+import com.eneskayiklik.eventverse.feature_auth.presentation.signup.components.FacultySelection
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -51,14 +48,10 @@ private fun SignupScreen(
     clearBackStack: () -> Unit,
     viewModel: SignupViewModel = hiltViewModel()
 ) {
-    val email = viewModel.emailState.collectAsState().value
-    val fullname = viewModel.fullnameState.collectAsState().value
-    val password = viewModel.passwordState.collectAsState().value
-    val signupButton = viewModel.signupButtonState.collectAsState().value
-    val googleButton = viewModel.googleButtonState.collectAsState().value
+    val state = viewModel.state.collectAsState().value
 
     LaunchedEffect(key1 = true) {
-        viewModel.uiState.collectLatest {
+        viewModel.event.collectLatest {
             when (it) {
                 is UiEvent.ShowSnackbar -> {
                 }
@@ -101,13 +94,13 @@ private fun SignupScreen(
         }
         item("fullname_field") {
             ExtendedTextField(
-                text = fullname.text,
+                text = state.fullName.text,
                 onValueChange = {
-                    viewModel.onLoginState(
-                        LoginState.OnFullname(it)
+                    viewModel.onSignupEvent(
+                        SignupEvent.OnFullName(it)
                     )
                 },
-                error = fullname.error,
+                error = state.fullName.error,
                 leadingIcon = Icons.Rounded.Person,
                 label = stringResource(id = R.string.fullname),
                 keyboardType = KeyboardType.Email,
@@ -117,13 +110,13 @@ private fun SignupScreen(
         item("email_field") {
             Spacer(modifier = Modifier.height(8.dp))
             ExtendedTextField(
-                text = email.text,
+                text = state.email.text,
                 onValueChange = {
-                    viewModel.onLoginState(
-                        LoginState.OnEmail(it)
+                    viewModel.onSignupEvent(
+                        SignupEvent.OnEmail(it)
                     )
                 },
-                error = email.error,
+                error = state.email.error,
                 leadingIcon = Icons.Rounded.Email,
                 label = stringResource(id = R.string.email),
                 keyboardType = KeyboardType.Email,
@@ -133,23 +126,32 @@ private fun SignupScreen(
         item("password_field") {
             Spacer(modifier = Modifier.height(8.dp))
             ExtendedTextField(
-                text = password.text,
+                text = state.password.text,
                 onValueChange = {
-                    viewModel.onLoginState(
-                        LoginState.OnPassword(it)
+                    viewModel.onSignupEvent(
+                        SignupEvent.OnPassword(it)
                     )
                 },
-                error = password.error,
+                error = state.password.error,
                 leadingIcon = Icons.Rounded.Password,
                 label = stringResource(id = R.string.password),
                 keyboardType = KeyboardType.Password,
-                isPasswordVisible = password.isPasswordShowing,
+                isPasswordVisible = state.isPasswordVisible,
                 onPasswordToggleClick = {
-                    viewModel.onLoginState(
-                        LoginState.OnTogglePassword
+                    viewModel.onSignupEvent(
+                        SignupEvent.OnTogglePassword
                     )
                 },
                 modifier = Modifier.fillMaxWidth()
+            )
+        }
+        item("faculty") {
+            Spacer(modifier = Modifier.height(16.dp))
+            FacultySelection(
+                state.selectedDepartment,
+                state.faculties,
+                state.isFacultyPopupActive,
+                viewModel::onSignupEvent
             )
         }
         item("signup_button") {
@@ -159,9 +161,9 @@ private fun SignupScreen(
                     .fillMaxWidth()
                     .height(50.dp),
                 text = stringResource(id = R.string.register_button),
-                clicked = signupButton
+                clicked = false
             ) {
-                viewModel.onLoginState(LoginState.OnRegister)
+                viewModel.onSignupEvent(SignupEvent.OnRegister)
             }
         }
         item("or") {
@@ -198,9 +200,9 @@ private fun SignupScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
-                clicked = googleButton
+                clicked = false
             ) {
-                viewModel.onLoginState(LoginState.OnGoogle)
+                viewModel.onSignupEvent(SignupEvent.OnGoogle)
             }
         }
         item("login_button") {

@@ -2,79 +2,111 @@ package com.eneskayiklik.eventverse.feature_auth.presentation.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eneskayiklik.eventverse.core.util.TextFieldState
+import com.eneskayiklik.eventverse.core.util.Resource
 import com.eneskayiklik.eventverse.core.util.UiEvent
-import com.eneskayiklik.eventverse.core.util.extension.isValidEmail
-import com.eneskayiklik.eventverse.core.util.extension.isValidPassword
-import com.eneskayiklik.eventverse.feature_auth.domain.use_case.LoginUseCase
-import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
+import com.eneskayiklik.eventverse.feature_auth.data.event.SignupEvent
+import com.eneskayiklik.eventverse.feature_auth.data.repository.SignupRepositoryImpl
+import com.eneskayiklik.eventverse.feature_auth.data.state.SignupState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val signupRepository: SignupRepositoryImpl
 ) : ViewModel() {
-    private val _emailState = MutableStateFlow(TextFieldState())
-    val emailState: StateFlow<TextFieldState> = _emailState
+    private val _state = MutableStateFlow(SignupState())
+    val state: StateFlow<SignupState> = _state
 
-    private val _fullnameState = MutableStateFlow(TextFieldState())
-    val fullnameState: StateFlow<TextFieldState> = _fullnameState
+    private val _event = MutableSharedFlow<UiEvent>()
+    val event: SharedFlow<UiEvent> = _event
 
-    private val _passwordState = MutableStateFlow(TextFieldState())
-    val passwordState: StateFlow<TextFieldState> = _passwordState
+    init {
+        getFaculties()
+    }
 
-    private val _signupButtonState = MutableStateFlow(false)
-    val signupButtonState: StateFlow<Boolean> = _signupButtonState
-
-    private val _uiState = MutableSharedFlow<UiEvent>()
-    val uiState: SharedFlow<UiEvent> = _uiState
-
-    private val _googleButtonState = MutableStateFlow(false)
-    val googleButtonState: StateFlow<Boolean> = _googleButtonState
-
-    fun onLoginState(
-        data: LoginState
+    fun onSignupEvent(
+        data: SignupEvent
     ) {
         when (data) {
-            is LoginState.OnEmail -> {
-                _emailState.value = _emailState.value.copy(text = data.email, error = "")
+            is SignupEvent.OnEmail -> {
+                _state.value = _state.value.copy(
+                    email = _state.value.email.copy(
+                        text = data.email, error = ""
+                    )
+                )
             }
-            is LoginState.OnPassword -> {
-                _passwordState.value = _passwordState.value.copy(text = data.password, error = "")
+            is SignupEvent.OnPassword -> {
+                _state.value = _state.value.copy(
+                    password = _state.value.password.copy(
+                        text = data.password, error = ""
+                    )
+                )
             }
-            is LoginState.OnFullname -> {
-                _fullnameState.value = _fullnameState.value.copy(text = data.fullname, error = "")
+            is SignupEvent.OnFullName -> {
+                _state.value = _state.value.copy(
+                    fullName = _state.value.fullName.copy(
+                        text = data.fullName, error = ""
+                    )
+                )
             }
-            LoginState.OnGoogle -> {
-                _googleButtonState.value = _googleButtonState.value.not()
-                loginWithGoogle()
+            SignupEvent.OnTogglePassword -> {
+                _state.value =
+                    _state.value.copy(isPasswordVisible = _state.value.isPasswordVisible.not())
             }
-            LoginState.OnGoogle -> {
-            }
-            LoginState.OnNavigateRegister -> {
-            }
-            LoginState.OnTogglePassword -> {
-                _passwordState.value =
-                    _passwordState.value.copy(isPasswordShowing = _passwordState.value.isPasswordShowing.not())
-            }
-            LoginState.OnRegister -> {
+            SignupEvent.OnRegister -> {
                 registerWithEmailAndPassword()
             }
-            LoginState.OnLogin -> {
+            SignupEvent.OnLogin -> {
+                viewModelScope.launch {
+                    _event.emit(UiEvent.ClearBackStack)
+                }
+            }
+            SignupEvent.ShowFacultyPopup -> {
+                _state.value = _state.value.copy(
+                    isFacultyPopupActive = _state.value.isFacultyPopupActive.not()
+                )
+            }
+            is SignupEvent.SelectDepartment -> {
+                if (data.department.departmentName.isNotEmpty()) {
+                    _state.value = _state.value.copy(
+                        selectedDepartment = data.department,
+                        isFacultyPopupActive = false
+                    )
+                } else {
+                    _state.value = _state.value.copy(
+                        isFacultyPopupActive = false
+                    )
+                }
+            }
+            else -> Unit
+        }
+    }
+
+    private fun getFaculties() {
+        viewModelScope.launch(Dispatchers.IO) {
+            signupRepository.getFaculties().collectLatest {
+                when (it) {
+                    is Resource.Error -> _state.value = _state.value.copy(
+                        isFacultiesLoading = false
+                    )
+                    is Resource.Loading -> _state.value = _state.value.copy(
+                        isFacultiesLoading = true
+                    )
+                    is Resource.Success -> _state.value = _state.value.copy(
+                        faculties = it.data,
+                        isFacultiesLoading = false
+                    )
+                }
             }
         }
     }
 
     private fun registerWithEmailAndPassword() {
         viewModelScope.launch {
-            val email = emailState.value.text
+            /*val email = emailState.value.text
             val password = passwordState.value.text
             if (email.isValidEmail() && password.isValidPassword())
                 _signupButtonState.value = _signupButtonState.value.not()
@@ -85,14 +117,13 @@ class SignupViewModel @Inject constructor(
             if (result.isSuccess) {
                 _signupButtonState.value = _signupButtonState.value.not()
                 _uiState.emit(UiEvent.ClearBackStack)
-            }
+            }*/
         }
     }
 
     private fun loginWithGoogle() {
         viewModelScope.launch {
-            delay(3000L)
-            _googleButtonState.value = _googleButtonState.value.not()
+
         }
     }
 }
