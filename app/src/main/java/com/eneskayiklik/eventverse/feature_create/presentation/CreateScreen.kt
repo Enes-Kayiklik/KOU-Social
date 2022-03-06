@@ -24,6 +24,10 @@ import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.aboutEventSection
 import com.eneskayiklik.eventverse.feature_create.presentation.component.lazy_section.dateTimeSection
@@ -128,18 +132,10 @@ fun NavGraphBuilder.createComposable(
 ) {
     composable(
         route = Screen.CreateEvent.route,
-        enterTransition = { _, _ ->
-            slideInVertically(
-                initialOffsetY = { fullWidth -> fullWidth },
-                animationSpec = tween(durationMillis = 300)
-            )
-        },
-        popExitTransition = { _, _ ->
-            slideOutVertically(
-                targetOffsetY = { fullWidth -> fullWidth },
-                animationSpec = tween(durationMillis = 300)
-            )
-        }
+        exitTransition = { exitTransition() },
+        popExitTransition = { popExitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        enterTransition = { enterTransition() },
     ) {
         CreateScreen(onNavigate, clearBackStack, scaffoldState)
     }

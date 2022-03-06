@@ -11,6 +11,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.Password
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +29,10 @@ import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.ExtendedTextField
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.GoogleButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
@@ -116,10 +121,10 @@ private fun LoginScreen(
                     )
                 },
                 error = password.error,
-                leadingIcon = Icons.Rounded.Lock,
                 label = stringResource(id = R.string.password),
                 keyboardType = KeyboardType.Password,
                 isPasswordVisible = password.isPasswordShowing,
+                leadingIcon = Icons.Rounded.Password,
                 onPasswordToggleClick = {
                     viewModel.onLoginState(
                         LoginState.OnTogglePassword
@@ -212,6 +217,10 @@ fun NavGraphBuilder.loginComposable(
 ) {
     composable(
         route = Screen.Login.route,
+        exitTransition = { exitTransition() },
+        popExitTransition = { popExitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        enterTransition = { enterTransition() },
     ) {
         LoginScreen(onNavigate, clearBackStack)
     }

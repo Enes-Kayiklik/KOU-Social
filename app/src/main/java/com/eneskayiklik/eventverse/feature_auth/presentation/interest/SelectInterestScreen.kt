@@ -23,6 +23,10 @@ import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature_auth.domain.model.InterestModel
 import com.eneskayiklik.eventverse.feature_auth.presentation.interest.component.SingleInterestModel
 import com.eneskayiklik.eventverse.feature_auth.presentation.interest.util.SelectInterestEvent
@@ -135,14 +139,10 @@ fun NavGraphBuilder.selectInterestComposable(
 ) {
     composable(
         route = Screen.SelectInterest.route,
-        enterTransition = { initial, _ ->
-            val comingFrom = initial.destination.route ?: ""
-            if (comingFrom.startsWith(Screen.Login.route))
-                slideInHorizontally(
-                    initialOffsetX = { fullWidth -> fullWidth },
-                    animationSpec = tween(durationMillis = 300)
-                ) else null
-        },
+        exitTransition = { exitTransition() },
+        popExitTransition = { popExitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        enterTransition = { enterTransition() },
     ) {
         SelectInterestScreen(onNavigate, clearBackStack, scaffoldState)
     }

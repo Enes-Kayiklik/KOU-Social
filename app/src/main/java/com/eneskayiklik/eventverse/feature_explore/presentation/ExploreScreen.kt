@@ -17,6 +17,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.popular_now.PopularNowSection
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.select_location.SelectLocationSection
@@ -107,18 +111,10 @@ fun NavGraphBuilder.exploreComposable(
 ) {
     composable(
         route = Screen.Explore.route,
-        enterTransition = { initial, _ ->
-            val comingFrom = initial.destination.route ?: ""
-            val condition =
-                comingFrom.startsWith(Screen.Login.route) || comingFrom.startsWith(
-                    Screen.SelectInterest.route
-                )
-            if (condition)
-                slideInVertically(
-                    initialOffsetY = { fullWidth -> fullWidth },
-                    animationSpec = tween(durationMillis = 300)
-                ) else null
-        }
+        exitTransition = { exitTransition() },
+        popExitTransition = { popExitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        enterTransition = { enterTransition() },
     ) {
         ExploreScreen(onNavigate, clearBackStack)
     }

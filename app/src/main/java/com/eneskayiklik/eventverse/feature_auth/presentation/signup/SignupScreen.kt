@@ -14,6 +14,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.Password
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,6 +33,10 @@ import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.ExtendedTextField
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.GoogleButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
@@ -135,7 +140,7 @@ private fun SignupScreen(
                     )
                 },
                 error = password.error,
-                leadingIcon = Icons.Rounded.Lock,
+                leadingIcon = Icons.Rounded.Password,
                 label = stringResource(id = R.string.password),
                 keyboardType = KeyboardType.Password,
                 isPasswordVisible = password.isPasswordShowing,
@@ -223,18 +228,10 @@ fun NavGraphBuilder.signupComposable(
 ) {
     composable(
         route = Screen.Signup.route,
-        enterTransition = { _, _ ->
-            slideInHorizontally(
-                initialOffsetX = { fullWidth -> fullWidth },
-                animationSpec = tween(durationMillis = 300)
-            )
-        },
-        popExitTransition = { _, _ ->
-            slideOutHorizontally(
-                targetOffsetX = { fullWidth -> fullWidth },
-                animationSpec = tween(durationMillis = 300)
-            )
-        }
+        exitTransition = { exitTransition() },
+        popExitTransition = { popExitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        enterTransition = { enterTransition() },
     ) {
         SignupScreen(onNavigate, clearBackStack)
     }

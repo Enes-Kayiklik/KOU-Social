@@ -49,7 +49,7 @@ class LoginViewModel @Inject constructor(
             }
             LoginState.OnLogin -> {
                 viewModelScope.launch {
-                    _uiState.emit(UiEvent.Navigate(Screen.SelectInterest.route))
+                    _uiState.emit(UiEvent.Navigate(Screen.Explore.route))
                 }
                 // loginWithEmailAndPassword()
             }

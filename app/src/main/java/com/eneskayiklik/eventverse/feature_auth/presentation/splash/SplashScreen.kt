@@ -27,6 +27,10 @@ import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -94,12 +98,10 @@ fun NavGraphBuilder.splashComposable(
 ) {
     composable(
         route = Screen.Splash.route,
-        exitTransition = { _, _ ->
-            slideOutVertically(
-                targetOffsetY = { fullHeight -> -fullHeight },
-                animationSpec = tween(durationMillis = 300)
-            )
-        }
+        exitTransition = { exitTransition() },
+        popExitTransition = { popExitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        enterTransition = { enterTransition() },
     ) {
         SplashScreen(onNavigate, clearBackStack)
     }

@@ -1,9 +1,6 @@
 package com.eneskayiklik.eventverse.core.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.CircleShape
@@ -78,9 +75,7 @@ fun BaseScaffold(
                             BaseBottomNavItem(
                                 icon = bottomNavItem.icon,
                                 contentDescription = bottomNavItem.contentDescription,
-                                selected = navController.currentDestination?.route?.startsWith(
-                                    bottomNavItem.route
-                                ) == true,
+                                selected = navController.currentBackStackEntry?.destination?.route == bottomNavItem.route,
                                 enabled = bottomNavItem.icon != null
                             ) {
                                 val destination = navController.currentDestination?.route
@@ -98,7 +93,11 @@ fun BaseScaffold(
         },
         scaffoldState = state,
         floatingActionButton = {
-            if (showBottomBar) {
+            AnimatedVisibility(
+                visible = showBottomBar,
+                enter = scaleIn() + fadeIn(),
+                exit = scaleOut() + fadeOut()
+            ) {
                 FloatingActionButton(
                     backgroundColor = MaterialTheme.colors.primary,
                     onClick = onFabClick

@@ -15,6 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
+import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.google.accompanist.navigation.animation.composable
 
 @Composable
@@ -43,6 +47,10 @@ fun NavGraphBuilder.mapComposable(
 ) {
     composable(
         route = Screen.Map.route,
+        exitTransition = { exitTransition() },
+        popExitTransition = { popExitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        enterTransition = { enterTransition() },
     ) {
         MapScreen(onNavigate, clearBackStack)
     }
