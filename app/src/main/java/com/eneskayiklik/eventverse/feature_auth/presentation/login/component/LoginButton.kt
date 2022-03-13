@@ -36,7 +36,7 @@ fun LoginButton(
             Text(
                 text = text,
                 style = MaterialTheme.typography.button,
-                color = Color.White,
+                color = if (clicked) MaterialTheme.colors.primary else Color.White,
             )
             AnimatedVisibility(visible = clicked) {
                 Row {

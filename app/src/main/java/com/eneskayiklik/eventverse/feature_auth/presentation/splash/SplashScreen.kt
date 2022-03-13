@@ -58,8 +58,7 @@ private fun SplashScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiState.collectLatest {
             when (it) {
-                is UiEvent.ShowSnackbar -> {
-                }
+                is UiEvent.ShowSnackbar -> Unit
                 is UiEvent.Navigate -> {
                     clearBackStack()
                     onNavigate(it.id)

@@ -7,3 +7,6 @@ fun String.isValidEmail(): Boolean =
 
 fun String.isValidPassword(): Boolean =
     length >= 6
+
+fun String.isValidFullName(): Boolean =
+    length >= 3

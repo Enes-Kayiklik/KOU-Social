@@ -93,6 +93,8 @@ dependencies {
     // Firestore
     // Since we are using BoM we do not need to specify version
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    // Auth
+    implementation 'com.google.firebase:firebase-auth-ktx'
 
     // Firebase Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0'

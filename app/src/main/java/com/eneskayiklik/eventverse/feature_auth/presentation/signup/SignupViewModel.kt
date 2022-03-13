@@ -2,8 +2,13 @@ package com.eneskayiklik.eventverse.feature_auth.presentation.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eneskayiklik.eventverse.core.model.ErrorState
 import com.eneskayiklik.eventverse.core.util.Resource
+import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.extension.isValidEmail
+import com.eneskayiklik.eventverse.core.util.extension.isValidFullName
+import com.eneskayiklik.eventverse.core.util.extension.isValidPassword
 import com.eneskayiklik.eventverse.feature_auth.data.event.SignupEvent
 import com.eneskayiklik.eventverse.feature_auth.data.repository.SignupRepositoryImpl
 import com.eneskayiklik.eventverse.feature_auth.data.state.SignupState
@@ -12,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.sign
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
@@ -105,19 +111,70 @@ class SignupViewModel @Inject constructor(
     }
 
     private fun registerWithEmailAndPassword() {
-        viewModelScope.launch {
-            /*val email = emailState.value.text
-            val password = passwordState.value.text
-            if (email.isValidEmail() && password.isValidPassword())
-                _signupButtonState.value = _signupButtonState.value.not()
+        viewModelScope.launch(Dispatchers.IO) {
+            val email = _state.value.email.text
+            val password = _state.value.password.text
+            val fullName = _state.value.fullName.text
 
-            val result = loginUseCase.loginWithEmail(email, password)
-            _emailState.value = _emailState.value.copy(error = result.emailError)
-            _passwordState.value = _passwordState.value.copy(error = result.passwordError)
-            if (result.isSuccess) {
-                _signupButtonState.value = _signupButtonState.value.not()
-                _uiState.emit(UiEvent.ClearBackStack)
-            }*/
+            if (fullName.isValidFullName().not()) {
+                _state.value = _state.value.copy(
+                    fullName = _state.value.fullName.copy(error = "Full name is not valid."),
+                )
+                return@launch
+            }
+            if (email.isValidEmail().not()) {
+                _state.value = _state.value.copy(
+                    email = _state.value.email.copy(error = "Email is not valid."),
+                )
+                return@launch
+            }
+            if (password.isValidPassword().not()) {
+                _state.value = _state.value.copy(
+                    password = _state.value.password.copy(error = "Password is not valid."),
+                )
+                return@launch
+            }
+            if (_state.value.isLoading) return@launch
+            _state.value = _state.value.copy(
+                isLoading = true
+            )
+
+            val result = signupRepository.signupWithEmail(email, password, fullName)
+            if (result.isSuccess.not()) {
+                _state.value = _state.value.copy(
+                    email = _state.value.email.copy(error = result.emailError),
+                    password = _state.value.password.copy(error = result.passwordError),
+                    isLoading = false
+                )
+            } else {
+                showVerificationDialog()
+            }
+        }
+    }
+
+    private fun showVerificationDialog() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.value = _state.value.copy(
+                isLoading = false,
+                dialogState = ErrorState(
+                    title = "Verify Account",
+                    subTitle = "Please click on the link that has just been sent to your email account to verify your email.",
+                    firstButtonText = "Resend",
+                    secondButtonText = "Continue",
+                    firstButtonClick = { },
+                    secondButtonClick = { checkEmailVerified() }
+                )
+            )
+        }
+    }
+
+    private fun checkEmailVerified() {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (signupRepository.checkEmailVerified()) {
+                _event.emit(UiEvent.Navigate(Screen.Explore.route))
+            } else {
+                _event.emit(UiEvent.Toast("Not Verified"))
+            }
         }
     }
 

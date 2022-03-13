@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.feature_auth.presentation.interest.selectInterestComposable
+import com.eneskayiklik.eventverse.feature_auth.presentation.introduction.introComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.loginComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.signup.signupComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.splash.splashComposable
@@ -34,8 +35,9 @@ fun BaseAnimatedNavigation(
         startDestination = Screen.Splash.route
     ) {
         splashComposable(navController::navigate, navController::popBackStack)
+        introComposable(navController::navigate, navController::popBackStack)
         loginComposable(navController::navigate, navController::popBackStack)
-        signupComposable(navController::navigate, navController::popBackStack)
+        signupComposable(navController::navigate, navController::popBackStack, scaffoldState)
         exploreComposable(navController::navigate, navController::popBackStack)
         calendarComposable(navController::navigate, navController::popBackStack)
         mapComposable(navController::navigate, navController::popBackStack)
