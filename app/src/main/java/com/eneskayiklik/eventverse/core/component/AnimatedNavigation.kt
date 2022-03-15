@@ -34,10 +34,22 @@ fun BaseAnimatedNavigation(
         navController = navController,
         startDestination = Screen.Splash.route
     ) {
-        splashComposable(navController::navigate, navController::popBackStack)
+        splashComposable({
+            navController.navigate(it) {
+                popUpTo(0)
+            }
+        }, navController::popBackStack)
         introComposable(navController::navigate, navController::popBackStack)
-        loginComposable(navController::navigate, navController::popBackStack)
-        signupComposable(navController::navigate, navController::popBackStack, scaffoldState)
+        loginComposable({
+            navController.navigate(it) {
+                popUpTo(0)
+            }
+        }, navController::popBackStack)
+        signupComposable({
+            navController.navigate(it) {
+                popUpTo(0)
+            }
+        }, navController::popBackStack, scaffoldState)
         exploreComposable(navController::navigate, navController::popBackStack)
         calendarComposable(navController::navigate, navController::popBackStack)
         mapComposable(navController::navigate, navController::popBackStack)

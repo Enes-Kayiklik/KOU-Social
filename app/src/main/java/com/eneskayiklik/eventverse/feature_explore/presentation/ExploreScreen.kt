@@ -48,7 +48,7 @@ private fun ExploreScreen(
                 .height(60.dp),
             endIcon = Icons.Rounded.Bookmarks,
             onStartIconClick = { },
-            onEndIconClick = { }
+            onEndIconClick = { viewModel.logOut() }
         )
 
         LazyColumn(

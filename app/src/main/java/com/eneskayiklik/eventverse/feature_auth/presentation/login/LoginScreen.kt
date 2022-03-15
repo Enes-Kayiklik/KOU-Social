@@ -21,15 +21,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.ExtendedTextField
+import com.eneskayiklik.eventverse.core.component.InfoDialog
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
+import com.eneskayiklik.eventverse.feature_auth.data.event.LoginEvent
 import com.eneskayiklik.eventverse.feature_auth.presentation.component.IntroductionText
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
-import com.eneskayiklik.eventverse.feature_auth.presentation.login.util.LoginState
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
@@ -42,25 +43,23 @@ private fun LoginScreen(
     clearBackStack: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
-    val email = viewModel.emailState.collectAsState().value
-    val password = viewModel.passwordState.collectAsState().value
-    val googleButton = viewModel.googleButtonState.collectAsState().value
-    val loginButton = viewModel.loginButtonState.collectAsState().value
+    val state = viewModel.state.collectAsState().value
 
     LaunchedEffect(key1 = true) {
-        viewModel.uiState.collectLatest {
+        viewModel.event.collectLatest {
             when (it) {
                 is UiEvent.ShowSnackbar -> Unit
                 is UiEvent.Navigate -> {
-                    when (it.id) {
-                        Screen.Explore.route -> clearBackStack()
-                    }
                     onNavigate(it.id)
                 }
                 UiEvent.ClearBackStack -> clearBackStack()
+                is UiEvent.Toast -> Unit
             }
         }
     }
+
+    if (state.dialogState != null) InfoDialog(state = state.dialogState)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -90,13 +89,13 @@ private fun LoginScreen(
             }
             item("email_field") {
                 ExtendedTextField(
-                    text = email.text,
+                    text = state.email.text,
                     onValueChange = {
                         viewModel.onLoginState(
-                            LoginState.OnEmail(it)
+                            LoginEvent.OnEmail(it)
                         )
                     },
-                    error = email.error,
+                    error = state.email.error,
                     placeholder = stringResource(id = R.string.email_paceholder),
                     label = stringResource(id = R.string.email),
                     keyboardType = KeyboardType.Email,
@@ -106,20 +105,20 @@ private fun LoginScreen(
             item("password_field") {
                 Spacer(modifier = Modifier.height(20.dp))
                 ExtendedTextField(
-                    text = password.text,
+                    text = state.password.text,
                     onValueChange = {
                         viewModel.onLoginState(
-                            LoginState.OnPassword(it)
+                            LoginEvent.OnPassword(it)
                         )
                     },
-                    error = password.error,
+                    error = state.password.error,
                     placeholder = stringResource(id = R.string.password_placeholder),
                     label = stringResource(id = R.string.password),
                     keyboardType = KeyboardType.Password,
-                    isPasswordVisible = password.isPasswordShowing,
+                    isPasswordVisible = state.isPasswordVisible,
                     onPasswordToggleClick = {
                         viewModel.onLoginState(
-                            LoginState.OnTogglePassword
+                            LoginEvent.OnTogglePassword
                         )
                     },
                     modifier = Modifier.fillMaxWidth()
@@ -204,9 +203,9 @@ private fun LoginScreen(
                 .fillMaxWidth()
                 .height(44.dp)
                 .align(Alignment.BottomCenter),
-            clicked = loginButton
+            clicked = state.isLoading
         ) {
-            viewModel.onLoginState(LoginState.OnLogin)
+            viewModel.onLoginState(LoginEvent.OnLogin)
         }
     }
 }

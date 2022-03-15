@@ -79,4 +79,14 @@ class SignupRepositoryImpl(
         }
         if (data != null) emit(Resource.Success(data)) else emit(Resource.Error(""))
     }
+
+    suspend fun resendMail(): Boolean {
+        return try {
+            auth.currentUser?.sendEmailVerification()?.await()
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
 }

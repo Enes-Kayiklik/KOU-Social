@@ -17,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.sign
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
@@ -29,9 +28,7 @@ class SignupViewModel @Inject constructor(
     private val _event = MutableSharedFlow<UiEvent>()
     val event: SharedFlow<UiEvent> = _event
 
-    init {
-        getFaculties()
-    }
+    private var _canResend: Boolean = true
 
     fun onSignupEvent(
         data: SignupEvent
@@ -161,10 +158,20 @@ class SignupViewModel @Inject constructor(
                     subTitle = "Please click on the link that has just been sent to your email account to verify your email.",
                     firstButtonText = "Resend",
                     secondButtonText = "Continue",
-                    firstButtonClick = { },
+                    firstButtonClick = { resendMail() },
                     secondButtonClick = { checkEmailVerified() }
                 )
             )
+        }
+    }
+
+    private fun resendMail() {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (_canResend && signupRepository.resendMail()) {
+                _event.emit(UiEvent.Toast("Resend Successful!"))
+            } else {
+                _event.emit(UiEvent.Toast("You can not resend!"))
+            }
         }
     }
 

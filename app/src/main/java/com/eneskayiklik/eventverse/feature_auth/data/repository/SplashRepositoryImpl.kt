@@ -1,5 +1,10 @@
 package com.eneskayiklik.eventverse.feature_auth.data.repository
 
+import com.eneskayiklik.eventverse.BuildConfig
+import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.core.util.Settings
+import com.eneskayiklik.eventverse.feature_auth.data.event.SplashEvent
+import com.eneskayiklik.eventverse.feature_auth.data.model.User
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.auth.FirebaseAuth
@@ -12,18 +17,23 @@ class SplashRepositoryImpl(
     private val db: FirebaseFirestore = Firebase.firestore,
 ) {
 
-    suspend fun getUser() {
-        /* return try {
-            auth.currentUser?.reload()?.await()
-            if (auth.currentUser != null) {
-
+    suspend fun checkUser(): SplashEvent {
+        return try {
+            if (auth.currentUser == null) SplashEvent.OnNavigate(Screen.Intro.route)
+            else {
+                auth.currentUser?.reload()?.await()
+                if (auth.currentUser?.isEmailVerified == false) {
+                    SplashEvent.ShowVerifyPopup
+                } else {
+                    getUser()
+                    SplashEvent.OnNavigate(Screen.Explore.route)
+                }
             }
         } catch (e: Exception) {
-
-        } */
+            e.printStackTrace()
+            SplashEvent.OnNavigate(Screen.Intro.route)
+        }
     }
-
-
 
     suspend fun checkEmailVerified(): Boolean {
         return try {
@@ -32,6 +42,31 @@ class SplashRepositoryImpl(
         } catch (e: Exception) {
             e.printStackTrace()
             false
+        }
+    }
+
+    suspend fun resendMail(): Boolean {
+        return try {
+            auth.currentUser?.sendEmailVerification()?.await()
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    private suspend fun getUser() {
+        try {
+            val user = db.collection(BuildConfig.FIREBASE_REFERENCE)
+                .document("users")
+                .collection("users")
+                .document("${auth.currentUser?.uid}")
+                .get()
+                .await()
+                .toObject(User::class.java)
+            Settings.currentUser = user ?: return
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

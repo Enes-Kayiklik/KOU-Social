@@ -62,12 +62,7 @@ private fun SignupScreen(
                 is UiEvent.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
-                is UiEvent.Navigate -> {
-                    when (it.id) {
-                        Screen.Explore.route -> clearBackStack()
-                    }
-                    onNavigate(it.id)
-                }
+                is UiEvent.Navigate -> onNavigate(it.id)
                 UiEvent.ClearBackStack -> clearBackStack()
             }
         }

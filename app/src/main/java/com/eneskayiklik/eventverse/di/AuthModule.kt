@@ -1,8 +1,6 @@
 package com.eneskayiklik.eventverse.di
 
-import com.eneskayiklik.eventverse.feature_auth.data.repository.AuthRepositoryImpl
-import com.eneskayiklik.eventverse.feature_auth.data.repository.SelectInterestRepositoryImpl
-import com.eneskayiklik.eventverse.feature_auth.data.repository.SignupRepositoryImpl
+import com.eneskayiklik.eventverse.feature_auth.data.repository.*
 import com.eneskayiklik.eventverse.feature_auth.domain.repository.AuthRepository
 import com.eneskayiklik.eventverse.feature_auth.domain.repository.SelectInterestRepository
 import dagger.Module
@@ -22,6 +20,14 @@ object AuthModule {
     @Singleton
     @Provides
     fun provideSignupRepository(): SignupRepositoryImpl = SignupRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideSplashRepository(): SplashRepositoryImpl = SplashRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideLoginRepository(): LoginRepositoryImpl = LoginRepositoryImpl()
 
     @Singleton
     @Provides
