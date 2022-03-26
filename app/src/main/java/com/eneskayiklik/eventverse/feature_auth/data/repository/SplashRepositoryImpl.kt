@@ -64,7 +64,7 @@ class SplashRepositoryImpl(
                 .get()
                 .await()
                 .toObject(User::class.java)
-            Settings.currentUser = user ?: return
+            Settings.currentUser = user?.toAppUser() ?: return
         } catch (e: Exception) {
             e.printStackTrace()
         }

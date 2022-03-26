@@ -9,7 +9,7 @@ import com.eneskayiklik.eventverse.core.util.Screen
 object ScreensAnim {
     fun AnimatedContentScope<NavBackStackEntry>.enterTransition(): EnterTransition {
         return when (targetState.destination.route) {
-            Screen.CreateEvent.route -> slideInVertically(
+            Screen.CreateEvent.route, Screen.Share.route -> slideInVertically(
                 animationSpec = tween(300),
                 initialOffsetY = { it })
             else -> slideInHorizontally(animationSpec = tween(300), initialOffsetX = { it })
@@ -18,7 +18,7 @@ object ScreensAnim {
 
     fun AnimatedContentScope<NavBackStackEntry>.exitTransition(): ExitTransition {
         return when (targetState.destination.route) {
-            Screen.CreateEvent.route -> slideOutVertically(
+            Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
                 animationSpec = tween(300),
                 targetOffsetY = { (-it / 3) * 2 }) + fadeOut(
                 animationSpec = tween(durationMillis = 300), targetAlpha = 0.3F
@@ -33,7 +33,7 @@ object ScreensAnim {
 
     fun AnimatedContentScope<NavBackStackEntry>.popEnterTransition(): EnterTransition {
         return when (initialState.destination.route) {
-            Screen.CreateEvent.route -> slideInVertically(
+            Screen.CreateEvent.route, Screen.Share.route -> slideInVertically(
                 animationSpec = tween(300),
                 initialOffsetY = { -it }) + fadeIn(
                 animationSpec = tween(durationMillis = 300), initialAlpha = 0.3F
@@ -48,7 +48,7 @@ object ScreensAnim {
 
     fun AnimatedContentScope<NavBackStackEntry>.popExitTransition(): ExitTransition {
         return when (initialState.destination.route) {
-            Screen.CreateEvent.route -> slideOutVertically(
+            Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
                 animationSpec = tween(300),
                 targetOffsetY = { it })
             else -> slideOutHorizontally(animationSpec = tween(300), targetOffsetX = { it })

@@ -41,7 +41,7 @@ class SignupRepositoryImpl(
             fullName = fullName,
             userId = uid
         )
-        Settings.currentUser = user
+        Settings.currentUser = user.toAppUser()
         try {
             db.collection(BuildConfig.FIREBASE_REFERENCE)
                 .document("users")

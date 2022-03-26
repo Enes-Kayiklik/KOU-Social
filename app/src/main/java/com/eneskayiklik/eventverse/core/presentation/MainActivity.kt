@@ -22,12 +22,16 @@ import com.eneskayiklik.eventverse.core.util.Screen
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
+import io.getstream.chat.android.client.ChatClient
+import javax.inject.Inject
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var client: ChatClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -37,6 +41,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        client.disconnect()
+        super.onDestroy()
     }
 }
 
@@ -56,7 +65,7 @@ private fun MainScreen() {
             state = scaffoldState,
             onFabClick = {
                 if (navController.currentDestination?.route != Screen.CreateEvent.route) navController.navigate(
-                    Screen.CreateEvent.route
+                    Screen.Share.route
                 )
             }
         ) {

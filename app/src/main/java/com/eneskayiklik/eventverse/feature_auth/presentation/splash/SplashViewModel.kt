@@ -7,6 +7,7 @@ import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_auth.data.event.SplashEvent
 import com.eneskayiklik.eventverse.feature_auth.data.repository.SplashRepositoryImpl
+import com.eneskayiklik.eventverse.feature_auth.data.repository.StreamRepositoryImpl
 import com.eneskayiklik.eventverse.feature_auth.data.state.SplashState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val splashRepository: SplashRepositoryImpl
+    private val splashRepository: SplashRepositoryImpl,
+    private val streamRepository: StreamRepositoryImpl,
 ) : ViewModel() {
     private val _state = MutableStateFlow(SplashState())
     val state: StateFlow<SplashState> = _state
@@ -35,6 +37,7 @@ class SplashViewModel @Inject constructor(
             when (val result = splashRepository.checkUser()) {
                 is SplashEvent.OnNavigate -> {
                     delay(100L)
+                    if (result.route == Screen.Explore.route) streamRepository.connectUser()
                     _uiEvent.emit(UiEvent.Navigate(result.route))
                 }
                 SplashEvent.ShowVerifyPopup -> showVerificationDialog()
@@ -70,7 +73,9 @@ class SplashViewModel @Inject constructor(
     private fun checkEmailVerified() {
         viewModelScope.launch(Dispatchers.IO) {
             if (splashRepository.checkEmailVerified()) {
-                _uiEvent.emit(UiEvent.Navigate(Screen.Explore.route))
+                _uiEvent.emit(UiEvent.Navigate(Screen.Explore.route)).also {
+                    streamRepository.connectUser()
+                }
             } else {
                 _uiEvent.emit(UiEvent.Toast("Not Verified"))
             }

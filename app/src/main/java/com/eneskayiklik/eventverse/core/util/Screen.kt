@@ -11,4 +11,6 @@ sealed class Screen(val route: String) {
     object Map : Screen("map")
     object Profile : Screen("profile")
     object CreateEvent : Screen("screen_event")
+    object Share : Screen("screen_share")
+    object MessageList : Screen("screen_message_list")
 }

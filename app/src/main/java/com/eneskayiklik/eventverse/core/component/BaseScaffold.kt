@@ -8,10 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.CalendarToday
-import androidx.compose.material.icons.outlined.Explore
-import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -41,7 +38,11 @@ fun BaseScaffold(
             icon = Icons.Outlined.CalendarToday,
             contentDescription = stringResource(id = R.string.calendar)
         ),
-        BottomNavItem(),
+        BottomNavItem(
+            route = Screen.MessageList.route,
+            icon = Icons.Outlined.Message,
+            contentDescription = stringResource(id = R.string.message)
+        ),
         BottomNavItem(
             route = Screen.Map.route,
             icon = Icons.Outlined.LocationOn,

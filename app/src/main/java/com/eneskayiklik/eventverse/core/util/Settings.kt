@@ -1,8 +1,8 @@
 package com.eneskayiklik.eventverse.core.util
 
-import com.eneskayiklik.eventverse.feature_auth.data.model.User
+import com.eneskayiklik.eventverse.feature_auth.data.model.AppUser
 
 
 object Settings {
-    var currentUser: User = User()
+    var currentUser: AppUser = AppUser()
 }

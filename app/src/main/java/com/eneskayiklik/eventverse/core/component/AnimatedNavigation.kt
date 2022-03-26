@@ -17,7 +17,9 @@ import com.eneskayiklik.eventverse.feature_calendar.presentation.calendarComposa
 import com.eneskayiklik.eventverse.feature_create.presentation.createComposable
 import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposable
 import com.eneskayiklik.eventverse.feature_map.presentation.mapComposable
+import com.eneskayiklik.eventverse.feature_message.presentation.messageListComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
+import com.eneskayiklik.eventverse.feature_share.presentation.shareComposable
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
@@ -54,7 +56,12 @@ fun BaseAnimatedNavigation(
         calendarComposable(navController::navigate, navController::popBackStack)
         mapComposable(navController::navigate, navController::popBackStack)
         createComposable(navController::navigate, navController::popBackStack, scaffoldState)
-        profileComposable(navController::navigate, navController::popBackStack)
+        shareComposable(navController::navigate, navController::popBackStack, scaffoldState)
+        messageListComposable(navController::navigate, navController::popBackStack)
+        profileComposable(
+            navController::navigate,
+            navController::popBackStack
+        )
         selectInterestComposable(
             navController::navigate,
             navController::popBackStack,
