@@ -3,6 +3,7 @@ package com.eneskayiklik.eventverse.core.component
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -70,13 +71,15 @@ fun BaseScaffold(
                     modifier = Modifier.shadow(elevation = 0.dp, clip = false, shape = CircleShape),
                     backgroundColor = MaterialTheme.colors.surface,
                 ) {
-                    Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
                         bottomNavItems.forEachIndexed { _, bottomNavItem ->
                             BaseBottomNavItem(
                                 icon = bottomNavItem.icon,
                                 contentDescription = bottomNavItem.contentDescription,
                                 selected = navController.currentBackStackEntry?.destination?.route == bottomNavItem.route,
-                                enabled = bottomNavItem.icon != null
                             ) {
                                 val destination = navController.currentDestination?.route
                                 if (destination != bottomNavItem.route) {
@@ -110,8 +113,8 @@ fun BaseScaffold(
                 }
             }
         },
-        isFloatingActionButtonDocked = true,
-        floatingActionButtonPosition = FabPosition.Center,
+        isFloatingActionButtonDocked = false,
+        floatingActionButtonPosition = FabPosition.End,
         modifier = modifier,
     ) {
         content()

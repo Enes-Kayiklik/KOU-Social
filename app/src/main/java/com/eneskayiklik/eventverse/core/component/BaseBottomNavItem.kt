@@ -1,51 +1,61 @@
 package com.eneskayiklik.eventverse.core.component
 
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.BottomNavigationItem
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.eneskayiklik.eventverse.core.ui.theme.UnselectedColor
 
 @Composable
-fun RowScope.BaseBottomNavItem(
-    modifier: Modifier = Modifier,
+fun BaseBottomNavItem(
     icon: ImageVector? = null,
     contentDescription: String? = null,
     selected: Boolean = false,
     selectedColor: Color = MaterialTheme.colors.primary,
-    unselectedColor: Color = UnselectedColor,
-    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
-    BottomNavigationItem(
-        selected = selected,
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        selectedContentColor = selectedColor,
-        unselectedContentColor = unselectedColor,
-        icon = {
+    val backColor by animateColorAsState(targetValue = if (selected) selectedColor.copy(alpha = .5F) else Color.Transparent)
+    val itemsColor by animateColorAsState(targetValue = if (selected) selectedColor else MaterialTheme.colors.onSurface)
+    Box(
+        modifier = Modifier
+            .clip(CircleShape)
+            .background(backColor)
+            .animateContentSize()
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 10.dp)
+        ) {
             if (icon != null) {
                 Icon(
                     imageVector = icon,
                     contentDescription = contentDescription,
-                    modifier = Modifier
+                    modifier = Modifier,
+                    tint = itemsColor,
                 )
             }
-        },
-        label = {
-            if (!contentDescription.isNullOrEmpty()) {
+            if (!contentDescription.isNullOrEmpty() && selected) {
                 Text(
                     text = contentDescription,
-                    style = MaterialTheme.typography.h2.copy(fontSize = 11.sp)
+                    style = MaterialTheme.typography.h2.copy(fontSize = 14.sp, color = itemsColor)
                 )
             }
         }
-    )
+    }
 }
