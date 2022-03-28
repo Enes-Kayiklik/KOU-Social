@@ -22,6 +22,7 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
+import com.eneskayiklik.eventverse.feature_explore.presentation.component.ExploreToolbar
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.popular_now.PopularNowSection
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.select_location.SelectLocationSection
 import com.google.accompanist.insets.statusBarsPadding
@@ -38,20 +39,19 @@ private fun ExploreScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
+            .background(MaterialTheme.colors.surface)
     ) {
-        EventverseAppbar(
+        ExploreToolbar(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colors.primary)
+                .background(MaterialTheme.colors.background)
                 .statusBarsPadding()
                 .height(60.dp),
-            endIcon = Icons.Rounded.Bookmarks,
             onStartIconClick = { },
             onEndIconClick = { viewModel.logOut() }
         )
 
-        LazyColumn(
+        /*LazyColumn(
             contentPadding = PaddingValues(bottom = 50.dp)
         ) {
             item {
@@ -99,7 +99,7 @@ private fun ExploreScreen(
                     // TODO("On item selected")
                 }
             }
-        }
+        }*/
     }
 }
 

@@ -80,6 +80,6 @@ private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
         Screen.Map.route,
         Screen.MessageList.route,
         Screen.Calendar.route,
-        Screen.Profile.route
+        Screen.Profile.route(true)
     )
 }

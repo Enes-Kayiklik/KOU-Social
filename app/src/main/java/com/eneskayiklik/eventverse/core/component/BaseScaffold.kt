@@ -49,7 +49,7 @@ fun BaseScaffold(
             contentDescription = stringResource(id = R.string.map)
         ),
         BottomNavItem(
-            route = Screen.Profile.route,
+            route = Screen.Profile.route(true),
             icon = Icons.Outlined.Person,
             contentDescription = stringResource(id = R.string.profile)
         ),

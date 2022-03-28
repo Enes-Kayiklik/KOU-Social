@@ -10,7 +10,7 @@ object ScreensAnim {
     private val BOTTOM_NAV_ITEMS = listOf(
         Screen.Explore.route,
         Screen.MessageList.route,
-        Screen.Profile.route,
+        Screen.Profile.route(true),
         Screen.Map.route,
         Screen.Calendar.route
     )

@@ -24,7 +24,9 @@
         <entry key="..\:/Ders/Bitirme/Eventverse/app/src/main/res/mipmap-anydpi-v26/ic_launcher_foreground_round.xml" value="0.22135416666666666" />
         <entry key="..\:/Ders/Bitirme/Eventverse/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/drawable/ic_login_background.xml" value="0.23703703703703705" />
+        <entry key="app/src/main/res/drawable/ic_messages.xml" value="0.19270833333333334" />
       </map>
     </option>
   </component>

@@ -9,11 +9,14 @@ sealed class Screen(val route: String) {
     object Explore : Screen("explore")
     object Calendar : Screen("calendar")
     object Map : Screen("map")
-    object Profile : Screen("profile")
+    object Profile : Screen("profile/{userId}") {
+        fun route(isSelf: Boolean = false, userId: String = "") =
+            if (isSelf) "profile/${Settings.currentUser.userId}" else "profile/$userId"
+    }
     object CreateEvent : Screen("screen_event")
-    object Share : Screen("screen_share")
-    object MessageList : Screen("screen_message_list")
-    object Messages : Screen("screen_messages/{channelId}") {
-        fun route(channelId: String) = "screen_messages/$channelId"
+    object Share : Screen("share")
+    object MessageList : Screen("message_list")
+    object Messages : Screen("messages/{channelId}") {
+        fun route(channelId: String) = "messages/$channelId"
     }
 }

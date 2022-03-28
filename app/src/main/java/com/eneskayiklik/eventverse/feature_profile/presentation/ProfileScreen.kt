@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
@@ -51,6 +53,7 @@ fun NavGraphBuilder.profileComposable(
         popExitTransition = { popExitTransition() },
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
+        arguments = listOf(navArgument("userId") { type = NavType.StringType })
     ) {
         ProfileScreen(onNavigate, clearBackStack)
     }
