@@ -18,6 +18,7 @@ import com.eneskayiklik.eventverse.feature_create.presentation.createComposable
 import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposable
 import com.eneskayiklik.eventverse.feature_map.presentation.mapComposable
 import com.eneskayiklik.eventverse.feature_message.presentation.messageListComposable
+import com.eneskayiklik.eventverse.feature_message.presentation.messagesComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
 import com.eneskayiklik.eventverse.feature_share.presentation.shareComposable
 import com.google.accompanist.insets.navigationBarsWithImePadding
@@ -58,6 +59,7 @@ fun BaseAnimatedNavigation(
         createComposable(navController::navigate, navController::popBackStack, scaffoldState)
         shareComposable(navController::navigate, navController::popBackStack, scaffoldState)
         messageListComposable(navController::navigate, navController::popBackStack)
+        messagesComposable(navController::navigate, navController::popBackStack)
         profileComposable(
             navController::navigate,
             navController::popBackStack

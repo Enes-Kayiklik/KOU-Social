@@ -7,8 +7,17 @@ import com.eneskayiklik.eventverse.core.util.Screen
 
 @ExperimentalAnimationApi
 object ScreensAnim {
+    private val BOTTOM_NAV_ITEMS = listOf(
+        Screen.Explore.route,
+        Screen.MessageList.route,
+        Screen.Profile.route,
+        Screen.Map.route,
+        Screen.Calendar.route
+    )
+
     fun AnimatedContentScope<NavBackStackEntry>.enterTransition(): EnterTransition {
         return when (targetState.destination.route) {
+            in BOTTOM_NAV_ITEMS -> fadeIn()
             Screen.CreateEvent.route, Screen.Share.route -> slideInVertically(
                 animationSpec = tween(300),
                 initialOffsetY = { it })
@@ -18,6 +27,7 @@ object ScreensAnim {
 
     fun AnimatedContentScope<NavBackStackEntry>.exitTransition(): ExitTransition {
         return when (targetState.destination.route) {
+            in BOTTOM_NAV_ITEMS -> fadeOut()
             Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
                 animationSpec = tween(300),
                 targetOffsetY = { (-it / 3) * 2 }) + fadeOut(
@@ -33,6 +43,7 @@ object ScreensAnim {
 
     fun AnimatedContentScope<NavBackStackEntry>.popEnterTransition(): EnterTransition {
         return when (initialState.destination.route) {
+            in BOTTOM_NAV_ITEMS -> fadeIn()
             Screen.CreateEvent.route, Screen.Share.route -> slideInVertically(
                 animationSpec = tween(300),
                 initialOffsetY = { -it }) + fadeIn(
@@ -48,6 +59,7 @@ object ScreensAnim {
 
     fun AnimatedContentScope<NavBackStackEntry>.popExitTransition(): ExitTransition {
         return when (initialState.destination.route) {
+            in BOTTOM_NAV_ITEMS -> fadeOut()
             Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
                 animationSpec = tween(300),
                 targetOffsetY = { it })

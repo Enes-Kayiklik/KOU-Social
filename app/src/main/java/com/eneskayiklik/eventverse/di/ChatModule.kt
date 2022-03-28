@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.logger.ChatLogLevel
+import io.getstream.chat.android.offline.ChatDomain
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -26,5 +27,7 @@ object ChatModule {
     fun provideChatClient(@ApplicationContext context: Context): ChatClient =
         ChatClient.Builder("8zwvznavfus8", context)
             .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
-            .build()
+            .build().apply {
+                ChatDomain.Builder(this, context).build()
+            }
 }
