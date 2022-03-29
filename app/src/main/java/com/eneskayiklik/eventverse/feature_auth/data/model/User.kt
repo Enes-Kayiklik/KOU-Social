@@ -33,6 +33,14 @@ data class AppUser(
         fullName = fullName,
         profilePic = profilePic
     )
+
+    fun toUser() = User(
+        userId = userId,
+        email = email,
+        fullName = fullName,
+        profilePic = profilePic,
+        department = department
+    )
 }
 
 data class PostUser(
