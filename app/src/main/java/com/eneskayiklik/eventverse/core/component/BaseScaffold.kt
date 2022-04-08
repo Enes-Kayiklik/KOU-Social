@@ -4,6 +4,7 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -48,11 +50,11 @@ fun BaseScaffold(
             icon = Icons.Outlined.LocationOn,
             contentDescription = stringResource(id = R.string.map)
         ),
-        BottomNavItem(
+        /*BottomNavItem(
             route = Screen.Profile.route(true),
             icon = Icons.Outlined.Person,
             contentDescription = stringResource(id = R.string.profile)
-        ),
+        ),*/
     ),
     onFabClick: () -> Unit = {},
     content: @Composable () -> Unit
@@ -73,7 +75,7 @@ fun BaseScaffold(
                     backgroundColor = MaterialTheme.colors.surface,
                 ) {
                     Row(
-                        horizontalArrangement = Arrangement.SpaceAround,
+                        horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         bottomNavItems.forEachIndexed { _, bottomNavItem ->

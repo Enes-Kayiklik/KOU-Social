@@ -1,15 +1,10 @@
 package com.eneskayiklik.eventverse.feature_explore.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Bookmarks
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -21,10 +16,7 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
-import com.eneskayiklik.eventverse.feature_explore.presentation.component.EventverseAppbar
 import com.eneskayiklik.eventverse.feature_explore.presentation.component.ExploreToolbar
-import com.eneskayiklik.eventverse.feature_explore.presentation.component.popular_now.PopularNowSection
-import com.eneskayiklik.eventverse.feature_explore.presentation.component.select_location.SelectLocationSection
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 
@@ -45,10 +37,11 @@ private fun ExploreScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.background)
+                .padding(horizontal = 8.dp)
                 .statusBarsPadding()
-                .height(60.dp),
+                .height(56.dp),
             onStartIconClick = { },
-            onEndIconClick = { viewModel.logOut() }
+            onEndIconClick = { onNavigate(Screen.Profile.route(true)) }
         )
 
         /*LazyColumn(

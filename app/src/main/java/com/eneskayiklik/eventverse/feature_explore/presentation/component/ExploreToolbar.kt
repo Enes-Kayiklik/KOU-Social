@@ -1,18 +1,22 @@
 package com.eneskayiklik.eventverse.feature_explore.presentation.component
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.util.Settings
 
 @Composable
 fun ExploreToolbar(
@@ -21,11 +25,26 @@ fun ExploreToolbar(
     onEndIconClick: () -> Unit = { },
 ) {
     Box(modifier = modifier) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_kou),
-            tint = MaterialTheme.colors.onBackground,
-            modifier = Modifier.align(Alignment.Center),
-            contentDescription = null
+        Text(
+            text = stringResource(id = R.string.app_name).lowercase(),
+            style = MaterialTheme.typography.h3.copy(
+                color = MaterialTheme.colors.onBackground,
+                fontSize = 28.sp
+            ),
+            modifier = Modifier.align(Alignment.Center)
         )
+
+        IconButton(onClick = onEndIconClick, modifier = Modifier.align(Alignment.CenterEnd)) {
+            Image(
+                painter = rememberImagePainter(data = Settings.currentUser.profilePic) {
+                    error(R.drawable.ic_memoji)
+                    crossfade(300)
+                },
+                contentDescription = null,
+                modifier = Modifier
+                    .size(32.dp)
+                    .clip(CircleShape)
+            )
+        }
     }
 }

@@ -1,18 +1,7 @@
 <resources>
     <!-- Base application theme. -->
-     <style name="Theme.Eventverse" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Status bar color. -->
+    <style name="Theme.Eventverse" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
-         <item name="android:windowLightStatusBar">false</item>
-        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">true</item>
     </style>
-
-    <style name="Theme.Eventverse.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.Eventverse.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Eventverse.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
