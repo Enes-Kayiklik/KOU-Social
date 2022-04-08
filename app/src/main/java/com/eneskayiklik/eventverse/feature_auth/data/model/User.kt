@@ -1,12 +1,14 @@
 package com.eneskayiklik.eventverse.feature_auth.data.model
 
 import com.eneskayiklik.eventverse.feature_auth.domain.model.Department
+import com.eneskayiklik.eventverse.feature_auth.domain.model.SocialAccount
 import com.google.firebase.firestore.DocumentId
 
 data class User(
     @DocumentId
     val userId: String = "",
     val department: Department = Department(),
+    val socialAccounts: SocialAccount = SocialAccount(),
     val email: String = "",
     val fullName: String = "",
     val profilePic: String = ""
@@ -16,7 +18,8 @@ data class User(
         department = department,
         email = email,
         fullName = fullName,
-        profilePic = profilePic
+        profilePic = profilePic,
+        socialAccounts = socialAccounts
     )
 }
 
@@ -25,7 +28,8 @@ data class AppUser(
     val department: Department = Department(),
     val email: String = "",
     val fullName: String = "",
-    val profilePic: String = ""
+    val profilePic: String = "",
+    val socialAccounts: SocialAccount = SocialAccount()
 ) {
     fun toPostUser() = PostUser(
         userId = userId,
@@ -39,7 +43,8 @@ data class AppUser(
         email = email,
         fullName = fullName,
         profilePic = profilePic,
-        department = department
+        department = department,
+        socialAccounts = socialAccounts
     )
 }
 

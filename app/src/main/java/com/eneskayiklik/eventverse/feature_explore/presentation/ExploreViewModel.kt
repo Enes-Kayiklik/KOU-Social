@@ -4,9 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.feature_explore.domain.model.ExploreEventModel
 import com.eneskayiklik.eventverse.feature_explore.domain.use_case.ExploreUseCase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,9 +27,5 @@ class ExploreViewModel @Inject constructor(
         viewModelScope.launch {
             _upcomingEvents.value = exploreUseCase.getUpcomingEvents()
         }
-    }
-
-    fun logOut() {
-        Firebase.auth.signOut()
     }
 }

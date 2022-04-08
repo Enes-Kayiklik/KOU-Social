@@ -46,16 +46,17 @@ fun UserInfoSection(
         Text(
             text = name,
             style = MaterialTheme.typography.h1.copy(
-                MaterialTheme.colors.onSurface,
+                MaterialTheme.colors.onBackground,
                 fontSize = 24.sp
             )
         )
-        Text(
-            text = department.departmentName,
-            style = MaterialTheme.typography.h2.copy(
-                MaterialTheme.colors.onSurface,
-                fontSize = 14.sp
+        if (department.departmentName.isNotEmpty())
+            Text(
+                text = department.departmentName,
+                style = MaterialTheme.typography.h2.copy(
+                    MaterialTheme.colors.onSurface,
+                    fontSize = 14.sp
+                )
             )
-        )
     }
 }

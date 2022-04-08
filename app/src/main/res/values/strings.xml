@@ -52,4 +52,5 @@
     <string name="annotated_login">"Login"</string>
     <string name="select_department_placeholder">Select Department</string>
     <string name="select_department_label">Department</string>
+    <string name="logout">Logout</string>
 </resources>
