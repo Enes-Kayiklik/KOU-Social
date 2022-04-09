@@ -137,7 +137,6 @@ fun ExtendedTextField(
             } else null,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(46.dp)
                 .focusRequester(focusRequester)
         )
         AnimatedVisibility(visible = error.isNotEmpty()) {

@@ -30,6 +30,7 @@ private fun ExploreScreen(
     val upcoming = viewModel.upcomingEvents.collectAsState().value
     Column(
         modifier = Modifier.fillMaxSize()
+            .background(MaterialTheme.colors.background)
     ) {
         ExploreToolbar(
             modifier = Modifier

@@ -77,6 +77,7 @@ private fun SettingsScreen(
 
         Column(
             modifier = Modifier.fillMaxSize()
+                .background(MaterialTheme.colors.background)
         ) {
             SettingsToolbar(
                 modifier = Modifier
@@ -100,6 +101,8 @@ private fun SettingsScreen(
                 if (user != null) editProfileButton(user) {
                     onNavigate(Screen.EditProfile.route)
                 }
+                verifyAccountButton { }
+                deleteAccountButton { }
                 sectionTitle(
                     settingsTitle,
                     modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
@@ -113,16 +116,8 @@ private fun SettingsScreen(
                             .background(MaterialTheme.colors.secondary)
                     )
                 }
-                verifyAccountButton { }
+
                 inviteFriendButton { }
-                item {
-                    Divider(
-                        modifier = Modifier
-                            .height(1.dp)
-                            .background(MaterialTheme.colors.secondary)
-                    )
-                }
-                deleteAccountButton { }
             }
         }
     }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -22,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
+import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.presentation.MainActivity
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
@@ -31,8 +31,11 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
-import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.feature_settings.presentation.component.*
+import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.EditProfileToolbar
+import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.ageSection
+import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.nameSection
+import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.photoSection
+import com.eneskayiklik.eventverse.feature_settings.presentation.component.sectionTitle
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(
@@ -44,14 +47,12 @@ import kotlinx.coroutines.flow.collectLatest
 private fun SettingsScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
-    toggleTheme: () -> Unit,
     viewModel: EditProfileViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
-    val user = state.user
+    val user = state.user ?: return
     val context = LocalContext.current
     val accountTitle = stringResource(id = R.string.account)
-    val settingsTitle = stringResource(id = R.string.settings)
 
     LaunchedEffect(key1 = true) {
         viewModel.event.collectLatest {
@@ -79,16 +80,9 @@ private fun SettingsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            MaterialTheme.colors.surface,
-                            MaterialTheme.colors.background
-                        ), endY = 700F
-                    )
-                )
+                .background(MaterialTheme.colors.background)
         ) {
-            SettingsToolbar(
+            EditProfileToolbar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colors.background)
@@ -100,37 +94,17 @@ private fun SettingsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1F),
-                contentPadding = PaddingValues(vertical = 20.dp)
+                contentPadding = PaddingValues(vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 sectionTitle(
                     accountTitle, modifier = Modifier.padding(
                         horizontal = 32.dp, vertical = 8.dp
                     )
                 )
-                if (user != null) editProfileButton(user) { }
-                sectionTitle(
-                    settingsTitle,
-                    modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
-                )
-                languageButton { }
-                darkModeButton(toggleTheme)
-                item {
-                    Divider(
-                        modifier = Modifier
-                            .height(1.dp)
-                            .background(MaterialTheme.colors.secondary)
-                    )
-                }
-                verifyAccountButton { }
-                inviteFriendButton { }
-                item {
-                    Divider(
-                        modifier = Modifier
-                            .height(1.dp)
-                            .background(MaterialTheme.colors.secondary)
-                    )
-                }
-                deleteAccountButton { }
+                photoSection(user.profilePic) { }
+                nameSection(user.fullName) { }
+                ageSection(user.age) { }
             }
         }
     }
@@ -139,8 +113,7 @@ private fun SettingsScreen(
 @ExperimentalAnimationApi
 fun NavGraphBuilder.editProfileComposable(
     onNavigate: (String) -> Unit,
-    clearBackStack: () -> Unit,
-    toggleTheme: () -> Unit
+    clearBackStack: () -> Unit
 ) {
     composable(
         route = Screen.EditProfile.route,
@@ -149,6 +122,6 @@ fun NavGraphBuilder.editProfileComposable(
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
     ) {
-        SettingsScreen(onNavigate, clearBackStack, toggleTheme)
+        SettingsScreen(onNavigate, clearBackStack)
     }
 }

@@ -30,14 +30,10 @@ object ScreensAnim {
             in BOTTOM_NAV_ITEMS -> fadeOut()
             Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
                 animationSpec = tween(300),
-                targetOffsetY = { (-it / 3) * 2 }) + fadeOut(
-                animationSpec = tween(durationMillis = 300), targetAlpha = 0.3F
-            )
+                targetOffsetY = { (-it / 7) })
             else -> slideOutHorizontally(
                 animationSpec = tween(300),
-                targetOffsetX = { (-it / 3) * 2 }) + fadeOut(
-                animationSpec = tween(durationMillis = 300), targetAlpha = 0.3F
-            )
+                targetOffsetX = { (-it / 7) })
         }
     }
 
@@ -46,14 +42,10 @@ object ScreensAnim {
             in BOTTOM_NAV_ITEMS -> fadeIn()
             Screen.CreateEvent.route, Screen.Share.route -> slideInVertically(
                 animationSpec = tween(300),
-                initialOffsetY = { -it }) + fadeIn(
-                animationSpec = tween(durationMillis = 300), initialAlpha = 0.3F
-            )
+                initialOffsetY = { -it })
             else -> slideInHorizontally(
                 animationSpec = tween(300),
-                initialOffsetX = { -it }) + fadeIn(
-                animationSpec = tween(durationMillis = 300), initialAlpha = 0.3F
-            )
+                initialOffsetX = { -it })
         }
     }
 
@@ -62,8 +54,8 @@ object ScreensAnim {
             in BOTTOM_NAV_ITEMS -> fadeOut()
             Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
                 animationSpec = tween(300),
-                targetOffsetY = { it })
-            else -> slideOutHorizontally(animationSpec = tween(300), targetOffsetX = { it })
+                targetOffsetY = { it / 7 })
+            else -> slideOutHorizontally(animationSpec = tween(300), targetOffsetX = { it / 7 })
         }
     }
 

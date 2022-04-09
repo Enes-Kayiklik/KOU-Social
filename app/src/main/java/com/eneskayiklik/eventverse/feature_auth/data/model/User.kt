@@ -11,6 +11,7 @@ data class User(
     val socialAccounts: SocialAccount = SocialAccount(),
     val email: String = "",
     val fullName: String = "",
+    val age: String = "",
     val profilePic: String = ""
 ) {
     fun toAppUser() = AppUser(
@@ -18,6 +19,7 @@ data class User(
         department = department,
         email = email,
         fullName = fullName,
+        age = age,
         profilePic = profilePic,
         socialAccounts = socialAccounts
     )
@@ -29,6 +31,7 @@ data class AppUser(
     val email: String = "",
     val fullName: String = "",
     val profilePic: String = "",
+    val age: String = "",
     val socialAccounts: SocialAccount = SocialAccount()
 ) {
     fun toPostUser() = PostUser(
@@ -42,6 +45,7 @@ data class AppUser(
         userId = userId,
         email = email,
         fullName = fullName,
+        age = age,
         profilePic = profilePic,
         department = department,
         socialAccounts = socialAccounts

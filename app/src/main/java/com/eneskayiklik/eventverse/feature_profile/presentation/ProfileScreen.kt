@@ -73,6 +73,7 @@ private fun ProfileScreen(
 
         Column(
             modifier = Modifier.fillMaxSize()
+                .background(MaterialTheme.colors.background)
         ) {
             ProfileToolbar(
                 modifier = Modifier

@@ -64,7 +64,7 @@ fun BaseAnimatedNavigation(
         messageListComposable(navController::navigate, navController::popBackStack)
         messagesComposable(navController::navigate, navController::popBackStack)
         settingsComposable(navController::navigate, navController::popBackStack, toggleTheme)
-        editProfileComposable(navController::navigate, navController::popBackStack, toggleTheme)
+        editProfileComposable(navController::navigate, navController::popBackStack)
         profileComposable(navController::navigate, navController::popBackStack)
         selectInterestComposable(
             navController::navigate,
