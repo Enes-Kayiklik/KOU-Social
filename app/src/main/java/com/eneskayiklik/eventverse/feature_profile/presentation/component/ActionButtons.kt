@@ -23,18 +23,18 @@ fun ActionButtons(
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
         SingleButton(
             icon = R.drawable.ic_settings,
-            title = "Setting",
+            title = "Polls",
             subtitle = "Lorem ipsum dolar sit amet",
             modifier = Modifier.clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
         )
         SingleButton(
             icon = R.drawable.ic_settings,
-            title = "Setting",
+            title = "Posts",
             subtitle = "Lorem ipsum dolar sit amet",
         )
         SingleButton(
             icon = R.drawable.ic_settings,
-            title = "Setting",
+            title = "Reviews",
             subtitle = "Lorem ipsum dolar sit amet",
         )
         SingleButton(

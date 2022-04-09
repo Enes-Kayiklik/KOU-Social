@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Settings
+import com.eneskayiklik.eventverse.feature_profile.presentation.component.ProfileImage
 
 @Composable
 fun ExploreToolbar(
@@ -35,16 +36,7 @@ fun ExploreToolbar(
         )
 
         IconButton(onClick = onEndIconClick, modifier = Modifier.align(Alignment.CenterEnd)) {
-            Image(
-                painter = rememberImagePainter(data = Settings.currentUser.profilePic) {
-                    error(R.drawable.ic_memoji)
-                    crossfade(300)
-                },
-                contentDescription = null,
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-            )
+            ProfileImage(picUrl = Settings.currentUser.profilePic, modifier = Modifier.size(32.dp))
         }
     }
 }

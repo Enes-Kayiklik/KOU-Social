@@ -31,18 +31,7 @@ fun UserInfoSection(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
-        Image(
-            painter = rememberImagePainter(data = photoUrl) {
-                error(R.drawable.ic_memoji)
-                crossfade(300)
-            },
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(120.dp)
-                .clip(CircleShape)
-                .shadow(5.dp, CircleShape)
-        )
+        ProfileImage(picUrl = photoUrl, modifier = Modifier.size(120.dp))
         Text(
             text = name,
             style = MaterialTheme.typography.h1.copy(

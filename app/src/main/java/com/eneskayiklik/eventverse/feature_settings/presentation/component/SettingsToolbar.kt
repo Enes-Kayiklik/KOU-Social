@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_profile.presentation.component
+package com.eneskayiklik.eventverse.feature_settings.presentation.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.*
@@ -11,11 +11,9 @@ import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
 
 @Composable
-fun ProfileToolbar(
+fun SettingsToolbar(
     modifier: Modifier = Modifier,
-    showEndIcon: Boolean = true,
     onStartIconClick: () -> Unit = { },
-    onEndIconClick: () -> Unit = { },
 ) {
     Box(modifier = modifier) {
         IconButton(onClick = onStartIconClick, modifier = Modifier.align(Alignment.CenterStart)) {
@@ -27,19 +25,11 @@ fun ProfileToolbar(
         }
 
         Text(
-            text = stringResource(id = R.string.profile),
+            text = stringResource(id = R.string.settings),
             style = MaterialTheme.typography.h3.copy(
                 color = MaterialTheme.colors.onBackground,
                 fontSize = 20.sp
             ), modifier = Modifier.align(Alignment.Center)
         )
-        if (showEndIcon)
-            IconButton(onClick = onEndIconClick, modifier = Modifier.align(Alignment.CenterEnd)) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_settings),
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.onBackground
-                )
-            }
     }
 }

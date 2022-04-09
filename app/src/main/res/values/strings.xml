@@ -53,4 +53,8 @@
     <string name="select_department_placeholder">Select Department</string>
     <string name="select_department_label">Department</string>
     <string name="logout">Logout</string>
+    <string name="settings_edit_profile">Personal Information</string>
+    <string name="account">Account</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

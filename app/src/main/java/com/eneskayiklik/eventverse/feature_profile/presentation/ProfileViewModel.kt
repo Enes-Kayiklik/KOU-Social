@@ -9,6 +9,7 @@ import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_profile.data.repository.ProfileRepositoryImpl
 import com.eneskayiklik.eventverse.feature_profile.data.state.ProfileState
+import com.eneskayiklik.eventverse.feature_settings.data.state.SettingsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_profile.presentation
+package com.eneskayiklik.eventverse.feature_settings.presentation
 
 import android.app.Activity
 import android.content.Intent
@@ -16,11 +16,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import com.eneskayiklik.eventverse.core.presentation.MainActivity
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
@@ -28,10 +27,11 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
-import com.eneskayiklik.eventverse.feature_profile.presentation.component.*
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
+import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.feature_settings.presentation.component.*
 
 @OptIn(
     ExperimentalMaterialApi::class,
@@ -39,14 +39,16 @@ import kotlinx.coroutines.flow.collectLatest
     ExperimentalAnimationApi::class
 )
 @Composable
-private fun ProfileScreen(
+private fun SettingsScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
-    viewModel: ProfileViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
     val user = state.user
     val context = LocalContext.current
+    val accountTitle = stringResource(id = R.string.account)
+    val settingsTitle = stringResource(id = R.string.settings)
 
     LaunchedEffect(key1 = true) {
         viewModel.event.collectLatest {
@@ -76,69 +78,49 @@ private fun ProfileScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colors.surface)
         ) {
-            ProfileToolbar(
+            SettingsToolbar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colors.background)
                     .statusBarsPadding()
                     .height(56.dp),
-                showEndIcon = state.isSelf,
-                onStartIconClick = clearBackStack,
-                onEndIconClick = { onNavigate(Screen.SettingsScreen.route) }
+                onStartIconClick = clearBackStack
             )
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1F),
-                horizontalAlignment = Alignment.CenterHorizontally,
                 contentPadding = PaddingValues(vertical = 20.dp)
             ) {
-                if (user != null) {
-                    item {
-                        UserInfoSection(
-                            user.profilePic,
-                            user.fullName,
-                            user.department
-                        )
-                    }
-                    item {
-                        UserSocialSection(
-                            user.socialAccounts
-                        )
-                    }
-                    item {
-                        ActionButtons(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                        )
-                    }
-                }
-            }
-            if (state.isSelf)
-                LogoutButton(
-                    modifier = Modifier
-                        .background(MaterialTheme.colors.background)
-                        .padding(16.dp),
-                    onClick = viewModel::logOut
+                sectionTitle(
+                    accountTitle, modifier = Modifier.padding(
+                        horizontal = 32.dp, vertical = 8.dp
+                    )
                 )
+                if (user != null) editProfileButton(user) { }
+                sectionTitle(
+                    settingsTitle,
+                    modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
+                )
+                languageButton { }
+                darkModeButton { }
+            }
         }
     }
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.profileComposable(
+fun NavGraphBuilder.settingsComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
 ) {
     composable(
-        route = Screen.Profile.route,
+        route = Screen.SettingsScreen.route,
         exitTransition = { exitTransition() },
         popExitTransition = { popExitTransition() },
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
-        arguments = listOf(navArgument("userId") { type = NavType.StringType })
     ) {
-        ProfileScreen(onNavigate, clearBackStack)
+        SettingsScreen(onNavigate, clearBackStack)
     }
 }
