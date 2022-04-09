@@ -4,15 +4,12 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,30 +28,25 @@ fun BaseScaffold(
     state: ScaffoldState,
     bottomNavItems: List<BottomNavItem> = listOf(
         BottomNavItem(
-            route = Screen.Explore.route,
-            icon = Icons.Outlined.Explore,
+            route = Screen.Home.route,
+            icon = R.drawable.ic_home,
             contentDescription = stringResource(id = R.string.explore)
         ),
         BottomNavItem(
-            route = Screen.Calendar.route,
-            icon = Icons.Outlined.CalendarToday,
-            contentDescription = stringResource(id = R.string.calendar)
+            route = Screen.Polls.route,
+            icon = R.drawable.ic_poll,
+            contentDescription = stringResource(id = R.string.polls)
         ),
         BottomNavItem(
             route = Screen.MessageList.route,
-            icon = Icons.Outlined.Message,
+            icon = R.drawable.ic_message_outline,
             contentDescription = stringResource(id = R.string.message)
         ),
         BottomNavItem(
-            route = Screen.Map.route,
-            icon = Icons.Outlined.LocationOn,
-            contentDescription = stringResource(id = R.string.map)
+            route = Screen.Announcement.route,
+            icon = R.drawable.ic_megaphone,
+            contentDescription = stringResource(id = R.string.announcement)
         ),
-        /*BottomNavItem(
-            route = Screen.Profile.route(true),
-            icon = Icons.Outlined.Person,
-            contentDescription = stringResource(id = R.string.profile)
-        ),*/
     ),
     onFabClick: () -> Unit = {},
     content: @Composable () -> Unit
@@ -87,7 +79,7 @@ fun BaseScaffold(
                                 val destination = navController.currentDestination?.route
                                 if (destination != bottomNavItem.route) {
                                     navController.navigate(bottomNavItem.route) {
-                                        popUpTo(Screen.Explore.route)
+                                        popUpTo(Screen.Home.route)
                                         launchSingleTop = true
                                     }
                                 }

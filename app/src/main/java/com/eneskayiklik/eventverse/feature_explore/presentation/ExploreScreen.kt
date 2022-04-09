@@ -111,7 +111,7 @@ fun NavGraphBuilder.exploreComposable(
     clearBackStack: () -> Unit,
 ) {
     composable(
-        route = Screen.Explore.route,
+        route = Screen.Home.route,
         exitTransition = { exitTransition() },
         popExitTransition = { popExitTransition() },
         popEnterTransition = { popEnterTransition() },

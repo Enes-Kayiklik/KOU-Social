@@ -5,8 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +26,7 @@ fun ActionButtons(
             modifier = Modifier.clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
         )
         SingleButton(
-            icon = R.drawable.ic_settings,
+            icon = R.drawable.ic_pen,
             title = "Posts",
             subtitle = "Lorem ipsum dolar sit amet",
         )
@@ -38,8 +36,8 @@ fun ActionButtons(
             subtitle = "Lorem ipsum dolar sit amet",
         )
         SingleButton(
-            icon = R.drawable.ic_settings,
-            title = "Setting",
+            icon = R.drawable.ic_attendee,
+            title = "Attendee",
             subtitle = "Lorem ipsum dolar sit amet",
             modifier = Modifier.clip(RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp))
 

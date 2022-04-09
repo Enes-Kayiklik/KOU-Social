@@ -37,7 +37,7 @@ class SplashViewModel @Inject constructor(
             when (val result = splashRepository.checkUser()) {
                 is SplashEvent.OnNavigate -> {
                     delay(100L)
-                    if (result.route == Screen.Explore.route) streamRepository.connectUser()
+                    if (result.route == Screen.Home.route) streamRepository.connectUser()
                     _uiEvent.emit(UiEvent.Navigate(result.route))
                 }
                 SplashEvent.ShowVerifyPopup -> showVerificationDialog()
@@ -73,7 +73,7 @@ class SplashViewModel @Inject constructor(
     private fun checkEmailVerified() {
         viewModelScope.launch(Dispatchers.IO) {
             if (splashRepository.checkEmailVerified()) {
-                _uiEvent.emit(UiEvent.Navigate(Screen.Explore.route)).also {
+                _uiEvent.emit(UiEvent.Navigate(Screen.Home.route)).also {
                     streamRepository.connectUser()
                 }
             } else {

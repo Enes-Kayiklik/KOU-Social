@@ -13,10 +13,10 @@ import com.eneskayiklik.eventverse.feature_auth.presentation.introduction.introC
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.loginComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.signup.signupComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.splash.splashComposable
-import com.eneskayiklik.eventverse.feature_calendar.presentation.calendarComposable
+import com.eneskayiklik.eventverse.feature_polls.presentation.pollsComposable
 import com.eneskayiklik.eventverse.feature_create.presentation.createComposable
 import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposable
-import com.eneskayiklik.eventverse.feature_map.presentation.mapComposable
+import com.eneskayiklik.eventverse.feature_announcement.presentation.announcementComposable
 import com.eneskayiklik.eventverse.feature_message.presentation.messageListComposable
 import com.eneskayiklik.eventverse.feature_message.presentation.messagesComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
@@ -56,8 +56,8 @@ fun BaseAnimatedNavigation(
             }
         }, navController::popBackStack, scaffoldState)
         exploreComposable(navController::navigate, navController::popBackStack)
-        calendarComposable(navController::navigate, navController::popBackStack)
-        mapComposable(navController::navigate, navController::popBackStack)
+        pollsComposable(navController::navigate, navController::popBackStack)
+        announcementComposable(navController::navigate, navController::popBackStack)
         createComposable(navController::navigate, navController::popBackStack, scaffoldState)
         shareComposable(navController::navigate, navController::popBackStack, scaffoldState)
         messageListComposable(navController::navigate, navController::popBackStack)

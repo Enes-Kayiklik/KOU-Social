@@ -47,7 +47,7 @@ class SelectInterestViewModel @Inject constructor(
                 is SelectInterestEvent.SelectInterestResult -> {
                     _isSelectClicked.value = false
                     if (result.isSuccess) {
-                        _uiState.emit(UiEvent.Navigate(Screen.Explore.route))
+                        _uiState.emit(UiEvent.Navigate(Screen.Home.route))
                     } else {
                         _uiState.emit(UiEvent.ShowSnackbar(result.message))
                     }

@@ -8,11 +8,11 @@ import com.eneskayiklik.eventverse.core.util.Screen
 @ExperimentalAnimationApi
 object ScreensAnim {
     private val BOTTOM_NAV_ITEMS = listOf(
-        Screen.Explore.route,
+        Screen.Home.route,
         Screen.MessageList.route,
         Screen.Profile.route(true),
-        Screen.Map.route,
-        Screen.Calendar.route
+        Screen.Announcement.route,
+        Screen.Polls.route
     )
 
     fun AnimatedContentScope<NavBackStackEntry>.enterTransition(): EnterTransition {

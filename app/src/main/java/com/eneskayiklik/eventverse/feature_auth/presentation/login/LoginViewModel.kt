@@ -141,7 +141,7 @@ class LoginViewModel @Inject constructor(
     private fun checkEmailVerified() {
         viewModelScope.launch(Dispatchers.IO) {
             if (loginRepository.checkEmailVerified()) {
-                _event.emit(UiEvent.Navigate(Screen.Explore.route))
+                _event.emit(UiEvent.Navigate(Screen.Home.route))
             } else {
                 _event.emit(UiEvent.Toast("Not Verified"))
             }

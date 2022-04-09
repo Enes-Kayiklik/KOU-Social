@@ -25,7 +25,7 @@ class LoginRepositoryImpl(
                 LoginEvent.ShowVerifyPopup
             } else {
                 getUser()
-                LoginEvent.OnNavigate(Screen.Explore.route)
+                LoginEvent.OnNavigate(Screen.Home.route)
             }
         } catch (e: FirebaseAuthInvalidCredentialsException) {
             LoginEvent.PasswordError

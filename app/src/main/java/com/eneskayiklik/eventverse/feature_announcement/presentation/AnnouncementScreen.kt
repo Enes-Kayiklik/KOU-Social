@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_map.presentation
+package com.eneskayiklik.eventverse.feature_announcement.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
@@ -22,7 +22,7 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.google.accompanist.navigation.animation.composable
 
 @Composable
-private fun MapScreen(
+private fun AnnouncementScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
 ) {
@@ -41,17 +41,17 @@ private fun MapScreen(
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.mapComposable(
+fun NavGraphBuilder.announcementComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
 ) {
     composable(
-        route = Screen.Map.route,
+        route = Screen.Announcement.route,
         exitTransition = { exitTransition() },
         popExitTransition = { popExitTransition() },
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
     ) {
-        MapScreen(onNavigate, clearBackStack)
+        AnnouncementScreen(onNavigate, clearBackStack)
     }
 }

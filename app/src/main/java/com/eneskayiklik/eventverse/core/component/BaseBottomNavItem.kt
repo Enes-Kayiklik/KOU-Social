@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.core.component
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -16,12 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun BaseBottomNavItem(
-    icon: ImageVector? = null,
+    @DrawableRes icon: Int? = null,
     contentDescription: String? = null,
     selected: Boolean = false,
     selectedColor: Color = MaterialTheme.colors.primary,
@@ -44,7 +46,7 @@ fun BaseBottomNavItem(
         ) {
             if (icon != null) {
                 Icon(
-                    imageVector = icon,
+                    painter = painterResource(id = icon),
                     contentDescription = contentDescription,
                     modifier = Modifier,
                     tint = itemsColor,

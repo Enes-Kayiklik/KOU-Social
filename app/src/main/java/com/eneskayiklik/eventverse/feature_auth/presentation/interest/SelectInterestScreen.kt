@@ -1,7 +1,6 @@
 package com.eneskayiklik.eventverse.feature_auth.presentation.interest
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -61,7 +60,7 @@ private fun SelectInterestScreen(
                 }
                 is UiEvent.Navigate -> {
                     when (it.id) {
-                        Screen.Explore.route -> clearBackStack()
+                        Screen.Home.route -> clearBackStack()
                     }
                     onNavigate(it.id)
                 }

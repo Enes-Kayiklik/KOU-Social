@@ -1,7 +1,6 @@
 package com.eneskayiklik.eventverse.feature_create.presentation
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -65,7 +64,7 @@ private fun CreateScreen(
                 }
                 is UiEvent.Navigate -> {
                     when (it.id) {
-                        Screen.Explore.route -> clearBackStack()
+                        Screen.Home.route -> clearBackStack()
                     }
                     onNavigate(it.id)
                 }

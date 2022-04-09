@@ -93,10 +93,10 @@ private fun MainScreen(toggleTheme: () -> Unit) {
 
 private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
     return backStackEntry?.destination?.route in listOf(
-        Screen.Explore.route,
-        Screen.Map.route,
+        Screen.Home.route,
+        Screen.Announcement.route,
         Screen.MessageList.route,
-        Screen.Calendar.route,
+        Screen.Polls.route,
         Screen.Profile.route(true)
     )
 }

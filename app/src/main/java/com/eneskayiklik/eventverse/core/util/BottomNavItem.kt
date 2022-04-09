@@ -1,9 +1,9 @@
 package com.eneskayiklik.eventverse.core.util
 
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
 
 data class BottomNavItem(
     val route: String = "",
-    val icon: ImageVector? = null,
+    @DrawableRes val icon: Int? = null,
     val contentDescription: String = ""
 )

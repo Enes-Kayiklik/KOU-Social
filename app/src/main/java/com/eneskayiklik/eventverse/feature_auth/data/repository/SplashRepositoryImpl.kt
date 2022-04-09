@@ -26,7 +26,7 @@ class SplashRepositoryImpl(
                     SplashEvent.ShowVerifyPopup
                 } else {
                     getUser()
-                    SplashEvent.OnNavigate(Screen.Explore.route)
+                    SplashEvent.OnNavigate(Screen.Home.route)
                 }
             }
         } catch (e: Exception) {

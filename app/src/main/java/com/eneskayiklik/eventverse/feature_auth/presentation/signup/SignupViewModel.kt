@@ -180,7 +180,7 @@ class SignupViewModel @Inject constructor(
     private fun checkEmailVerified() {
         viewModelScope.launch(Dispatchers.IO) {
             if (signupRepository.checkEmailVerified()) {
-                _event.emit(UiEvent.Navigate(Screen.Explore.route)).also {
+                _event.emit(UiEvent.Navigate(Screen.Home.route)).also {
                     streamRepository.connectUser()
                 }
             } else {

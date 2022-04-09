@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_calendar.presentation
+package com.eneskayiklik.eventverse.feature_polls.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
@@ -22,7 +22,7 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.google.accompanist.navigation.animation.composable
 
 @Composable
-private fun CalendarScreen(
+private fun PollsScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
 ) {
@@ -41,17 +41,17 @@ private fun CalendarScreen(
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.calendarComposable(
+fun NavGraphBuilder.pollsComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
 ) {
     composable(
-        route = Screen.Calendar.route,
+        route = Screen.Polls.route,
         exitTransition = { exitTransition() },
         popExitTransition = { popExitTransition() },
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
     ) {
-        CalendarScreen(onNavigate, clearBackStack)
+        PollsScreen(onNavigate, clearBackStack)
     }
 }
