@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.feature_settings.presentation.component
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,17 +10,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.ui.theme.*
 import com.eneskayiklik.eventverse.core.ui.theme.Blue
-import com.eneskayiklik.eventverse.core.ui.theme.Orange
-import com.eneskayiklik.eventverse.core.ui.theme.Purple
-import com.eneskayiklik.eventverse.core.ui.theme.Red
 import com.eneskayiklik.eventverse.feature_auth.data.model.User
 import com.eneskayiklik.eventverse.feature_profile.presentation.component.ProfileImage
 
@@ -75,56 +76,14 @@ fun LazyListScope.languageButton(
     onClick: () -> Unit
 ) {
     item {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onClick() }
-                .padding(horizontal = 32.dp, vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_globe),
-                contentDescription = null,
-                modifier = Modifier
-                    .background(
-                        Orange.copy(alpha = 0.2F),
-                        CircleShape
-                    )
-                    .padding(8.dp),
-                tint = Orange
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(8F)
-                    .padding(horizontal = 16.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.language),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onBackground,
-                        fontSize = 16.sp
-                    )
-                )
-                Text(
-                    text = stringResource(id = R.string.settings_edit_profile),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onSurface,
-                        fontSize = 12.sp
-                    )
-                )
-            }
-            Icon(
-                painter = painterResource(id = R.drawable.ic_right_arrow),
-                contentDescription = null,
-                modifier = Modifier
-                    .background(
-                        MaterialTheme.colors.secondary,
-                        RoundedCornerShape(15.dp)
-                    )
-                    .padding(8.dp)
-            )
-        }
+        SettingsButton(
+            onClick = onClick,
+            title = stringResource(id = R.string.language),
+            subtitle = stringResource(id = R.string.settings_edit_profile),
+            icon = R.drawable.ic_globe,
+            color = Orange,
+            isEndButtonActive = true
+        )
     }
 }
 
@@ -132,56 +91,14 @@ fun LazyListScope.darkModeButton(
     onClick: () -> Unit
 ) {
     item {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onClick() }
-                .padding(horizontal = 32.dp, vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_moon),
-                contentDescription = null,
-                modifier = Modifier
-                    .background(
-                        Purple.copy(alpha = 0.2F),
-                        CircleShape
-                    )
-                    .padding(8.dp),
-                tint = Purple
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(8F)
-                    .padding(horizontal = 16.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.dark_mode),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onBackground,
-                        fontSize = 16.sp
-                    )
-                )
-                Text(
-                    text = stringResource(id = R.string.settings_edit_profile),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onSurface,
-                        fontSize = 12.sp
-                    )
-                )
-            }
-            Icon(
-                painter = painterResource(id = R.drawable.ic_right_arrow),
-                contentDescription = null,
-                modifier = Modifier
-                    .background(
-                        MaterialTheme.colors.secondary,
-                        RoundedCornerShape(15.dp)
-                    )
-                    .padding(8.dp)
-            )
-        }
+        SettingsButton(
+            onClick = onClick,
+            title = stringResource(id = R.string.dark_mode),
+            subtitle = stringResource(id = R.string.settings_edit_profile),
+            icon = R.drawable.ic_moon,
+            color = Purple,
+            isEndButtonActive = true
+        )
     }
 }
 
@@ -189,46 +106,14 @@ fun LazyListScope.inviteFriendButton(
     onClick: () -> Unit
 ) {
     item {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onClick() }
-                .padding(horizontal = 32.dp, vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_message),
-                contentDescription = null,
-                modifier = Modifier
-                    .background(
-                        Red.copy(alpha = 0.2F),
-                        CircleShape
-                    )
-                    .padding(8.dp),
-                tint = Red
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(8F)
-                    .padding(horizontal = 16.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.invite_friend),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onBackground,
-                        fontSize = 16.sp
-                    )
-                )
-                Text(
-                    text = stringResource(id = R.string.invite_friend_desc),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onSurface,
-                        fontSize = 12.sp
-                    )
-                )
-            }
-        }
+        SettingsButton(
+            onClick = onClick,
+            title = stringResource(id = R.string.invite_friend),
+            subtitle = stringResource(id = R.string.invite_friend_desc),
+            icon = R.drawable.ic_message,
+            color = GreenYellow,
+            isEndButtonActive = false
+        )
     }
 }
 
@@ -236,45 +121,93 @@ fun LazyListScope.verifyAccountButton(
     onClick: () -> Unit
 ) {
     item {
-        Row(
+        SettingsButton(
+            onClick = onClick,
+            title = stringResource(id = R.string.verify_account),
+            subtitle = stringResource(id = R.string.verify_account_desc),
+            icon = R.drawable.ic_verify,
+            color = Blue,
+            isEndButtonActive = false
+        )
+    }
+}
+
+fun LazyListScope.deleteAccountButton(
+    onClick: () -> Unit
+) {
+    item {
+        SettingsButton(
+            onClick = onClick,
+            title = stringResource(id = R.string.delete_account),
+            subtitle = stringResource(id = R.string.delete_account_desc),
+            icon = R.drawable.ic_delete,
+            color = Red,
+            isEndButtonActive = false
+        )
+    }
+}
+
+@Composable
+private fun SettingsButton(
+    onClick: () -> Unit,
+    title: String,
+    subtitle: String,
+    @DrawableRes icon: Int,
+    color: Color,
+    isEndButtonActive: Boolean = false
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(horizontal = 32.dp, vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onClick() }
-                .padding(horizontal = 32.dp, vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .size(40.dp)
+                .background(
+                    color.copy(alpha = 0.2F),
+                    CircleShape
+                ), contentAlignment = Alignment.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_verify),
+                painter = painterResource(id = icon),
                 contentDescription = null,
-                modifier = Modifier
-                    .background(
-                        Blue.copy(alpha = 0.2F),
-                        CircleShape
-                    )
-                    .padding(8.dp),
-                tint = Blue
+                modifier = Modifier.fillMaxSize(.5F),
+                tint = color
             )
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(8F)
-                    .padding(horizontal = 16.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.verify_account),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onBackground,
-                        fontSize = 16.sp
-                    )
-                )
-                Text(
-                    text = stringResource(id = R.string.verify_account_desc),
-                    style = MaterialTheme.typography.h1.copy(
-                        MaterialTheme.colors.onSurface,
-                        fontSize = 12.sp
-                    )
-                )
-            }
         }
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .weight(8F)
+                .padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.h1.copy(
+                    MaterialTheme.colors.onBackground,
+                    fontSize = 16.sp
+                )
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.h1.copy(
+                    MaterialTheme.colors.onSurface,
+                    fontSize = 12.sp
+                )
+            )
+        }
+        if (isEndButtonActive) Icon(
+            painter = painterResource(id = R.drawable.ic_right_arrow),
+            contentDescription = null,
+            modifier = Modifier
+                .background(
+                    MaterialTheme.colors.secondary,
+                    RoundedCornerShape(15.dp)
+                )
+                .padding(8.dp)
+        )
     }
 }

@@ -15,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -73,16 +72,7 @@ private fun ProfileScreen(
         )
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            MaterialTheme.colors.surface,
-                            MaterialTheme.colors.background
-                        ), endY = 700F
-                    )
-                )
+            modifier = Modifier.fillMaxSize()
         ) {
             ProfileToolbar(
                 modifier = Modifier

@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_settings.presentation
+package com.eneskayiklik.eventverse.feature_edit_profile.presentation
 
 import android.app.Activity
 import android.content.Intent
@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,9 +31,9 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
-import kotlinx.coroutines.flow.collectLatest
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.feature_settings.presentation.component.*
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(
     ExperimentalMaterialApi::class,
@@ -44,7 +45,7 @@ private fun SettingsScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
     toggleTheme: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: EditProfileViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
     val user = state.user
@@ -76,7 +77,16 @@ private fun SettingsScreen(
         )
 
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            MaterialTheme.colors.surface,
+                            MaterialTheme.colors.background
+                        ), endY = 700F
+                    )
+                )
         ) {
             SettingsToolbar(
                 modifier = Modifier
@@ -97,9 +107,7 @@ private fun SettingsScreen(
                         horizontal = 32.dp, vertical = 8.dp
                     )
                 )
-                if (user != null) editProfileButton(user) {
-                    onNavigate(Screen.EditProfile.route)
-                }
+                if (user != null) editProfileButton(user) { }
                 sectionTitle(
                     settingsTitle,
                     modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
@@ -129,13 +137,13 @@ private fun SettingsScreen(
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.settingsComposable(
+fun NavGraphBuilder.editProfileComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
     toggleTheme: () -> Unit
 ) {
     composable(
-        route = Screen.SettingsScreen.route,
+        route = Screen.EditProfile.route,
         exitTransition = { exitTransition() },
         popExitTransition = { popExitTransition() },
         popEnterTransition = { popEnterTransition() },

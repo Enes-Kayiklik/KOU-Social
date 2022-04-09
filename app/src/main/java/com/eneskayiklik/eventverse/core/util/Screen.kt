@@ -15,6 +15,7 @@ sealed class Screen(val route: String) {
     }
     object CreateEvent : Screen("screen_event")
     object SettingsScreen : Screen("settings")
+    object EditProfile : Screen("edit_profile")
     object Share : Screen("share")
     object MessageList : Screen("message_list")
     object Messages : Screen("messages/{channelId}") {

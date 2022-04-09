@@ -17,6 +17,7 @@ import com.eneskayiklik.eventverse.feature_polls.presentation.pollsComposable
 import com.eneskayiklik.eventverse.feature_create.presentation.createComposable
 import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposable
 import com.eneskayiklik.eventverse.feature_announcement.presentation.announcementComposable
+import com.eneskayiklik.eventverse.feature_edit_profile.presentation.editProfileComposable
 import com.eneskayiklik.eventverse.feature_message.presentation.messageListComposable
 import com.eneskayiklik.eventverse.feature_message.presentation.messagesComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
@@ -63,6 +64,7 @@ fun BaseAnimatedNavigation(
         messageListComposable(navController::navigate, navController::popBackStack)
         messagesComposable(navController::navigate, navController::popBackStack)
         settingsComposable(navController::navigate, navController::popBackStack, toggleTheme)
+        editProfileComposable(navController::navigate, navController::popBackStack, toggleTheme)
         profileComposable(navController::navigate, navController::popBackStack)
         selectInterestComposable(
             navController::navigate,
