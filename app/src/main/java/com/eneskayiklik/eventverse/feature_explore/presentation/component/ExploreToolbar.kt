@@ -1,20 +1,16 @@
 package com.eneskayiklik.eventverse.feature_explore.presentation.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.feature_profile.presentation.component.ProfileImage

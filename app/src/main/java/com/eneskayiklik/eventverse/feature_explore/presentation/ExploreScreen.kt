@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
@@ -31,7 +32,14 @@ private fun ExploreScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.surface)
+            .background(
+                Brush.verticalGradient(
+                    listOf(
+                        MaterialTheme.colors.surface,
+                        MaterialTheme.colors.background
+                    ), endY = 700F
+                )
+            )
     ) {
         ExploreToolbar(
             modifier = Modifier

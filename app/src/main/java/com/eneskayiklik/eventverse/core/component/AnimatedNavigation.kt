@@ -31,7 +31,8 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 @Composable
 fun BaseAnimatedNavigation(
     navController: NavHostController,
-    scaffoldState: ScaffoldState
+    scaffoldState: ScaffoldState,
+    toggleTheme: () -> Unit
 ) {
     AnimatedNavHost(
         modifier = Modifier.navigationBarsWithImePadding(),
@@ -61,7 +62,7 @@ fun BaseAnimatedNavigation(
         shareComposable(navController::navigate, navController::popBackStack, scaffoldState)
         messageListComposable(navController::navigate, navController::popBackStack)
         messagesComposable(navController::navigate, navController::popBackStack)
-        settingsComposable(navController::navigate, navController::popBackStack)
+        settingsComposable(navController::navigate, navController::popBackStack, toggleTheme)
         profileComposable(navController::navigate, navController::popBackStack)
         selectInterestComposable(
             navController::navigate,

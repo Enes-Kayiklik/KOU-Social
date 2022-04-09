@@ -57,4 +57,8 @@
     <string name="account">Account</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="invite_friend">Invite Friend</string>
+    <string name="invite_friend_desc">Invite your frined to use this app</string>
+    <string name="verify_account">Verify Account</string>
+    <string name="verify_account_desc">Verify your account to create event</string>
 </resources>

@@ -22,7 +22,7 @@ fun ActionButtons(
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
         SingleButton(
-            icon = R.drawable.ic_settings,
+            icon = R.drawable.ic_poll,
             title = "Polls",
             subtitle = "Lorem ipsum dolar sit amet",
             modifier = Modifier.clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
@@ -33,7 +33,7 @@ fun ActionButtons(
             subtitle = "Lorem ipsum dolar sit amet",
         )
         SingleButton(
-            icon = R.drawable.ic_settings,
+            icon = R.drawable.ic_reviews,
             title = "Reviews",
             subtitle = "Lorem ipsum dolar sit amet",
         )
@@ -56,7 +56,7 @@ private fun SingleButton(
 ) {
     Row(
         modifier = modifier
-            .background(MaterialTheme.colors.background)
+            .background(MaterialTheme.colors.secondary)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -95,7 +95,8 @@ private fun SingleButton(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_right_arrow),
-                contentDescription = null
+                contentDescription = null,
+                tint = MaterialTheme.colors.onBackground
             )
         }
     }

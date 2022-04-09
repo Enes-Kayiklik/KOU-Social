@@ -21,8 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.ui.theme.Blue
 import com.eneskayiklik.eventverse.core.ui.theme.Orange
 import com.eneskayiklik.eventverse.core.ui.theme.Purple
+import com.eneskayiklik.eventverse.core.ui.theme.Red
 import com.eneskayiklik.eventverse.feature_auth.data.model.User
 import com.eneskayiklik.eventverse.feature_profile.presentation.component.ProfileImage
 
@@ -65,7 +67,7 @@ fun LazyListScope.editProfileButton(
                 contentDescription = null,
                 modifier = Modifier
                     .background(
-                        MaterialTheme.colors.background,
+                        MaterialTheme.colors.secondary,
                         RoundedCornerShape(15.dp)
                     )
                     .padding(8.dp)
@@ -122,7 +124,7 @@ fun LazyListScope.languageButton(
                 contentDescription = null,
                 modifier = Modifier
                     .background(
-                        MaterialTheme.colors.background,
+                        MaterialTheme.colors.secondary,
                         RoundedCornerShape(15.dp)
                     )
                     .padding(8.dp)
@@ -179,11 +181,105 @@ fun LazyListScope.darkModeButton(
                 contentDescription = null,
                 modifier = Modifier
                     .background(
-                        MaterialTheme.colors.background,
+                        MaterialTheme.colors.secondary,
                         RoundedCornerShape(15.dp)
                     )
                     .padding(8.dp)
             )
+        }
+    }
+}
+
+fun LazyListScope.inviteFriendButton(
+    onClick: () -> Unit
+) {
+    item {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }
+                .padding(horizontal = 32.dp, vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_send),
+                contentDescription = null,
+                modifier = Modifier
+                    .background(
+                        Red.copy(alpha = 0.2F),
+                        CircleShape
+                    )
+                    .padding(8.dp),
+                tint = Red
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(8F)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.invite_friend),
+                    style = MaterialTheme.typography.h1.copy(
+                        MaterialTheme.colors.onBackground,
+                        fontSize = 16.sp
+                    )
+                )
+                Text(
+                    text = stringResource(id = R.string.invite_friend_desc),
+                    style = MaterialTheme.typography.h1.copy(
+                        MaterialTheme.colors.onSurface,
+                        fontSize = 12.sp
+                    )
+                )
+            }
+        }
+    }
+}
+
+fun LazyListScope.verifyAccountButton(
+    onClick: () -> Unit
+) {
+    item {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }
+                .padding(horizontal = 32.dp, vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_verify),
+                contentDescription = null,
+                modifier = Modifier
+                    .background(
+                        Blue.copy(alpha = 0.2F),
+                        CircleShape
+                    )
+                    .padding(8.dp),
+                tint = Blue
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(8F)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.verify_account),
+                    style = MaterialTheme.typography.h1.copy(
+                        MaterialTheme.colors.onBackground,
+                        fontSize = 16.sp
+                    )
+                )
+                Text(
+                    text = stringResource(id = R.string.verify_account_desc),
+                    style = MaterialTheme.typography.h1.copy(
+                        MaterialTheme.colors.onSurface,
+                        fontSize = 12.sp
+                    )
+                )
+            }
         }
     }
 }

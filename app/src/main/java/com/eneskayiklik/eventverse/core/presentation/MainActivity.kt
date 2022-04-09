@@ -1,17 +1,19 @@
 package com.eneskayiklik.eventverse.core.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -35,12 +37,27 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            EventverseTheme {
+            val isDarkTheme = isSystemInDarkTheme()
+            var theme by remember { mutableStateOf(false) }
+            EventverseTheme(theme) {
                 ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
-                    MainScreen()
+                    MainScreen {
+                        theme = theme.not()
+                        if (isDarkTheme) setDayTheme() else setDarkTheme()
+                    }
                 }
             }
         }
+    }
+
+    private fun setDayTheme() {
+        Log.e("TAG", "onCreate: 1", )
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    private fun setDarkTheme() {
+        Log.e("TAG", "onCreate: 2", )
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     override fun onDestroy() {
@@ -53,7 +70,7 @@ class MainActivity : ComponentActivity() {
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
-private fun MainScreen() {
+private fun MainScreen(toggleTheme: () -> Unit) {
     Surface(color = MaterialTheme.colors.background) {
         val navController = rememberAnimatedNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -69,7 +86,7 @@ private fun MainScreen() {
                 )
             }
         ) {
-            BaseAnimatedNavigation(navController, scaffoldState)
+            BaseAnimatedNavigation(navController, scaffoldState, toggleTheme)
         }
     }
 }
