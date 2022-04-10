@@ -114,13 +114,6 @@ private fun ProfileScreen(
                     }
                 }
             }
-            if (state.isSelf)
-                LogoutButton(
-                    modifier = Modifier
-                        .background(MaterialTheme.colors.surface)
-                        .padding(16.dp),
-                    onClick = viewModel::logOut
-                )
         }
     }
 }

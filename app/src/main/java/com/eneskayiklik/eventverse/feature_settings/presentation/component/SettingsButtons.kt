@@ -36,7 +36,7 @@ fun LazyListScope.editProfileButton(
                 .padding(horizontal = 32.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ProfileImage(picUrl = user.profilePic, modifier = Modifier.size(50.dp))
+            ProfileImage(picUrl = user.profilePic, modifier = Modifier.size(72.dp))
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -127,6 +127,36 @@ fun LazyListScope.verifyAccountButton(
             subtitle = stringResource(id = R.string.verify_account_desc),
             icon = R.drawable.ic_verify,
             color = Blue,
+            isEndButtonActive = true
+        )
+    }
+}
+
+fun LazyListScope.updatePasswordButton(
+    onClick: () -> Unit
+) {
+    item {
+        SettingsButton(
+            onClick = onClick,
+            title = stringResource(id = R.string.change_password),
+            subtitle = stringResource(id = R.string.change_password_desc),
+            icon = R.drawable.ic_password,
+            color = Turquoise,
+            isEndButtonActive = true
+        )
+    }
+}
+
+fun LazyListScope.logoutButton(
+    onClick: () -> Unit
+) {
+    item {
+        SettingsButton(
+            onClick = onClick,
+            title = stringResource(id = R.string.logout),
+            subtitle = stringResource(id = R.string.logout_desc),
+            icon = R.drawable.ic_logout_filled,
+            color = OrangeVariant,
             isEndButtonActive = false
         )
     }

@@ -53,13 +53,13 @@
     <string name="select_department_placeholder">Select Department</string>
     <string name="select_department_label">Department</string>
     <string name="logout">Logout</string>
-    <string name="settings_edit_profile">Personal Information</string>
+    <string name="settings_edit_profile">Edit personal details</string>
     <string name="account">Account</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="invite_friend">Invite Friend</string>
     <string name="invite_friend_desc">Invite your frined to use this app</string>
-    <string name="verify_account">Verify Account</string>
+    <string name="verify_account">Verify</string>
     <string name="verify_account_desc">Verify your account to create event</string>
     <string name="delete_account">Delete</string>
     <string name="delete_account_desc">Delete your account permanently</string>
@@ -68,4 +68,7 @@
     <string name="update_photo">Upload Image</string>
     <string name="edit_name">Name</string>
     <string name="edit_age">Age</string>
+    <string name="change_password">Password</string>
+    <string name="change_password_desc">Update your password</string>
+    <string name="logout_desc">Logout from this account</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.eneskayiklik.eventverse.feature_profile.presentation
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,6 @@ import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_profile.data.repository.ProfileRepositoryImpl
 import com.eneskayiklik.eventverse.feature_profile.data.state.ProfileState
-import com.eneskayiklik.eventverse.feature_settings.data.state.SettingsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -51,20 +49,6 @@ class ProfileViewModel @Inject constructor(
                         user = it.data,
                         isLoading = false
                     )
-                }
-            }
-        }
-    }
-
-    fun logOut() {
-        viewModelScope.launch(Dispatchers.IO) {
-            profileRepository.logOut().collectLatest {
-                when (it) {
-                    is Resource.Error -> Log.e("TAG", "logOut: ${it.message}", )
-                    is Resource.Loading -> _state.value = _state.value.copy(
-                        isLoading = true
-                    )
-                    is Resource.Success -> _event.emit(UiEvent.RestartApp)
                 }
             }
         }

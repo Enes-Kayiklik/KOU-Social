@@ -93,15 +93,16 @@ private fun SettingsScreen(
                     .weight(1F),
                 contentPadding = PaddingValues(vertical = 20.dp)
             ) {
+                if (user != null) editProfileButton(user) {
+                    onNavigate(Screen.EditProfile.route)
+                }
                 sectionTitle(
                     accountTitle, modifier = Modifier.padding(
                         horizontal = 32.dp, vertical = 8.dp
                     )
                 )
-                if (user != null) editProfileButton(user) {
-                    onNavigate(Screen.EditProfile.route)
-                }
                 verifyAccountButton { }
+                updatePasswordButton { }
                 deleteAccountButton { }
                 sectionTitle(
                     settingsTitle,
@@ -118,6 +119,7 @@ private fun SettingsScreen(
                 }
 
                 inviteFriendButton { }
+                logoutButton(viewModel::logOut)
             }
         }
     }
