@@ -93,7 +93,7 @@ private fun SettingsScreen(
                     .weight(1F),
                 contentPadding = PaddingValues(vertical = 20.dp)
             ) {
-                if (user != null) editProfileButton(user) {
+                editProfileButton(user) {
                     onNavigate(Screen.EditProfile.route)
                 }
                 sectionTitle(

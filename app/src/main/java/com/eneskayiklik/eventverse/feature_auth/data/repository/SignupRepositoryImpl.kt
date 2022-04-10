@@ -64,22 +64,6 @@ class SignupRepositoryImpl(
         }
     }
 
-    suspend fun getFaculties() = flow {
-        emit(Resource.Loading())
-        val data = try {
-            db.collection(BuildConfig.FIREBASE_REFERENCE)
-                .document("faculties")
-                .collection("faculties")
-                .get()
-                .await()
-                .toObjects(Faculty::class.java)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-        if (data != null) emit(Resource.Success(data)) else emit(Resource.Error(""))
-    }
-
     suspend fun resendMail(): Boolean {
         return try {
             auth.currentUser?.sendEmailVerification()?.await()

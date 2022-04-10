@@ -47,7 +47,7 @@ private fun SettingsScreen(
     viewModel: EditProfileViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
-    val user = state.user ?: return
+    val user = state.user
     val context = LocalContext.current
     val accountTitle = stringResource(id = R.string.personal)
     val socialTitle = stringResource(id = R.string.social_accounts)
@@ -100,16 +100,16 @@ private fun SettingsScreen(
                         horizontal = 32.dp, vertical = 8.dp
                     )
                 )
-                photoSection(user.profilePic) { }
-                nameSection(user.fullName) { }
-                ageSection(user.age) { }
-                departmentSection(user.department) { }
+                photoSection(user.profilePic, viewModel::onEvent)
+                nameSection(user.fullName, viewModel::onEvent)
+                ageSection(state.formattedBirthdate, viewModel::onEvent)
+                departmentSection(user.department, state.isDepartmentPopupVisible, viewModel::onEvent)
                 sectionTitle(
                     socialTitle, modifier = Modifier.padding(
                         horizontal = 32.dp, vertical = 8.dp
                     )
                 )
-                socialSection(user.socialAccounts)
+                socialSection(user.socialAccounts, viewModel::onEvent)
             }
         }
 

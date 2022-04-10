@@ -51,7 +51,7 @@ fun LazyListScope.editProfileButton(
                     )
                 )
                 Text(
-                    text = stringResource(id = R.string.settings_edit_profile),
+                    text = user.email,
                     style = MaterialTheme.typography.h1.copy(
                         MaterialTheme.colors.onSurface,
                         fontSize = 12.sp

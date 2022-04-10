@@ -17,29 +17,33 @@ import com.eneskayiklik.eventverse.feature_auth.domain.model.SocialAccount
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.AgeSelectionItem
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.MaterialDialogPicker
 import com.eneskayiklik.eventverse.feature_create.presentation.util.*
+import com.eneskayiklik.eventverse.feature_edit_profile.data.event.EditProfileEvent
+import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.department.DepartmentPopup
 import java.time.LocalDate
 
 fun LazyListScope.nameSection(
     fullName: String,
-    onChange: (String) -> Unit
+    event: (EditProfileEvent) -> Unit
 ) {
     item {
         SingleSection(
             titleText = stringResource(id = R.string.edit_name),
             fieldText = fullName,
             fieldPlaceholder = stringResource(id = R.string.fullname_paceholder),
-            onValueChange = onChange
+            onValueChange = { event(EditProfileEvent.OnFullName(it)) }
         )
     }
 }
 
 fun LazyListScope.ageSection(
     age: String,
-    onDateSelected: (LocalDate) -> Unit
+    event: (EditProfileEvent) -> Unit
 ) {
     item {
         val pickerState = rememberPickerState()
-        DatePicker(pickerState = pickerState, onDateSelected = onDateSelected)
+        DatePicker(
+            pickerState = pickerState,
+            onDateSelected = { event(EditProfileEvent.OnBirthdate(it)) })
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -65,7 +69,8 @@ fun LazyListScope.ageSection(
 
 fun LazyListScope.departmentSection(
     department: Department,
-    onDepartmentSelected: (String) -> Unit
+    isPopupVisible: Boolean,
+    event: (EditProfileEvent) -> Unit
 ) {
     item {
         Row(
@@ -85,14 +90,20 @@ fun LazyListScope.departmentSection(
                 hint = stringResource(id = R.string.select_department_placeholder),
                 text = department.departmentName
             ) {
-                // TODO("Open department popup")
+                event(EditProfileEvent.ShowDepartmentPopup(true))
             }
+        }
+
+        if (isPopupVisible) DepartmentPopup {
+            if (it.departmentName.isNotEmpty()) event(EditProfileEvent.OnDepartment(it))
+            else event(EditProfileEvent.ShowDepartmentPopup(false))
         }
     }
 }
 
 fun LazyListScope.socialSection(
-    socialAccount: SocialAccount
+    socialAccount: SocialAccount,
+    event: (EditProfileEvent) -> Unit
 ) {
     item {
         Column(
@@ -101,24 +112,24 @@ fun LazyListScope.socialSection(
         ) {
             SingleSection(
                 titleText = stringResource(id = R.string.instagram),
-                fieldText =socialAccount.instagram,
+                fieldText = socialAccount.instagram,
                 fieldPlaceholder = stringResource(id = R.string.instagram),
-                onValueChange = { })
+                onValueChange = { event(EditProfileEvent.OnInstagram(it)) })
             SingleSection(
                 titleText = stringResource(id = R.string.github),
                 fieldText = socialAccount.github,
                 fieldPlaceholder = stringResource(id = R.string.github),
-                onValueChange = { })
+                onValueChange = { event(EditProfileEvent.OnGitHub(it)) })
             SingleSection(
                 titleText = stringResource(id = R.string.twitter),
                 fieldText = socialAccount.twitter,
                 fieldPlaceholder = stringResource(id = R.string.twitter),
-                onValueChange = { })
+                onValueChange = { event(EditProfileEvent.OnTwitter(it)) })
             SingleSection(
                 titleText = stringResource(id = R.string.linkedin),
                 fieldText = socialAccount.linkedIn,
                 fieldPlaceholder = stringResource(id = R.string.linkedin),
-                onValueChange = { })
+                onValueChange = { event(EditProfileEvent.OnLinkedIn(it)) })
         }
     }
 }
