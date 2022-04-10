@@ -30,7 +30,7 @@ fun BaseBottomNavItem(
     onClick: () -> Unit
 ) {
     val backColor by animateColorAsState(targetValue = if (selected) selectedColor.copy(alpha = .2F) else Color.Transparent)
-    val itemsColor by animateColorAsState(targetValue = if (selected) selectedColor else MaterialTheme.colors.onSurface)
+    val itemsColor by animateColorAsState(targetValue = if (selected) selectedColor else MaterialTheme.colors.onSecondary)
     Box(
         modifier = Modifier
             .clip(CircleShape)

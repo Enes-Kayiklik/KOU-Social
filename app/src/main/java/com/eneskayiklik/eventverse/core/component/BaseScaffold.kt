@@ -64,7 +64,7 @@ fun BaseScaffold(
             ) {
                 BottomAppBar(
                     modifier = Modifier.shadow(elevation = 0.dp, clip = false, shape = CircleShape),
-                    backgroundColor = MaterialTheme.colors.surface,
+                    backgroundColor = MaterialTheme.colors.secondary,
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,

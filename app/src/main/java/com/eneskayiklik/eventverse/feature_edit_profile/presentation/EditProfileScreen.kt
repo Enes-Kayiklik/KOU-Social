@@ -15,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,12 +28,10 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
+import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
+import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.*
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
-import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.EditProfileToolbar
-import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.ageSection
-import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.nameSection
-import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.photoSection
 import com.eneskayiklik.eventverse.feature_settings.presentation.component.sectionTitle
 import kotlinx.coroutines.flow.collectLatest
 
@@ -52,7 +49,8 @@ private fun SettingsScreen(
     val state = viewModel.state.collectAsState().value
     val user = state.user ?: return
     val context = LocalContext.current
-    val accountTitle = stringResource(id = R.string.account)
+    val accountTitle = stringResource(id = R.string.personal)
+    val socialTitle = stringResource(id = R.string.social_accounts)
 
     LaunchedEffect(key1 = true) {
         viewModel.event.collectLatest {
@@ -94,7 +92,7 @@ private fun SettingsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1F),
-                contentPadding = PaddingValues(vertical = 20.dp),
+                contentPadding = PaddingValues(top = 20.dp, bottom = 70.dp),
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 sectionTitle(
@@ -105,7 +103,26 @@ private fun SettingsScreen(
                 photoSection(user.profilePic) { }
                 nameSection(user.fullName) { }
                 ageSection(user.age) { }
+                departmentSection(user.department) { }
+                sectionTitle(
+                    socialTitle, modifier = Modifier.padding(
+                        horizontal = 32.dp, vertical = 8.dp
+                    )
+                )
+                socialSection(user.socialAccounts)
             }
+        }
+
+        LoginButton(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+                .height(44.dp)
+                .align(Alignment.BottomCenter),
+            clicked = state.isLoading,
+            text = stringResource(id = R.string.update_profile)
+        ) {
+            // viewModel.onLoginState(LoginEvent.OnLogin)
         }
     }
 }

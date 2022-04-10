@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.feature_create.presentation.component.date_time
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -9,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eneskayiklik.eventverse.core.component.ExtendedTextField
 import com.eneskayiklik.eventverse.feature_create.presentation.component.SectionTitle
 
 @ExperimentalMaterialApi
@@ -44,4 +46,19 @@ fun TimeSelectionItem(
             }
         }
     }
+}
+
+@Composable
+fun AgeSelectionItem(
+    modifier: Modifier = Modifier,
+    text: String,
+    hint: String,
+    onClick: () -> Unit
+) {
+    ExtendedTextField(
+        text = text,
+        placeholder = hint,
+        enabled = false,
+        modifier = modifier.clickable(onClick = onClick),
+        onValueChange = { })
 }

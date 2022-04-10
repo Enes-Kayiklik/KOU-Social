@@ -54,6 +54,7 @@ private fun LoginScreen(
                 }
                 UiEvent.ClearBackStack -> clearBackStack()
                 is UiEvent.Toast -> Unit
+                else -> Unit
             }
         }
     }
@@ -124,78 +125,6 @@ private fun LoginScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            /*item("forget_password") {
-                Text(
-                    text = stringResource(id = R.string.forget_password),
-                    style = MaterialTheme.typography.caption,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp, bottom = 8.dp),
-                )
-            }
-            item("login_button") {
-                LoginButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    clicked = loginButton
-                ) {
-                    viewModel.onLoginState(LoginState.OnLogin)
-                }
-            }
-            item("or") {
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Spacer(
-                        modifier = Modifier
-                            .height(1.dp)
-                            .alpha(0.5F)
-                            .weight(1F)
-                            .padding(end = 4.dp)
-                            .background(color = MaterialTheme.colors.onSurface)
-                    )
-                    Text(
-                        text = stringResource(id = R.string.or),
-                        style = MaterialTheme.typography.caption
-                    )
-                    Spacer(
-                        modifier = Modifier
-                            .height(1.dp)
-                            .alpha(0.5F)
-                            .weight(1F)
-                            .padding(start = 4.dp)
-                            .background(color = MaterialTheme.colors.onSurface)
-                    )
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item("google_button") {
-                GoogleButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    clicked = googleButton
-                ) {
-                    viewModel.onLoginState(LoginState.OnGoogle)
-                }
-            }
-            item("signup_button") {
-                TextButton(
-                    onClick = { viewModel.onLoginState(LoginState.OnNavigateRegister) },
-                    Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.signup_button),
-                        style = MaterialTheme.typography.h1
-                    )
-                }
-            }*/
         }
         LoginButton(
             modifier = Modifier
