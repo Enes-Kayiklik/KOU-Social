@@ -2,8 +2,9 @@ package com.eneskayiklik.eventverse.feature_auth.data.model
 
 import com.eneskayiklik.eventverse.feature_auth.domain.model.Department
 import com.eneskayiklik.eventverse.feature_auth.domain.model.SocialAccount
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
-import java.time.LocalDate
+import java.util.*
 
 data class User(
     @DocumentId
@@ -12,7 +13,7 @@ data class User(
     val socialAccounts: SocialAccount = SocialAccount(),
     val email: String = "",
     val fullName: String = "",
-    val birtDate: LocalDate? = null,
+    val birthDate: Timestamp? = null,
     val profilePic: String = ""
 ) {
     fun toAppUser() = AppUser(
@@ -20,7 +21,7 @@ data class User(
         department = department,
         email = email,
         fullName = fullName,
-        birtDate = birtDate,
+        birthDate = birthDate?.toDate(),
         profilePic = profilePic,
         socialAccounts = socialAccounts
     )
@@ -32,7 +33,7 @@ data class AppUser(
     val email: String = "",
     val fullName: String = "",
     val profilePic: String = "",
-    val birtDate: LocalDate? = null,
+    val birthDate: Date? = null,
     val socialAccounts: SocialAccount = SocialAccount()
 ) {
     fun toPostUser() = PostUser(
@@ -46,7 +47,7 @@ data class AppUser(
         userId = userId,
         email = email,
         fullName = fullName,
-        birtDate = birtDate,
+        birthDate = if (birthDate != null) Timestamp(birthDate) else null,
         profilePic = profilePic,
         department = department,
         socialAccounts = socialAccounts

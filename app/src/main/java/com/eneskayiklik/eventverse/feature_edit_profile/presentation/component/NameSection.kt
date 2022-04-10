@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.ExtendedTextField
+import com.eneskayiklik.eventverse.core.util.TextFieldState
 import com.eneskayiklik.eventverse.feature_auth.domain.model.Department
-import com.eneskayiklik.eventverse.feature_auth.domain.model.SocialAccount
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.AgeSelectionItem
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.MaterialDialogPicker
 import com.eneskayiklik.eventverse.feature_create.presentation.util.*
@@ -22,13 +22,14 @@ import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.d
 import java.time.LocalDate
 
 fun LazyListScope.nameSection(
-    fullName: String,
+    fullName: TextFieldState,
     event: (EditProfileEvent) -> Unit
 ) {
     item {
         SingleSection(
             titleText = stringResource(id = R.string.edit_name),
-            fieldText = fullName,
+            fieldText = fullName.text,
+            error = fullName.error,
             fieldPlaceholder = stringResource(id = R.string.fullname_paceholder),
             onValueChange = { event(EditProfileEvent.OnFullName(it)) }
         )
@@ -102,7 +103,10 @@ fun LazyListScope.departmentSection(
 }
 
 fun LazyListScope.socialSection(
-    socialAccount: SocialAccount,
+    instagram: TextFieldState,
+    twitter: TextFieldState,
+    github: TextFieldState,
+    linkedIn: TextFieldState,
     event: (EditProfileEvent) -> Unit
 ) {
     item {
@@ -112,22 +116,26 @@ fun LazyListScope.socialSection(
         ) {
             SingleSection(
                 titleText = stringResource(id = R.string.instagram),
-                fieldText = socialAccount.instagram,
+                fieldText = instagram.text,
+                error = instagram.error,
                 fieldPlaceholder = stringResource(id = R.string.instagram),
                 onValueChange = { event(EditProfileEvent.OnInstagram(it)) })
             SingleSection(
                 titleText = stringResource(id = R.string.github),
-                fieldText = socialAccount.github,
+                fieldText = github.text,
+                error = github.error,
                 fieldPlaceholder = stringResource(id = R.string.github),
                 onValueChange = { event(EditProfileEvent.OnGitHub(it)) })
             SingleSection(
                 titleText = stringResource(id = R.string.twitter),
-                fieldText = socialAccount.twitter,
+                fieldText = twitter.text,
+                error = twitter.error,
                 fieldPlaceholder = stringResource(id = R.string.twitter),
                 onValueChange = { event(EditProfileEvent.OnTwitter(it)) })
             SingleSection(
                 titleText = stringResource(id = R.string.linkedin),
-                fieldText = socialAccount.linkedIn,
+                fieldText = linkedIn.text,
+                error = linkedIn.error,
                 fieldPlaceholder = stringResource(id = R.string.linkedin),
                 onValueChange = { event(EditProfileEvent.OnLinkedIn(it)) })
         }
@@ -139,6 +147,7 @@ private fun SingleSection(
     titleText: String,
     fieldText: String,
     fieldPlaceholder: String,
+    error: String,
     onValueChange: (String) -> Unit
 ) {
     Row(
@@ -156,7 +165,7 @@ private fun SingleSection(
         ExtendedTextField(
             text = fieldText,
             onValueChange = onValueChange,
-            error = "",
+            error = error,
             placeholder = fieldPlaceholder,
             keyboardType = KeyboardType.Email,
             modifier = Modifier.weight(2F)

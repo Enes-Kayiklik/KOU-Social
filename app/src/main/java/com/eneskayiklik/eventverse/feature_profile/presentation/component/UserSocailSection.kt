@@ -14,6 +14,10 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.util.extension.toGithubLink
+import com.eneskayiklik.eventverse.core.util.extension.toInstagramLink
+import com.eneskayiklik.eventverse.core.util.extension.toLinkedInLink
+import com.eneskayiklik.eventverse.core.util.extension.toTwitterLink
 import com.eneskayiklik.eventverse.feature_auth.domain.model.SocialAccount
 
 @Composable
@@ -35,7 +39,7 @@ fun UserSocialSection(
                     .size(32.dp)
                     .clip(CircleShape)
                     .shadow(5.dp, CircleShape)
-                    .clickable { uriHandler.openUri(socialAccounts.github) }
+                    .clickable { uriHandler.openUri(socialAccounts.github.toGithubLink()) }
             )
 
         if (socialAccounts.linkedIn.isNotEmpty())
@@ -47,7 +51,7 @@ fun UserSocialSection(
                     .size(32.dp)
                     .clip(CircleShape)
                     .shadow(5.dp, CircleShape)
-                    .clickable { uriHandler.openUri(socialAccounts.linkedIn) }
+                    .clickable { uriHandler.openUri(socialAccounts.linkedIn.toLinkedInLink()) }
             )
 
         if (socialAccounts.instagram.isNotEmpty())
@@ -59,7 +63,7 @@ fun UserSocialSection(
                     .size(32.dp)
                     .clip(CircleShape)
                     .shadow(5.dp, CircleShape)
-                    .clickable { uriHandler.openUri(socialAccounts.instagram) }
+                    .clickable { uriHandler.openUri(socialAccounts.instagram.toInstagramLink()) }
             )
 
         if (socialAccounts.twitter.isNotEmpty())
@@ -71,7 +75,7 @@ fun UserSocialSection(
                     .size(32.dp)
                     .clip(CircleShape)
                     .shadow(5.dp, CircleShape)
-                    .clickable { uriHandler.openUri(socialAccounts.twitter) }
+                    .clickable { uriHandler.openUri(socialAccounts.twitter.toTwitterLink()) }
             )
     }
 }

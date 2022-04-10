@@ -1,6 +1,5 @@
 package com.eneskayiklik.eventverse.feature_profile.presentation.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 import com.eneskayiklik.eventverse.R
 
 @Composable
@@ -24,16 +23,24 @@ fun ProfileImage(
     modifier: Modifier = Modifier
 ) {
     if (picUrl.isNotEmpty())
-        Image(
-            painter = rememberImagePainter(data = picUrl) {
-                crossfade(300)
+        SubcomposeAsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(picUrl)
+                .crossfade(true)
+                .build(),
+            loading = {
+                EmptyImageBox(modifier)
             },
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = modifier
                 .clip(CircleShape)
-                .shadow(5.dp, CircleShape)
-        ) else Box(
+        ) else EmptyImageBox(modifier)
+}
+
+@Composable
+private fun EmptyImageBox(modifier: Modifier = Modifier) {
+    Box(
         modifier = modifier.background(
             MaterialTheme.colors.secondary,
             CircleShape
