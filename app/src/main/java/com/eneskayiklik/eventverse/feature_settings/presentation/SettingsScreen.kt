@@ -32,6 +32,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.component.InfoDialog
 import com.eneskayiklik.eventverse.feature_settings.presentation.component.*
 
 @OptIn(
@@ -66,15 +67,9 @@ private fun SettingsScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        if (state.isLoading) CircularProgressIndicator(
-            modifier = Modifier
-                .size(32.dp)
-                .align(Alignment.Center),
-            color = MaterialTheme.colors.primary,
-            strokeWidth = 2.dp
-        )
+    if (state.errorDialogState != null) InfoDialog(state = state.errorDialogState)
 
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize()
                 .background(MaterialTheme.colors.background)
@@ -103,7 +98,7 @@ private fun SettingsScreen(
                 )
                 verifyAccountButton { }
                 updatePasswordButton { }
-                deleteAccountButton { }
+                deleteAccountButton(viewModel::deleteAccountPopup)
                 sectionTitle(
                     settingsTitle,
                     modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
@@ -122,6 +117,13 @@ private fun SettingsScreen(
                 logoutButton(viewModel::logOut)
             }
         }
+        if (state.isLoading) CircularProgressIndicator(
+            modifier = Modifier
+                .size(32.dp)
+                .align(Alignment.Center),
+            color = MaterialTheme.colors.primary,
+            strokeWidth = 2.dp
+        )
     }
 }
 

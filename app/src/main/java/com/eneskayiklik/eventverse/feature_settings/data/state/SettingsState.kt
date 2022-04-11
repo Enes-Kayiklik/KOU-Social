@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.feature_settings.data.state
 
+import com.eneskayiklik.eventverse.core.model.ErrorState
 import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.core.util.TextFieldState
 import com.eneskayiklik.eventverse.feature_auth.data.model.User
@@ -24,7 +25,8 @@ data class SettingsState(
     val twitter: TextFieldState = TextFieldState(user.socialAccounts.twitter),
     val isLoading: Boolean = false,
     val isDepartmentPopupVisible: Boolean = false,
-    val isProfilePicUpdated: Boolean = false
+    val isProfilePicUpdated: Boolean = false,
+    val errorDialogState: ErrorState? = null
 ) {
     val formattedBirthdate: String = if (birthDate != null) birthDate.format(
         DateTimeFormatter.ofPattern("dd.MM.yyyy")

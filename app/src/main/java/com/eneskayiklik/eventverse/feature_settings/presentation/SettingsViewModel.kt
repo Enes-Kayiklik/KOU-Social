@@ -2,6 +2,7 @@ package com.eneskayiklik.eventverse.feature_settings.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eneskayiklik.eventverse.core.model.ErrorState
 import com.eneskayiklik.eventverse.core.util.Resource
 import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.core.util.UiEvent
@@ -38,6 +39,38 @@ class SettingsViewModel @Inject constructor(
     fun logOut() {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.logOut().collectLatest {
+                when (it) {
+                    is Resource.Error -> Unit
+                    is Resource.Loading -> _state.value = _state.value.copy(
+                        isLoading = true
+                    )
+                    is Resource.Success -> _event.emit(UiEvent.RestartApp)
+                }
+            }
+        }
+    }
+
+    fun deleteAccountPopup() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.value = _state.value.copy(
+                isLoading = false,
+                errorDialogState = ErrorState(
+                    title = "Delete Account Permanently",
+                    subTitle = "Do you really want to delete your KOU Social account permanently ?",
+                    firstButtonText = "No",
+                    secondButtonText = "Yes",
+                    firstButtonClick = { _state.value = _state.value.copy(
+                        errorDialogState = null
+                    ) },
+                    secondButtonClick = { deleteAccount() }
+                )
+            )
+        }
+    }
+
+    private fun deleteAccount() {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepository.deleteAccount().collectLatest {
                 when (it) {
                     is Resource.Error -> Unit
                     is Resource.Loading -> _state.value = _state.value.copy(
