@@ -7,5 +7,6 @@ data class Faculty(
 
 data class Department(
     val departmentName: String = "",
-    val departmentUrl: String = ""
+    val departmentUrl: String = "",
+    val baseUrl: String = ""
 )

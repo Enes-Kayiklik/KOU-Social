@@ -19,6 +19,7 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
+import com.eneskayiklik.eventverse.feature_announcement.presentation.component.AnnouncementPopup
 import com.eneskayiklik.eventverse.feature_announcement.presentation.component.AnnouncementToolbar
 import com.eneskayiklik.eventverse.feature_announcement.presentation.component.EmptyAnnouncementView
 import com.eneskayiklik.eventverse.feature_announcement.presentation.component.SingleAnnouncementView
@@ -62,6 +63,8 @@ private fun BoxScope.ItemsContent(viewModel: AnnouncementViewModel, onNavigate: 
     val announcements = state.announcements
     val isRefreshing = state.isRefreshing
 
+    if (state.isPopupActive) AnnouncementPopup(state.activeAnnouncement, viewModel::closePopup)
+
     if (state.isLoading) {
         CircularProgressIndicator(
             modifier = Modifier
@@ -99,10 +102,9 @@ private fun BoxScope.ItemsContent(viewModel: AnnouncementViewModel, onNavigate: 
                         SingleAnnouncementView(
                             announcement = currentItem,
                             modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-
-                        }
+                                .fillMaxWidth(),
+                            onClick = viewModel::showAnnouncementPopup
+                        )
                         if (index != announcements.lastIndex) {
                             Divider(
                                 modifier = Modifier

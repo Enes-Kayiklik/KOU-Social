@@ -1,8 +1,8 @@
 package com.eneskayiklik.eventverse.feature_announcement.presentation.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,14 +19,12 @@ import com.eneskayiklik.eventverse.feature_announcement.data.model.Announcement
 fun SingleAnnouncementView(
     announcement: Announcement,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: (Announcement) -> Unit
 ) {
     Column(
         modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(
-                horizontal = 24.dp, vertical = 16.dp
-            ), verticalArrangement = Arrangement.spacedBy(5.dp)
+            .clickable(onClick = { onClick(announcement) })
+            .padding(24.dp), verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
@@ -37,11 +35,11 @@ fun SingleAnnouncementView(
                 )
             )
             Spacer(modifier = Modifier.weight(1F))
-            if (announcement.hasAttach) Image(
+            if (announcement.hasAttach) Icon(
                 painter = painterResource(id = R.drawable.ic_attachement),
                 contentDescription = null, modifier = Modifier
-                    .padding(end = 10.dp)
-                    .size(15.dp)
+                    .padding(end = 5.dp)
+                    .size(15.dp), tint = MaterialTheme.colors.primary
             )
             Text(
                 text = announcement.getFormattedDate(),
@@ -59,13 +57,13 @@ fun SingleAnnouncementView(
                     fontSize = 18.sp
                 ), maxLines = 1, overflow = TextOverflow.Ellipsis
             )
-        if (announcement.content.content.isNotEmpty())
+        if (announcement.content.isNotEmpty())
             Text(
-                text = announcement.content.content,
+                text = announcement.content,
                 style = MaterialTheme.typography.h1.copy(
                     MaterialTheme.colors.onSurface,
                     fontSize = 14.sp
-                ), maxLines = 3, overflow = TextOverflow.Ellipsis
+                ), maxLines = 4, overflow = TextOverflow.Ellipsis
             )
     }
 }

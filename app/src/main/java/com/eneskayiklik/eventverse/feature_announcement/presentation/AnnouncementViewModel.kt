@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.feature_announcement.data.model.Announcement
-import com.eneskayiklik.eventverse.feature_announcement.data.model.AnnouncementContent
 import com.eneskayiklik.eventverse.feature_announcement.data.state.AnnouncementState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +28,7 @@ class AnnouncementViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             // Get announcement source url from user data
             val departmentUrl = Settings.currentUser.department.departmentUrl
+            val baseUrl = Settings.currentUser.department.baseUrl
             if (departmentUrl.isEmpty()) {
                 _state.value = _state.value.copy(
                     isLoading = false,
@@ -51,12 +51,11 @@ class AnnouncementViewModel @Inject constructor(
                         title = element.select("h4").text(),
                         date = element.select("p > span").first()?.text() ?: "",
                         sender = element.select("p > span").last()?.text() ?: "",
-                        content = AnnouncementContent(
-                            activeDateRange = body?.getOrNull(0)?.text() ?: "",
-                            content = body?.getOrNull(1)?.text() ?: "",
-                            attachment = body?.getOrNull(2)?.select("a")?.first()?.attr("href")
-                                ?: ""
-                        )
+                        activeDateRange = body?.getOrNull(0)?.text() ?: "",
+                        content = body?.getOrNull(1)?.text() ?: "",
+                        attachment = body?.getOrNull(2)?.select("a")?.first()?.attr("href")
+                            ?: "",
+                        baseUrl = baseUrl
                     )
                 )
             }
@@ -75,6 +74,24 @@ class AnnouncementViewModel @Inject constructor(
                 _state.value = _state.value.copy(isRefreshing = true)
                 getAnnouncements()
             }
+        }
+    }
+
+    fun showAnnouncementPopup(item: Announcement) {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isPopupActive = true,
+                activeAnnouncement = item
+            )
+        }
+    }
+
+    fun closePopup() {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isPopupActive = false,
+                activeAnnouncement = Announcement()
+            )
         }
     }
 }

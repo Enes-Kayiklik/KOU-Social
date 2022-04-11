@@ -83,4 +83,6 @@
     <string name="no_announcement_title">No results found</string>
     <string name="no_announcement_desc">We can\'t find any announcement. If you didn\'t add your department then click below button and try again.</string>
     <string name="select_department">Add department</string>
+    <string name="download_attach">Download</string>
+    <string name="open_attach">Open Attachment</string>
 </resources>

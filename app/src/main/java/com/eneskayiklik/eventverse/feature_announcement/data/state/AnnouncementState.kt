@@ -7,6 +7,8 @@ data class AnnouncementState(
     val isLoading: Boolean = true,
     val showEmptyDepartmentView: Boolean = false,
     val isRefreshing: Boolean = false,
+    val isPopupActive: Boolean = false,
+    val activeAnnouncement: Announcement = Announcement()
 ) {
     val showEmptyContent = showEmptyDepartmentView || announcements.isEmpty()
 }
