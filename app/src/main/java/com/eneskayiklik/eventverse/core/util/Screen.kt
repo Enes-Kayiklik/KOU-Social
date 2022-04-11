@@ -9,6 +9,7 @@ sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Polls : Screen("polls")
     object Announcement : Screen("announcement")
+    object Meal : Screen("meal")
     object Profile : Screen("profile/{userId}") {
         fun route(isSelf: Boolean = false, userId: String = "") =
             if (isSelf) "profile/${Settings.currentUser.userId}" else "profile/$userId"

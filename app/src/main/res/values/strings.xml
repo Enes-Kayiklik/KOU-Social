@@ -79,4 +79,8 @@
     <string name="twitter">Twitter</string>
     <string name="linkedin">LinkedIn</string>
     <string name="update_profile">Update Profile</string>
+    <string name="meal">Meal</string>
+    <string name="no_announcement_title">No results found</string>
+    <string name="no_announcement_desc">We can\'t find any announcement. If you didn\'t add your department then click below button and try again.</string>
+    <string name="select_department">Add department</string>
 </resources>

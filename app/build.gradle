@@ -77,6 +77,9 @@ dependencies {
     // Accompanist Navigation Animation
     implementation("com.google.accompanist:accompanist-navigation-animation:$accompanist_version")
 
+    // Accompanist WebView
+    implementation "com.google.accompanist:accompanist-webview:0.24.6-alpha"
+
     // Insets
     implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
     // Coil
@@ -106,4 +109,10 @@ dependencies {
 
     // Compressor
     implementation 'id.zelory:compressor:3.0.1'
+
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.14.3'
+
+    // Swipe Refresh
+    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
 }

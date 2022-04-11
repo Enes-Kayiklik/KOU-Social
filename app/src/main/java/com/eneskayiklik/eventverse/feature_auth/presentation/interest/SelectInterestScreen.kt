@@ -118,14 +118,14 @@ private fun InterestGrid(
     state: LazyListState = rememberLazyListState(),
     onSelect: (id: Int) -> Unit
 ) {
-    LazyVerticalGrid(
+   /* LazyVerticalGrid(
         state = state,
         cells = GridCells.Fixed(3)
     ) {
         items(interests) { item ->
             SingleInterestModel(item, onSelect)
         }
-    }
+    }*/
 }
 
 @ExperimentalMaterialApi

@@ -29,7 +29,7 @@ fun BaseScaffold(
     bottomNavItems: List<BottomNavItem> = listOf(
         BottomNavItem(
             route = Screen.Home.route,
-            icon = R.drawable.ic_home,
+            icon = R.drawable.ic_education,
             contentDescription = stringResource(id = R.string.explore)
         ),
         BottomNavItem(
@@ -37,10 +37,15 @@ fun BaseScaffold(
             icon = R.drawable.ic_poll,
             contentDescription = stringResource(id = R.string.polls)
         ),
-        BottomNavItem(
+        /*BottomNavItem(
             route = Screen.MessageList.route,
             icon = R.drawable.ic_message_outline,
             contentDescription = stringResource(id = R.string.message)
+        ),*/
+        BottomNavItem(
+            route = Screen.Meal.route,
+            icon = R.drawable.ic_meal,
+            contentDescription = stringResource(id = R.string.meal)
         ),
         BottomNavItem(
             route = Screen.Announcement.route,

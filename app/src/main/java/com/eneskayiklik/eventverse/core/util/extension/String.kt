@@ -19,3 +19,5 @@ fun String.toGithubLink() = "https://github.com/$this"
 fun String.toInstagramLink() = "https://www.instagram.com/$this"
 fun String.toLinkedInLink() = "https://www.linkedin.com/in/$this"
 fun String.toTwitterLink() = "https://twitter.com/$this"
+
+fun String.getMealUrl() = "https://docs.google.com/viewerng/viewer?embedded=true&url=sksdb.kocaeli.edu.tr/$this"
