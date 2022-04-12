@@ -3,7 +3,9 @@ package com.eneskayiklik.eventverse.feature_profile.presentation.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -13,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.eneskayiklik.eventverse.R
@@ -51,6 +54,10 @@ private fun EmptyImageBox(modifier: Modifier = Modifier) {
             contentDescription = null,
             tint = MaterialTheme.colors.onSecondary,
             modifier = Modifier.fillMaxSize(.5F)
+        )
+        CircularProgressIndicator(
+            strokeWidth = 2.dp,
+            modifier = Modifier.fillMaxSize(.3F)
         )
     }
 }

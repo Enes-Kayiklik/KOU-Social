@@ -1,21 +1,18 @@
 package com.eneskayiklik.eventverse.core.component
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.core.ui.theme.White
 import com.eneskayiklik.eventverse.core.util.BottomNavItem
 import com.eneskayiklik.eventverse.core.util.Screen
 
@@ -51,6 +48,8 @@ fun BaseScaffold(
     onFabClick: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
+    var isClicked by remember { mutableStateOf(false) }
+    val alphaAnim = animateFloatAsState(targetValue = if (isClicked) .3F else 1F).value
     Scaffold(
         bottomBar = {
             AnimatedVisibility(
@@ -63,7 +62,9 @@ fun BaseScaffold(
                 )
             ) {
                 BottomAppBar(
-                    modifier = Modifier.shadow(elevation = 0.dp, clip = false, shape = CircleShape),
+                    modifier = Modifier
+                        .shadow(elevation = 0.dp, clip = false, shape = CircleShape)
+                        .alpha(alphaAnim),
                     backgroundColor = MaterialTheme.colors.secondary,
                 ) {
                     Row(
@@ -96,22 +97,22 @@ fun BaseScaffold(
                 enter = scaleIn() + fadeIn(),
                 exit = scaleOut() + fadeOut()
             ) {
-                FloatingActionButton(
-                    backgroundColor = MaterialTheme.colors.primary,
-                    onClick = onFabClick
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        tint = White,
-                        contentDescription = stringResource(id = R.string.create_event)
-                    )
+                MainFloatingActionGroup(isClicked) {
+                    isClicked = isClicked.not()
                 }
             }
         },
         isFloatingActionButtonDocked = false,
         floatingActionButtonPosition = FabPosition.End,
         modifier = modifier,
-    ) {
-        content()
+    ) { padding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .alpha(alphaAnim)
+                .padding(padding)
+        ) {
+            content()
+        }
     }
 }
