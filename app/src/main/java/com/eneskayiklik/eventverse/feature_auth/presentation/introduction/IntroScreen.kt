@@ -50,7 +50,7 @@ private fun IntroScreen(
     val contract = rememberLauncherForActivityResult(contract = GoogleLoginContract()) { task ->
         try {
             val account = task?.getResult(ApiException::class.java)
-            viewModel.loginWithGoogle(account?.idToken ?: return@rememberLauncherForActivityResult)
+            viewModel.loginWithGoogle(account ?: return@rememberLauncherForActivityResult)
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -9,6 +9,7 @@ import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_auth.data.event.IntroEvent
 import com.eneskayiklik.eventverse.feature_auth.data.model.IntroState
 import com.eneskayiklik.eventverse.feature_auth.data.repository.IntroRepositoryImpl
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -36,9 +37,9 @@ class IntroViewModel @Inject constructor(
         }
     }
 
-    fun loginWithGoogle(idToken: String) {
+    fun loginWithGoogle(account: GoogleSignInAccount) {
         viewModelScope.launch {
-            introRepository.signupWithGoogle(idToken).collectLatest {
+            introRepository.signupWithGoogle(account).collectLatest {
                 when (it) {
                     is Resource.Error -> showErrorDialog()
                     is Resource.Loading -> updateGoogleState(true)

@@ -6,6 +6,7 @@ import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.core.util.Resource
 import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.feature_auth.data.model.User
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -16,15 +17,15 @@ class IntroRepositoryImpl(
     private val db: FirebaseFirestore = Firebase.firestore,
     private val auth: FirebaseAuth = Firebase.auth
 ) {
-    suspend fun signupWithGoogle(idToken: String) = flow {
+    suspend fun signupWithGoogle(account: GoogleSignInAccount) = flow {
         try {
             emit(Resource.Loading())
-            val credential = GoogleAuthProvider.getCredential(idToken, null)
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             val result = auth.signInWithCredential(credential).await()
             if (result.additionalUserInfo?.isNewUser == true)
                 saveUserToDb(
                     result.user?.email ?: "",
-                    result.user?.displayName ?: "",
+                    account.displayName ?: "",
                     result.user?.uid
                 )
             else getUser()
