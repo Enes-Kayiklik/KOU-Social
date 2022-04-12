@@ -6,6 +6,7 @@ import com.eneskayiklik.eventverse.core.model.ErrorState
 import com.eneskayiklik.eventverse.core.util.Resource
 import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.core.util.UiEvent
+import com.eneskayiklik.eventverse.core.util.data_store.AppDataStore
 import com.eneskayiklik.eventverse.feature_settings.data.repository.SettingsRepositoryImpl
 import com.eneskayiklik.eventverse.feature_settings.data.state.SettingsState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -17,10 +18,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepositoryImpl
+    private val settingsRepository: SettingsRepositoryImpl,
+    private val dataStore: AppDataStore
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state
+
+    val isDarkModeEnabled = dataStore.isDarkModeEnabled
 
     private val _event = MutableSharedFlow<UiEvent>()
     val event: SharedFlow<UiEvent> = _event
@@ -83,6 +87,12 @@ class SettingsViewModel @Inject constructor(
                     is Resource.Success -> _event.emit(UiEvent.RestartApp)
                 }
             }
+        }
+    }
+
+    fun toggleTheme(value: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStore.setDarkMode(value)
         }
     }
 }

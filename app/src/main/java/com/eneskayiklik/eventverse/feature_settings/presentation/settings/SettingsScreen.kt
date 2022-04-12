@@ -37,6 +37,7 @@ import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.InfoDialog
 import com.eneskayiklik.eventverse.core.util.GOOGLE_LOGIN_KEY
 import com.eneskayiklik.eventverse.core.util.contract.GoogleLoginContract
+import com.eneskayiklik.eventverse.core.util.extension.shareAppLink
 import com.eneskayiklik.eventverse.feature_settings.presentation.settings.component.*
 import com.google.android.gms.common.api.ApiException
 
@@ -49,7 +50,6 @@ import com.google.android.gms.common.api.ApiException
 private fun SettingsScreen(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
-    toggleTheme: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
@@ -57,6 +57,7 @@ private fun SettingsScreen(
     val context = LocalContext.current
     val accountTitle = stringResource(id = R.string.account)
     val settingsTitle = stringResource(id = R.string.settings)
+    val isDarkModeEnabled = viewModel.isDarkModeEnabled.collectAsState(false).value
 
     val contract = rememberLauncherForActivityResult(contract = GoogleLoginContract()) { task ->
         try {
@@ -129,7 +130,7 @@ private fun SettingsScreen(
                     modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
                 )
                 languageButton { }
-                darkModeButton(toggleTheme)
+                darkModeButton(isDarkModeEnabled, viewModel::toggleTheme)
                 item {
                     Divider(
                         modifier = Modifier
@@ -138,7 +139,9 @@ private fun SettingsScreen(
                     )
                 }
 
-                inviteFriendButton { }
+                inviteFriendButton {
+                    context.shareAppLink()
+                }
                 logoutButton(viewModel::logOut)
             }
         }
@@ -156,7 +159,6 @@ private fun SettingsScreen(
 fun NavGraphBuilder.settingsComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
-    toggleTheme: () -> Unit
 ) {
     composable(
         route = Screen.SettingsScreen.route,
@@ -165,6 +167,6 @@ fun NavGraphBuilder.settingsComposable(
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
     ) {
-        SettingsScreen(onNavigate, clearBackStack, toggleTheme)
+        SettingsScreen(onNavigate, clearBackStack)
     }
 }

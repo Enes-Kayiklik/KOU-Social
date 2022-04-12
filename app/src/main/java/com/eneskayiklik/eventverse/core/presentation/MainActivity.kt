@@ -1,13 +1,10 @@
 package com.eneskayiklik.eventverse.core.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -21,9 +18,11 @@ import com.eneskayiklik.eventverse.core.component.BaseAnimatedNavigation
 import com.eneskayiklik.eventverse.core.component.BaseScaffold
 import com.eneskayiklik.eventverse.core.ui.theme.EventverseTheme
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.core.util.data_store.AppDataStore
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 @OptIn(
@@ -32,30 +31,19 @@ import dagger.hilt.android.AndroidEntryPoint
     ExperimentalMaterialApi::class
 )
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var dataStore: AppDataStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val isDarkTheme = isSystemInDarkTheme()
-            var theme by remember { mutableStateOf(false) }
+            val theme = dataStore.isDarkModeEnabled.collectAsState(initial = false).value
             EventverseTheme(theme) {
                 ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
-                    MainScreen {
-                        theme = theme.not()
-                        if (isDarkTheme) setDayTheme() else setDarkTheme()
-                    }
+                    MainScreen()
                 }
             }
         }
-    }
-
-    private fun setDayTheme() {
-        Log.e("TAG", "onCreate: 1")
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    }
-
-    private fun setDarkTheme() {
-        Log.e("TAG", "onCreate: 2")
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 }
 
@@ -63,7 +51,7 @@ class MainActivity : ComponentActivity() {
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
-private fun MainScreen(toggleTheme: () -> Unit) {
+private fun MainScreen() {
     Surface(color = MaterialTheme.colors.background) {
         val navController = rememberAnimatedNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -79,7 +67,7 @@ private fun MainScreen(toggleTheme: () -> Unit) {
                 )
             }
         ) {
-            BaseAnimatedNavigation(navController, scaffoldState, toggleTheme)
+            BaseAnimatedNavigation(navController, scaffoldState)
         }
     }
 }

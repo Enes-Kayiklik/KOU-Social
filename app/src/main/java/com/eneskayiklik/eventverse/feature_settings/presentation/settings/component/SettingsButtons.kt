@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -88,16 +86,20 @@ fun LazyListScope.languageButton(
 }
 
 fun LazyListScope.darkModeButton(
-    onClick: () -> Unit
+    isDarkModeEnabled: Boolean,
+    onToggle: (Boolean) -> Unit
 ) {
     item {
         SettingsButton(
-            onClick = onClick,
+            onClick = { onToggle(isDarkModeEnabled.not()) },
             title = stringResource(id = R.string.dark_mode),
             subtitle = stringResource(id = R.string.settings_edit_profile),
             icon = R.drawable.ic_moon,
             color = Purple,
-            isEndButtonActive = true
+            isEndButtonActive = false,
+            isToggleEnabled = true,
+            isChecked = isDarkModeEnabled,
+            onToggle = onToggle
         )
     }
 }
@@ -185,7 +187,10 @@ private fun SettingsButton(
     subtitle: String,
     @DrawableRes icon: Int,
     color: Color,
-    isEndButtonActive: Boolean = false
+    isEndButtonActive: Boolean = false,
+    isToggleEnabled: Boolean = false,
+    isChecked: Boolean = false,
+    onToggle: (Boolean) -> Unit = { }
 ) {
     Row(
         modifier = Modifier
@@ -240,5 +245,16 @@ private fun SettingsButton(
                 )
                 .padding(8.dp)
         )
+        if (isToggleEnabled) Switch(
+            checked = isChecked, onCheckedChange = onToggle, colors = SwitchDefaults.colors(
+                checkedThumbColor = MaterialTheme.colors.primary,
+                checkedTrackColor = MaterialTheme.colors.primary,
+                checkedTrackAlpha = .2F,
+                uncheckedThumbColor = MaterialTheme.colors.onSurface,
+                uncheckedTrackColor = MaterialTheme.colors.onSurface,
+                uncheckedTrackAlpha = .2F
+            )
+        )
+
     }
 }

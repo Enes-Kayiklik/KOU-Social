@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -90,7 +91,7 @@ fun AnnouncementPopup(
                             Text(
                                 text = stringResource(id = R.string.open_attach),
                                 style = MaterialTheme.typography.h1.copy(
-                                    color = MaterialTheme.colors.onPrimary,
+                                    color = Color.White,
                                     fontSize = 14.sp
                                 )
                             )
