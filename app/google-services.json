@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "422581209852-f69rmf73373hpge7u32g48duh6d05ek8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eneskayiklik.eventverse",
+            "certificate_hash": "1fabb1f0bb84f245924d244255bb4bfbc30fbcea"
+          }
+        },
+        {
           "client_id": "422581209852-5b3ikujh4sgiv3ahj35dm2iv6grsf675.apps.googleusercontent.com",
           "client_type": 3
         }
