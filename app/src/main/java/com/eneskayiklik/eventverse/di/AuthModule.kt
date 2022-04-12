@@ -31,5 +31,9 @@ object AuthModule {
 
     @Singleton
     @Provides
+    fun provideIntroRepository(): IntroRepositoryImpl = IntroRepositoryImpl()
+
+    @Singleton
+    @Provides
     fun provideSelectInterestRepository(): SelectInterestRepository = SelectInterestRepositoryImpl()
 }

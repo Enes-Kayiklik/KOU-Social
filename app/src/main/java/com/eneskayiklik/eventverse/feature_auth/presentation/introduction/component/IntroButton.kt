@@ -1,9 +1,11 @@
 package com.eneskayiklik.eventverse.feature_auth.presentation.introduction.component
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +21,8 @@ fun IntroButton(
     text: String,
     modifier: Modifier = Modifier,
     @DrawableRes leadingIcon: Int? = null,
-    isEnabled: Boolean = true,
+    clicked: Boolean = false,
+    isEnabled: Boolean = clicked.not(),
     onClick: () -> Unit,
 ) {
     Row(
@@ -39,5 +42,15 @@ fun IntroButton(
             text = text,
             style = MaterialTheme.typography.h1.copy(fontSize = 16.sp, textAlign = TextAlign.Center)
         )
+        AnimatedVisibility(visible = clicked) {
+            Row {
+                Spacer(modifier = Modifier.width(8.dp))
+                CircularProgressIndicator(
+                    modifier = Modifier.size(14.dp),
+                    color = MaterialTheme.colors.primary,
+                    strokeWidth = 2.dp
+                )
+            }
+        }
     }
 }

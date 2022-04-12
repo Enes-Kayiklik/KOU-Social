@@ -14,7 +14,8 @@ data class User(
     val email: String = "",
     val fullName: String = "",
     val birthDate: Timestamp? = null,
-    val profilePic: String = ""
+    val profilePic: String = "",
+    val isSocialLogin: Boolean = false
 ) {
     fun toAppUser() = AppUser(
         userId = userId,

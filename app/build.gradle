@@ -6,6 +6,9 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdk 31
 
@@ -20,6 +23,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        buildConfigField "String", "CLIENT_ID", localProperties['clientId']
     }
 
     buildTypes {
@@ -115,4 +119,7 @@ dependencies {
 
     // Swipe Refresh
     implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
+
+    // Google Login
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
 }
