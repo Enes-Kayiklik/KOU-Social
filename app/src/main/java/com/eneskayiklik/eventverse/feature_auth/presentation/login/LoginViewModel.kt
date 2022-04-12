@@ -9,7 +9,6 @@ import com.eneskayiklik.eventverse.core.util.extension.isValidEmail
 import com.eneskayiklik.eventverse.core.util.extension.isValidPassword
 import com.eneskayiklik.eventverse.feature_auth.data.event.LoginEvent
 import com.eneskayiklik.eventverse.feature_auth.data.repository.LoginRepositoryImpl
-import com.eneskayiklik.eventverse.feature_auth.data.repository.StreamRepositoryImpl
 import com.eneskayiklik.eventverse.feature_auth.data.state.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +22,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepositoryImpl,
-    private val streamRepository: StreamRepositoryImpl
 ) : ViewModel() {
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> = _state
@@ -80,9 +78,7 @@ class LoginViewModel @Inject constructor(
             _state.value = _state.value.copy(isLoading = true)
 
             when (val event = loginRepository.loginWithEmail(email, password)) {
-                is LoginEvent.OnNavigate -> _event.emit(UiEvent.Navigate(event.route)).also {
-                    streamRepository.connectUser()
-                }
+                is LoginEvent.OnNavigate -> _event.emit(UiEvent.Navigate(event.route))
                 LoginEvent.ShowErrorPopup -> showErrorDialog()
                 LoginEvent.ShowVerifyPopup -> showVerificationDialog()
                 LoginEvent.PasswordError -> _state.value = _state.value.copy(

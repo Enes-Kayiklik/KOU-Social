@@ -10,7 +10,6 @@ import com.eneskayiklik.eventverse.core.util.extension.isValidFullName
 import com.eneskayiklik.eventverse.core.util.extension.isValidPassword
 import com.eneskayiklik.eventverse.feature_auth.data.event.SignupEvent
 import com.eneskayiklik.eventverse.feature_auth.data.repository.SignupRepositoryImpl
-import com.eneskayiklik.eventverse.feature_auth.data.repository.StreamRepositoryImpl
 import com.eneskayiklik.eventverse.feature_auth.data.state.SignupState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SignupViewModel @Inject constructor(
     private val signupRepository: SignupRepositoryImpl,
-    private val streamRepository: StreamRepositoryImpl
 ) : ViewModel() {
     private val _state = MutableStateFlow(SignupState())
     val state: StateFlow<SignupState> = _state
@@ -160,9 +158,7 @@ class SignupViewModel @Inject constructor(
     private fun checkEmailVerified() {
         viewModelScope.launch(Dispatchers.IO) {
             if (signupRepository.checkEmailVerified()) {
-                _event.emit(UiEvent.Navigate(Screen.Home.route)).also {
-                    streamRepository.connectUser()
-                }
+                _event.emit(UiEvent.Navigate(Screen.Home.route))
             } else {
                 _event.emit(UiEvent.Toast("Not Verified"))
             }

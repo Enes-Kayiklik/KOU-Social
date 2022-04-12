@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.eneskayiklik.eventverse.core.util.Screen
-import com.eneskayiklik.eventverse.feature_auth.presentation.interest.selectInterestComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.introduction.introComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.loginComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.signup.signupComposable
@@ -19,8 +18,6 @@ import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposabl
 import com.eneskayiklik.eventverse.feature_announcement.presentation.announcementComposable
 import com.eneskayiklik.eventverse.feature_edit_profile.presentation.editProfileComposable
 import com.eneskayiklik.eventverse.feature_meal.presentation.mealComposable
-import com.eneskayiklik.eventverse.feature_message.presentation.messageListComposable
-import com.eneskayiklik.eventverse.feature_message.presentation.messagesComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
 import com.eneskayiklik.eventverse.feature_settings.presentation.settingsComposable
 import com.eneskayiklik.eventverse.feature_share.presentation.shareComposable
@@ -63,15 +60,8 @@ fun BaseAnimatedNavigation(
         mealComposable(navController::navigate, navController::popBackStack)
         createComposable(navController::navigate, navController::popBackStack, scaffoldState)
         shareComposable(navController::navigate, navController::popBackStack, scaffoldState)
-        messageListComposable(navController::navigate, navController::popBackStack)
-        messagesComposable(navController::navigate, navController::popBackStack)
         settingsComposable(navController::navigate, navController::popBackStack, toggleTheme)
         editProfileComposable(navController::navigate, navController::popBackStack)
         profileComposable(navController::navigate, navController::popBackStack)
-        selectInterestComposable(
-            navController::navigate,
-            navController::popBackStack,
-            scaffoldState
-        )
     }
 }

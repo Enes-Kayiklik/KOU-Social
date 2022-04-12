@@ -97,7 +97,7 @@ private fun SettingsScreen(
                     )
                 )
                 verifyAccountButton { }
-                updatePasswordButton { }
+                if (user.isSocialLogin.not()) updatePasswordButton { }
                 deleteAccountButton(viewModel::deleteAccountPopup)
                 sectionTitle(
                     settingsTitle,

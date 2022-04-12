@@ -5,7 +5,6 @@ sealed class Screen(val route: String) {
     object Intro : Screen("intro")
     object Login : Screen("login")
     object Signup : Screen("signup")
-    object SelectInterest : Screen("interest")
     object Home : Screen("home")
     object Polls : Screen("polls")
     object Announcement : Screen("announcement")
@@ -18,8 +17,4 @@ sealed class Screen(val route: String) {
     object SettingsScreen : Screen("settings")
     object EditProfile : Screen("edit_profile")
     object Share : Screen("share")
-    object MessageList : Screen("message_list")
-    object Messages : Screen("messages/{channelId}") {
-        fun route(channelId: String) = "messages/$channelId"
-    }
 }

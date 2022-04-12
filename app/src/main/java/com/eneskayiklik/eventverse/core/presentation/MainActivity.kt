@@ -24,16 +24,12 @@ import com.eneskayiklik.eventverse.core.util.Screen
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
-import io.getstream.chat.android.client.ChatClient
-import javax.inject.Inject
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var client: ChatClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -58,11 +54,6 @@ class MainActivity : ComponentActivity() {
     private fun setDarkTheme() {
         Log.e("TAG", "onCreate: 2", )
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-    }
-
-    override fun onDestroy() {
-        client.disconnect()
-        super.onDestroy()
     }
 }
 
@@ -95,8 +86,7 @@ private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
     return backStackEntry?.destination?.route in listOf(
         Screen.Home.route,
         Screen.Announcement.route,
-        Screen.MessageList.route,
         Screen.Polls.route,
-        Screen.Profile.route(true)
+        Screen.Meal.route
     )
 }
