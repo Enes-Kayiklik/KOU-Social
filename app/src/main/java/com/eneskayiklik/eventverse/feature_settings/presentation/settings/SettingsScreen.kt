@@ -71,7 +71,8 @@ private fun SettingsScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .background(MaterialTheme.colors.background)
         ) {
             SettingsToolbar(
@@ -97,10 +98,13 @@ private fun SettingsScreen(
                     )
                 )
                 verifyAccountButton { }
-                if (user.isSocialLogin.not()) updatePasswordButton {
+                if (user.socialLogin.not()) updatePasswordButton {
                     onNavigate(Screen.UpdatePassword.route)
                 }
-                deleteAccountButton(viewModel::deleteAccountPopup)
+                deleteAccountButton {
+                    // TODO("Sosyal login ise burada popup çıkar ve sil")
+                    onNavigate(Screen.DeleteAccount.route)
+                }
                 sectionTitle(
                     settingsTitle,
                     modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)

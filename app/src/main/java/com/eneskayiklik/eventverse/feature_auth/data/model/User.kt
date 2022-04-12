@@ -15,7 +15,7 @@ data class User(
     val fullName: String = "",
     val birthDate: Timestamp? = null,
     val profilePic: String = "",
-    val isSocialLogin: Boolean = false
+    val socialLogin: Boolean = false
 ) {
     fun toAppUser() = AppUser(
         userId = userId,
@@ -24,7 +24,8 @@ data class User(
         fullName = fullName,
         birthDate = birthDate?.toDate(),
         profilePic = profilePic,
-        socialAccounts = socialAccounts
+        socialAccounts = socialAccounts,
+        socialLogin = socialLogin
     )
 }
 
@@ -35,6 +36,7 @@ data class AppUser(
     val fullName: String = "",
     val profilePic: String = "",
     val birthDate: Date? = null,
+    val socialLogin: Boolean = false,
     val socialAccounts: SocialAccount = SocialAccount()
 ) {
     fun toPostUser() = PostUser(
@@ -51,6 +53,7 @@ data class AppUser(
         birthDate = if (birthDate != null) Timestamp(birthDate) else null,
         profilePic = profilePic,
         department = department,
+        socialLogin = socialLogin,
         socialAccounts = socialAccounts
     )
 }

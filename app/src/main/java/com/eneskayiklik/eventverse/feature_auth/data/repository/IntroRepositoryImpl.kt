@@ -57,7 +57,7 @@ class IntroRepositoryImpl(
             email = email,
             fullName = fullName,
             userId = uid,
-            isSocialLogin = true
+            socialLogin = true
         )
         Settings.currentUser = user.toAppUser()
         try {

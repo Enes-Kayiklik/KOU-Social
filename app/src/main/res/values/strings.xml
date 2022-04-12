@@ -62,6 +62,7 @@
     <string name="verify_account">Verify</string>
     <string name="verify_account_desc">Verify your account to create event</string>
     <string name="delete_account">Delete</string>
+    <string name="delete_account_toolbar">Delete Account</string>
     <string name="delete_account_desc">Delete your account permanently</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_photo">Photo</string>

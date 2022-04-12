@@ -1,11 +1,8 @@
 package com.eneskayiklik.eventverse.di
 
 import android.content.Context
-import com.eneskayiklik.eventverse.feature_settings.data.repository.DepartmentRepositoryImpl
-import com.eneskayiklik.eventverse.feature_settings.data.repository.EditProfileRepositoryImpl
 import com.eneskayiklik.eventverse.feature_profile.data.repository.ProfileRepositoryImpl
-import com.eneskayiklik.eventverse.feature_settings.data.repository.SettingsRepositoryImpl
-import com.eneskayiklik.eventverse.feature_settings.data.repository.UpdatePasswordRepositoryImpl
+import com.eneskayiklik.eventverse.feature_settings.data.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +35,8 @@ object ProfileModule {
     @Singleton
     @Provides
     fun provideUpdatePasswordRepository(): UpdatePasswordRepositoryImpl = UpdatePasswordRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideDeleteAccountRepository(): DeleteAccountRepositoryImpl = DeleteAccountRepositoryImpl()
 }

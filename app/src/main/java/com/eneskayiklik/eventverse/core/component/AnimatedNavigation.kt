@@ -19,6 +19,7 @@ import com.eneskayiklik.eventverse.feature_announcement.presentation.announcemen
 import com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.editProfileComposable
 import com.eneskayiklik.eventverse.feature_meal.presentation.mealComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
+import com.eneskayiklik.eventverse.feature_settings.presentation.delete_account.deleteAccountComposable
 import com.eneskayiklik.eventverse.feature_settings.presentation.settings.settingsComposable
 import com.eneskayiklik.eventverse.feature_settings.presentation.update_password.updatePasswordComposable
 import com.eneskayiklik.eventverse.feature_share.presentation.shareComposable
@@ -65,5 +66,6 @@ fun BaseAnimatedNavigation(
         editProfileComposable(navController::navigate, navController::popBackStack)
         profileComposable(navController::navigate, navController::popBackStack)
         updatePasswordComposable(navController::navigate, navController::popBackStack)
+        deleteAccountComposable(navController::navigate, navController::popBackStack)
     }
 }

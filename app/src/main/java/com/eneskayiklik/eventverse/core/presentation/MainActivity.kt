@@ -25,10 +25,12 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 
-@ExperimentalMaterialApi
 @AndroidEntryPoint
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
+@OptIn(
+    ExperimentalAnimationApi::class,
+    ExperimentalFoundationApi::class,
+    ExperimentalMaterialApi::class
+)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +49,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setDayTheme() {
-        Log.e("TAG", "onCreate: 1", )
+        Log.e("TAG", "onCreate: 1")
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     private fun setDarkTheme() {
-        Log.e("TAG", "onCreate: 2", )
+        Log.e("TAG", "onCreate: 2")
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 }
