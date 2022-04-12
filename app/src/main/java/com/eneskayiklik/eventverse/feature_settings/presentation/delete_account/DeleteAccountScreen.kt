@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.ExtendedTextField
+import com.eneskayiklik.eventverse.core.component.InfoDialog
 import com.eneskayiklik.eventverse.core.presentation.MainActivity
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.UiEvent
@@ -63,6 +65,12 @@ private fun DeleteAccountScreen(
         }
     }
 
+    if (state.errorDialogState != null) InfoDialog(state = state.errorDialogState)
+
+    BackHandler(enabled = state.isLoading) {
+        // Do nothing when loading
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -79,7 +87,7 @@ private fun DeleteAccountScreen(
                     .background(MaterialTheme.colors.background)
                     .statusBarsPadding()
                     .height(56.dp),
-                onStartIconClick = clearBackStack
+                onStartIconClick = { if (state.isLoading.not()) clearBackStack() }
             )
             LazyColumn(
                 modifier = Modifier
@@ -113,8 +121,8 @@ private fun DeleteAccountScreen(
                             )
                         },
                         error = state.password.error,
-                        placeholder = stringResource(id = R.string.old_password_placeholder),
-                        label = stringResource(id = R.string.old_password),
+                        placeholder = stringResource(id = R.string.password),
+                        label = stringResource(id = R.string.password),
                         keyboardType = KeyboardType.Password,
                         isPasswordVisible = state.isPasswordVisible,
                         onPasswordToggleClick = {
@@ -135,8 +143,8 @@ private fun DeleteAccountScreen(
                             )
                         },
                         error = state.newPassword.error,
-                        placeholder = stringResource(id = R.string.password_placeholder),
-                        label = stringResource(id = R.string.new_password),
+                        placeholder = stringResource(id = R.string.password_again),
+                        label = stringResource(id = R.string.password_again),
                         keyboardType = KeyboardType.Password,
                         isPasswordVisible = state.isNewPasswordVisible,
                         onPasswordToggleClick = {
@@ -157,7 +165,7 @@ private fun DeleteAccountScreen(
                 .height(44.dp)
                 .align(Alignment.BottomCenter),
             clicked = state.isLoading,
-            text = stringResource(id = R.string.update_password)
+            text = stringResource(id = R.string.delete_account_toolbar)
         ) {
             viewModel.onEvent(UpdatePasswordEvent.OnReset)
         }

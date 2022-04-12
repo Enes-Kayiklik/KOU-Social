@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.feature_settings.data.state
 
+import com.eneskayiklik.eventverse.core.model.ErrorState
 import com.eneskayiklik.eventverse.core.util.TextFieldState
 
 data class UpdatePasswordState(
@@ -9,4 +10,5 @@ data class UpdatePasswordState(
     val newPassword: TextFieldState = TextFieldState(),
     val isPasswordVisible: Boolean = false,
     val isNewPasswordVisible: Boolean = false,
+    val errorDialogState: ErrorState? = null
 )

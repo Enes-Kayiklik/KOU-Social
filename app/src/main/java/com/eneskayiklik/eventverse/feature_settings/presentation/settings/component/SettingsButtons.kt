@@ -163,6 +163,7 @@ fun LazyListScope.logoutButton(
 }
 
 fun LazyListScope.deleteAccountButton(
+    isSocialLogin: Boolean,
     onClick: () -> Unit
 ) {
     item {
@@ -172,7 +173,7 @@ fun LazyListScope.deleteAccountButton(
             subtitle = stringResource(id = R.string.delete_account_desc),
             icon = R.drawable.ic_delete,
             color = Red,
-            isEndButtonActive = false
+            isEndButtonActive = isSocialLogin.not()
         )
     }
 }

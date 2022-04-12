@@ -2,6 +2,8 @@ package com.eneskayiklik.eventverse.feature_settings.presentation.settings
 
 import android.app.Activity
 import android.content.Intent
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -33,7 +35,10 @@ import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.InfoDialog
+import com.eneskayiklik.eventverse.core.util.GOOGLE_LOGIN_KEY
+import com.eneskayiklik.eventverse.core.util.contract.GoogleLoginContract
 import com.eneskayiklik.eventverse.feature_settings.presentation.settings.component.*
+import com.google.android.gms.common.api.ApiException
 
 @OptIn(
     ExperimentalMaterialApi::class,
@@ -52,6 +57,17 @@ private fun SettingsScreen(
     val context = LocalContext.current
     val accountTitle = stringResource(id = R.string.account)
     val settingsTitle = stringResource(id = R.string.settings)
+
+    val contract = rememberLauncherForActivityResult(contract = GoogleLoginContract()) { task ->
+        try {
+            val account = task?.getResult(ApiException::class.java)
+            viewModel.deleteAccountPopup(account ?: return@rememberLauncherForActivityResult)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    BackHandler(state.isLoading) { }
 
     LaunchedEffect(key1 = true) {
         viewModel.event.collectLatest {
@@ -81,7 +97,9 @@ private fun SettingsScreen(
                     .background(MaterialTheme.colors.background)
                     .statusBarsPadding()
                     .height(56.dp),
-                onStartIconClick = clearBackStack
+                onStartIconClick = {
+                    if (state.isLoading.not()) clearBackStack()
+                }
             )
             LazyColumn(
                 modifier = Modifier
@@ -101,9 +119,10 @@ private fun SettingsScreen(
                 if (user.socialLogin.not()) updatePasswordButton {
                     onNavigate(Screen.UpdatePassword.route)
                 }
-                deleteAccountButton {
-                    // TODO("Sosyal login ise burada popup çıkar ve sil")
-                    onNavigate(Screen.DeleteAccount.route)
+                deleteAccountButton(user.socialLogin) {
+                    // We need to re auth user. This is for re auth see: https://firebase.google.com/docs/auth/android/manage-users#delete_a_user
+                    if (user.socialLogin) contract.launch(GOOGLE_LOGIN_KEY)
+                    else onNavigate(Screen.DeleteAccount.route)
                 }
                 sectionTitle(
                     settingsTitle,

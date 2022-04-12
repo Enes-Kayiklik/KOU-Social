@@ -8,6 +8,7 @@ import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.core.util.UiEvent
 import com.eneskayiklik.eventverse.feature_settings.data.repository.SettingsRepositoryImpl
 import com.eneskayiklik.eventverse.feature_settings.data.state.SettingsState
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepositoryImpl
-): ViewModel() {
+) : ViewModel() {
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state
 
@@ -50,7 +51,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun deleteAccountPopup() {
+    fun deleteAccountPopup(account: GoogleSignInAccount) {
         viewModelScope.launch(Dispatchers.IO) {
             _state.value = _state.value.copy(
                 isLoading = false,
@@ -59,22 +60,25 @@ class SettingsViewModel @Inject constructor(
                     subTitle = "Do you really want to delete your KOU Social account permanently ?",
                     firstButtonText = "No",
                     secondButtonText = "Yes",
-                    firstButtonClick = { _state.value = _state.value.copy(
-                        errorDialogState = null
-                    ) },
-                    secondButtonClick = { deleteAccount() }
+                    firstButtonClick = {
+                        _state.value = _state.value.copy(
+                            errorDialogState = null
+                        )
+                    },
+                    secondButtonClick = { deleteAccount(account) }
                 )
             )
         }
     }
 
-    private fun deleteAccount() {
+    private fun deleteAccount(account: GoogleSignInAccount) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepository.deleteAccount().collectLatest {
+            settingsRepository.deleteAccount(account.idToken ?: return@launch).collectLatest {
                 when (it) {
                     is Resource.Error -> Unit
                     is Resource.Loading -> _state.value = _state.value.copy(
-                        isLoading = true
+                        isLoading = true,
+                        errorDialogState = null
                     )
                     is Resource.Success -> _event.emit(UiEvent.RestartApp)
                 }

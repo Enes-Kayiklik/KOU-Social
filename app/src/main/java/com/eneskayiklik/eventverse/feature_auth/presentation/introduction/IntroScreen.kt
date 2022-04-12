@@ -62,6 +62,7 @@ private fun IntroScreen(
                 is UiEvent.ShowSnackbar -> Unit
                 is UiEvent.Navigate -> onNavigate(it.id)
                 UiEvent.ClearBackStack -> clearBackStack()
+                else -> Unit
             }
         }
     }

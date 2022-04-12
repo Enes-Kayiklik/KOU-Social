@@ -90,4 +90,5 @@
     <string name="old_password">Current Password</string>
     <string name="new_password">New Password</string>
     <string name="update_password">Update Password</string>
+    <string name="password_again">Password Again</string>
 </resources>
