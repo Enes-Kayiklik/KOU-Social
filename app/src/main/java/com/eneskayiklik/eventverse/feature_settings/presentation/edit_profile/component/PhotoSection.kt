@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.presentation.component
+package com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.component
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.feature_edit_profile.data.event.EditProfileEvent
+import com.eneskayiklik.eventverse.feature_settings.data.event.EditProfileEvent
 import com.eneskayiklik.eventverse.feature_profile.presentation.component.ProfileImage
 
 fun LazyListScope.photoSection(

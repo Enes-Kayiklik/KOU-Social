@@ -17,4 +17,5 @@ sealed class Screen(val route: String) {
     object SettingsScreen : Screen("settings")
     object EditProfile : Screen("edit_profile")
     object Share : Screen("share")
+    object UpdatePassword : Screen("update_password")
 }

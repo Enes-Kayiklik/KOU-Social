@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.presentation
+package com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,8 +8,8 @@ import com.eneskayiklik.eventverse.core.util.extension.isValidFullName
 import com.eneskayiklik.eventverse.core.util.extension.isValidGitHubUsername
 import com.eneskayiklik.eventverse.core.util.extension.isValidInstagramUsername
 import com.eneskayiklik.eventverse.core.util.extension.isValidTwitterUsername
-import com.eneskayiklik.eventverse.feature_edit_profile.data.event.EditProfileEvent
-import com.eneskayiklik.eventverse.feature_edit_profile.data.repository.EditProfileRepositoryImpl
+import com.eneskayiklik.eventverse.feature_settings.data.event.EditProfileEvent
+import com.eneskayiklik.eventverse.feature_settings.data.repository.EditProfileRepositoryImpl
 import com.eneskayiklik.eventverse.feature_settings.data.state.SettingsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.presentation.component
+package com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
@@ -17,8 +17,8 @@ import com.eneskayiklik.eventverse.feature_auth.domain.model.Department
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.AgeSelectionItem
 import com.eneskayiklik.eventverse.feature_create.presentation.component.date_time.MaterialDialogPicker
 import com.eneskayiklik.eventverse.feature_create.presentation.util.*
-import com.eneskayiklik.eventverse.feature_edit_profile.data.event.EditProfileEvent
-import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.department.DepartmentPopup
+import com.eneskayiklik.eventverse.feature_settings.data.event.EditProfileEvent
+import com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.component.department.DepartmentPopup
 import java.time.LocalDate
 
 fun LazyListScope.nameSection(

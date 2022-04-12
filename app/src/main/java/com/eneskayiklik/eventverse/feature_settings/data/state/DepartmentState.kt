@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.data.state
+package com.eneskayiklik.eventverse.feature_settings.data.state
 
 import com.eneskayiklik.eventverse.feature_auth.domain.model.Faculty
 

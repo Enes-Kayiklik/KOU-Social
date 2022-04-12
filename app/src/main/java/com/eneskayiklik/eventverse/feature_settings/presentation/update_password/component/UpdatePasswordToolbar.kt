@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.presentation.component
+package com.eneskayiklik.eventverse.feature_settings.presentation.update_password.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
 
 @Composable
-fun EditProfileToolbar(
+fun UpdatePasswordToolbar(
     modifier: Modifier = Modifier,
     onStartIconClick: () -> Unit = { },
 ) {
@@ -28,7 +28,7 @@ fun EditProfileToolbar(
         }
 
         Text(
-            text = stringResource(id = R.string.edit_profile),
+            text = stringResource(id = R.string.update_password),
             style = MaterialTheme.typography.h3.copy(
                 color = MaterialTheme.colors.onBackground,
                 fontSize = 20.sp

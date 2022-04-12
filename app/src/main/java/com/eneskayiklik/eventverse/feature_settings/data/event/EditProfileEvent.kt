@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.data.event
+package com.eneskayiklik.eventverse.feature_settings.data.event
 
 import android.net.Uri
 import com.eneskayiklik.eventverse.feature_auth.domain.model.Department

@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_settings.presentation
+package com.eneskayiklik.eventverse.feature_settings.presentation.settings
 
 import android.app.Activity
 import android.content.Intent
@@ -33,7 +33,7 @@ import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.InfoDialog
-import com.eneskayiklik.eventverse.feature_settings.presentation.component.*
+import com.eneskayiklik.eventverse.feature_settings.presentation.settings.component.*
 
 @OptIn(
     ExperimentalMaterialApi::class,
@@ -97,7 +97,9 @@ private fun SettingsScreen(
                     )
                 )
                 verifyAccountButton { }
-                if (user.isSocialLogin.not()) updatePasswordButton { }
+                if (user.isSocialLogin.not()) updatePasswordButton {
+                    onNavigate(Screen.UpdatePassword.route)
+                }
                 deleteAccountButton(viewModel::deleteAccountPopup)
                 sectionTitle(
                     settingsTitle,

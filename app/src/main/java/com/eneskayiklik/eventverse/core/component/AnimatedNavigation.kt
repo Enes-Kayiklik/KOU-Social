@@ -16,10 +16,11 @@ import com.eneskayiklik.eventverse.feature_polls.presentation.pollsComposable
 import com.eneskayiklik.eventverse.feature_create.presentation.createComposable
 import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposable
 import com.eneskayiklik.eventverse.feature_announcement.presentation.announcementComposable
-import com.eneskayiklik.eventverse.feature_edit_profile.presentation.editProfileComposable
+import com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.editProfileComposable
 import com.eneskayiklik.eventverse.feature_meal.presentation.mealComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
-import com.eneskayiklik.eventverse.feature_settings.presentation.settingsComposable
+import com.eneskayiklik.eventverse.feature_settings.presentation.settings.settingsComposable
+import com.eneskayiklik.eventverse.feature_settings.presentation.update_password.updatePasswordComposable
 import com.eneskayiklik.eventverse.feature_share.presentation.shareComposable
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -63,5 +64,6 @@ fun BaseAnimatedNavigation(
         settingsComposable(navController::navigate, navController::popBackStack, toggleTheme)
         editProfileComposable(navController::navigate, navController::popBackStack)
         profileComposable(navController::navigate, navController::popBackStack)
+        updatePasswordComposable(navController::navigate, navController::popBackStack)
     }
 }

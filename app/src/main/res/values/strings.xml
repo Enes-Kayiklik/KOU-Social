@@ -85,4 +85,8 @@
     <string name="select_department">Add department</string>
     <string name="download_attach">Download</string>
     <string name="open_attach">Open Attachment</string>
+    <string name="old_password_placeholder">Current Password</string>
+    <string name="old_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="update_password">Update Password</string>
 </resources>

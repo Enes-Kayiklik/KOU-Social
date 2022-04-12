@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_settings.presentation
+package com.eneskayiklik.eventverse.feature_settings.presentation.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

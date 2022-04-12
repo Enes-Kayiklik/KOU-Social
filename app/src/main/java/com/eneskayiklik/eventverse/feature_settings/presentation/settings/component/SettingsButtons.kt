@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_settings.presentation.component
+package com.eneskayiklik.eventverse.feature_settings.presentation.settings.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background

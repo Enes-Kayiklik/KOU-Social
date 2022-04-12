@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_settings.presentation.component
+package com.eneskayiklik.eventverse.feature_settings.presentation.settings.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

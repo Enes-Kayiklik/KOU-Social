@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.presentation
+package com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile
 
 import android.app.Activity
 import android.content.Intent
@@ -29,10 +29,10 @@ import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.component.LoginButton
-import com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.*
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
-import com.eneskayiklik.eventverse.feature_settings.presentation.component.sectionTitle
+import com.eneskayiklik.eventverse.feature_settings.presentation.settings.component.sectionTitle
+import com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.component.*
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(

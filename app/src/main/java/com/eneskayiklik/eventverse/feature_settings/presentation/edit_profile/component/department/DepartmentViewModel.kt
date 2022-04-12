@@ -1,10 +1,10 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.department
+package com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.component.department
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.core.util.Resource
-import com.eneskayiklik.eventverse.feature_edit_profile.data.repository.DepartmentRepositoryImpl
-import com.eneskayiklik.eventverse.feature_edit_profile.data.state.DepartmentState
+import com.eneskayiklik.eventverse.feature_settings.data.repository.DepartmentRepositoryImpl
+import com.eneskayiklik.eventverse.feature_settings.data.state.DepartmentState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

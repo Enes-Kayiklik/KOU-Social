@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.data.repository
+package com.eneskayiklik.eventverse.feature_settings.data.repository
 
 import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.core.util.Resource

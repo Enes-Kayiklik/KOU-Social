@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.data.repository
+package com.eneskayiklik.eventverse.feature_settings.data.repository
 
 import android.content.Context
 import android.net.Uri

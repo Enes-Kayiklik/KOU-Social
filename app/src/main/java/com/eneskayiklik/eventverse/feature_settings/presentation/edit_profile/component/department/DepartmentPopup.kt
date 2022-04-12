@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature_edit_profile.presentation.component.department
+package com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.component.department
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
