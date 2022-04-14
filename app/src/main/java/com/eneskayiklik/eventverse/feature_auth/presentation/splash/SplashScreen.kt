@@ -9,10 +9,8 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -81,16 +79,25 @@ private fun SplashScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.primary),
-        contentAlignment = Alignment.Center
+            .background(MaterialTheme.colors.primary)
     ) {
         Image(
             modifier = Modifier
                 .size(200.dp)
                 .offset(y = offsetState)
-                .alpha(alpha = alphaState),
+                .alpha(alpha = alphaState)
+                .align(Alignment.Center),
             painter = painterResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = stringResource(id = R.string.app_logo)
+        )
+
+        CircularProgressIndicator(
+            modifier = Modifier
+                .padding(30.dp)
+                .size(20.dp)
+                .align(Alignment.BottomCenter),
+            color = MaterialTheme.colors.onPrimary,
+            strokeWidth = 2.dp
         )
     }
 }

@@ -1,7 +1,6 @@
 package com.eneskayiklik.eventverse.core.ui.theme
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
@@ -39,18 +38,15 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun EventverseTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val spec = tween<Color>(
-        200, easing = LinearEasing
-    )
     // Animate colors on theme change
     val colors = Colors(
         primary = Purple200,
         onPrimary = White,
-        secondary = animateColorAsState(targetValue = if (darkTheme) DarkSecondary else Secondary, spec).value,
-        onSecondary = animateColorAsState(targetValue = if (darkTheme) OnDarkSecondary else OnSecondary, spec).value,
-        background = animateColorAsState(targetValue = if (darkTheme) Black100 else White, spec).value,
-        onBackground = animateColorAsState(targetValue = if (darkTheme) White else Black300, spec).value,
-        surface = animateColorAsState(targetValue = if (darkTheme) Black300 else BlueBackground, spec).value,
+        secondary = animateColorAsState(targetValue = if (darkTheme) DarkSecondary else Secondary).value,
+        onSecondary = animateColorAsState(targetValue = if (darkTheme) OnDarkSecondary else OnSecondary).value,
+        background = animateColorAsState(targetValue = if (darkTheme) Black100 else White).value,
+        onBackground = animateColorAsState(targetValue = if (darkTheme) White else Black300).value,
+        surface = animateColorAsState(targetValue = if (darkTheme) Black300 else BlueBackground).value,
         onSurface = OnSurface,
         primaryVariant = Color(0xFF3700B3),
         secondaryVariant = Color(0xFF018786),

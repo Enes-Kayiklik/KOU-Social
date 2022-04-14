@@ -3,7 +3,6 @@ package com.eneskayiklik.eventverse.feature_profile.presentation.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -38,11 +37,11 @@ fun ProfileImage(
             contentScale = ContentScale.Crop,
             modifier = modifier
                 .clip(CircleShape)
-        ) else EmptyImageBox(modifier)
+        ) else EmptyImageBox(modifier, showProgress = false)
 }
 
 @Composable
-private fun EmptyImageBox(modifier: Modifier = Modifier) {
+private fun EmptyImageBox(modifier: Modifier = Modifier, showProgress: Boolean = true) {
     Box(
         modifier = modifier.background(
             MaterialTheme.colors.secondary,
@@ -55,9 +54,10 @@ private fun EmptyImageBox(modifier: Modifier = Modifier) {
             tint = MaterialTheme.colors.onSecondary,
             modifier = Modifier.fillMaxSize(.5F)
         )
-        CircularProgressIndicator(
-            strokeWidth = 2.dp,
-            modifier = Modifier.fillMaxSize(.3F)
-        )
+        if (showProgress)
+            CircularProgressIndicator(
+                strokeWidth = 2.dp,
+                modifier = Modifier.fillMaxSize(.3F)
+            )
     }
 }
