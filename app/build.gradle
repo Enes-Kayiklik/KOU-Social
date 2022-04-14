@@ -24,6 +24,8 @@ android {
             useSupportLibrary true
         }
         buildConfigField "String", "CLIENT_ID", localProperties['clientId']
+        buildConfigField "String", "BASE_URL", localProperties['baseUrl']
+        buildConfigField "String", "API_PATH", localProperties['apiPath']
     }
 
     buildTypes {
@@ -123,4 +125,12 @@ dependencies {
 
     // Data Store
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Pager
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+
 }

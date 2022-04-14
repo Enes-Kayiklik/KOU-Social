@@ -81,8 +81,11 @@
     <string name="linkedin">LinkedIn</string>
     <string name="update_profile">Update Profile</string>
     <string name="meal">Meal</string>
+    <string name="meal_title">Meal List</string>
     <string name="no_announcement_title">No results found</string>
     <string name="no_announcement_desc">We can\'t find any announcement. If you didn\'t add your department then click below button and try again.</string>
+    <string name="no_meal_title">No results found</string>
+    <string name="no_meal_desc">We can\'t find any meal list. We are trying to resolve this error. Thank you for your understanding.</string>
     <string name="select_department">Add department</string>
     <string name="download_attach">Download</string>
     <string name="open_attach">Open Attachment</string>
@@ -91,4 +94,9 @@
     <string name="new_password">New Password</string>
     <string name="update_password">Update Password</string>
     <string name="password_again">Password Again</string>
+    <string name="dish_calory">%s calory</string>
+    <string name="soup">SOUP</string>
+    <string name="main_dish">MAIN DISH</string>
+    <string name="side_dish">SIDE DISH</string>
+    <string name="extra">EXTRA</string>
 </resources>
