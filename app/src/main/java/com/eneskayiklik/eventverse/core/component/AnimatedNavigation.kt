@@ -34,6 +34,11 @@ fun BaseAnimatedNavigation(
     navController: NavHostController,
     scaffoldState: ScaffoldState
 ) {
+    val navigateSingleTop: (String) -> Unit = {
+        navController.navigate(it) {
+            launchSingleTop = true
+        }
+    }
     AnimatedNavHost(
         modifier = Modifier.navigationBarsWithImePadding(),
         navController = navController,
@@ -55,16 +60,16 @@ fun BaseAnimatedNavigation(
                 popUpTo(0)
             }
         }, navController::popBackStack, scaffoldState)
-        exploreComposable(navController::navigate, navController::popBackStack)
-        pollsComposable(navController::navigate, navController::popBackStack)
-        announcementComposable(navController::navigate, navController::popBackStack)
-        mealComposable(navController::navigate, navController::popBackStack)
-        createComposable(navController::navigate, navController::popBackStack, scaffoldState)
-        shareComposable(navController::navigate, navController::popBackStack, scaffoldState)
-        settingsComposable(navController::navigate, navController::popBackStack)
-        editProfileComposable(navController::navigate, navController::popBackStack)
-        profileComposable(navController::navigate, navController::popBackStack)
-        updatePasswordComposable(navController::navigate, navController::popBackStack)
-        deleteAccountComposable(navController::navigate, navController::popBackStack)
+        exploreComposable(navigateSingleTop, navController::popBackStack)
+        pollsComposable(navigateSingleTop, navController::popBackStack)
+        announcementComposable(navigateSingleTop, navController::popBackStack)
+        mealComposable(navigateSingleTop, navController::popBackStack)
+        createComposable(navigateSingleTop, navController::popBackStack, scaffoldState)
+        shareComposable(navigateSingleTop, navController::popBackStack, scaffoldState)
+        settingsComposable(navigateSingleTop, navController::popBackStack)
+        editProfileComposable(navigateSingleTop, navController::popBackStack)
+        profileComposable(navigateSingleTop, navController::popBackStack)
+        updatePasswordComposable(navigateSingleTop, navController::popBackStack)
+        deleteAccountComposable(navigateSingleTop, navController::popBackStack)
     }
 }

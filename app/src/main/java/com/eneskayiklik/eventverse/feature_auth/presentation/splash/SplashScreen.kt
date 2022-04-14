@@ -71,6 +71,7 @@ private fun SplashScreen(
                 is UiEvent.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
+                else -> Unit
             }
         }
     }

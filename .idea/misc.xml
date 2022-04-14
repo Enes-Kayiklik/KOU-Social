@@ -45,7 +45,13 @@
         <entry key="app/src/main/res/drawable/ic_select_photo.xml" value="0.2462962962962963" />
         <entry key="app/src/main/res/drawable/ic_send.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/drawable/ic_splash_back.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.23981481481481481" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_background.xml" value="0.20625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_background_round.xml" value="0.20625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_foreground_round.xml" value="0.20625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.20625" />
       </map>
     </option>
   </component>
