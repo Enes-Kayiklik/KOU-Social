@@ -52,6 +52,7 @@
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_foreground_round.xml" value="0.20625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.20625" />
+        <entry key="app/src/main/res/xml/meal_list_widget.xml" value="0.15070921985815602" />
       </map>
     </option>
   </component>

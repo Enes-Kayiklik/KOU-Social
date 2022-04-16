@@ -24,17 +24,17 @@ class EditProfileRepositoryImpl(
 
     suspend fun updateUser(user: User, isProfilePicUpdated: Boolean) = flow {
         emit(Resource.Loading())
-        val uid = Settings.currentUser.userId
-        val picPath = if (isProfilePicUpdated) uploadProfilePic(user.profilePic, uid) else null
-        //TODO("Eğer null ise boş bırakmak yerine eski değeri ata")
-        val newUserData = user.copy(profilePic = picPath ?: "")
+        val currentUser = Settings.currentUser
+        val picPath =
+            if (isProfilePicUpdated) uploadProfilePic(user.profilePic, currentUser.userId) else null
+        val newUserData = user.copy(profilePic = picPath ?: currentUser.profilePic)
 
         Settings.currentUser = user.toAppUser()
         try {
             db.collection(BuildConfig.FIREBASE_REFERENCE)
                 .document("users")
                 .collection("users")
-                .document(uid)
+                .document(currentUser.userId)
                 .set(newUserData)
                 .await()
             emit(Resource.Success(true))

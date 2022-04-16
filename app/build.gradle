@@ -83,9 +83,6 @@ dependencies {
     // Accompanist Navigation Animation
     implementation("com.google.accompanist:accompanist-navigation-animation:$accompanist_version")
 
-    // Accompanist WebView
-    implementation "com.google.accompanist:accompanist-webview:0.24.6-alpha"
-
     // Insets
     implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
     // Coil
