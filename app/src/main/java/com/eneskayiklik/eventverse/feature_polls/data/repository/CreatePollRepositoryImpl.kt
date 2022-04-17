@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.feature_polls.data.repository
 
+import android.util.Log
 import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.core.util.Settings
 import com.eneskayiklik.eventverse.feature_polls.data.model.Poll
@@ -29,6 +30,7 @@ class CreatePollRepositoryImpl(
             ShareResult(isSuccess = true)
         } catch (e: Exception) {
             e.printStackTrace()
+            Log.e("TAG", "createPoll: $e", )
             ShareResult(error = e.message ?: "")
         }
     }
