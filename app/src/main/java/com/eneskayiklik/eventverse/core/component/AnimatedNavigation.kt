@@ -6,8 +6,12 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.feature_announcement.presentation.AnnouncementViewModel
 import com.eneskayiklik.eventverse.feature_auth.presentation.introduction.introComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.login.loginComposable
 import com.eneskayiklik.eventverse.feature_auth.presentation.signup.signupComposable
@@ -18,6 +22,7 @@ import com.eneskayiklik.eventverse.feature_explore.presentation.exploreComposabl
 import com.eneskayiklik.eventverse.feature_announcement.presentation.announcementComposable
 import com.eneskayiklik.eventverse.feature_settings.presentation.edit_profile.editProfileComposable
 import com.eneskayiklik.eventverse.feature_meal.presentation.mealComposable
+import com.eneskayiklik.eventverse.feature_polls.presentation.create_poll.createPollComposable
 import com.eneskayiklik.eventverse.feature_profile.presentation.profileComposable
 import com.eneskayiklik.eventverse.feature_settings.presentation.delete_account.deleteAccountComposable
 import com.eneskayiklik.eventverse.feature_settings.presentation.settings.settingsComposable
@@ -38,6 +43,9 @@ fun BaseAnimatedNavigation(
         navController.navigate(it) {
             launchSingleTop = true
         }
+    }
+    val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
+        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
     }
     AnimatedNavHost(
         modifier = Modifier.navigationBarsWithImePadding(),
@@ -62,8 +70,9 @@ fun BaseAnimatedNavigation(
         }, navController::popBackStack, scaffoldState)
         exploreComposable(navigateSingleTop, navController::popBackStack)
         pollsComposable(navigateSingleTop, navController::popBackStack)
-        announcementComposable(navigateSingleTop, navController::popBackStack)
-        mealComposable(navigateSingleTop, navController::popBackStack)
+        createPollComposable(navigateSingleTop, navController::popBackStack)
+        announcementComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
+        mealComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         createComposable(navigateSingleTop, navController::popBackStack, scaffoldState)
         shareComposable(navigateSingleTop, navController::popBackStack, scaffoldState)
         settingsComposable(navigateSingleTop, navController::popBackStack)

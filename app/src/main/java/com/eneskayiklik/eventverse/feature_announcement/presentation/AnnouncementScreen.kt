@@ -13,7 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavGraphBuilder
+import com.eneskayiklik.eventverse.Eventverse
 import com.eneskayiklik.eventverse.core.util.Screen
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.core.util.anim.ScreensAnim.exitTransition
@@ -123,6 +125,7 @@ private fun BoxScope.ItemsContent(viewModel: AnnouncementViewModel, onNavigate: 
 fun NavGraphBuilder.announcementComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
+    owner: ViewModelStoreOwner
 ) {
     composable(
         route = Screen.Announcement.route,
@@ -131,6 +134,6 @@ fun NavGraphBuilder.announcementComposable(
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
     ) {
-        AnnouncementScreen(onNavigate, clearBackStack)
+        AnnouncementScreen(onNavigate, clearBackStack, hiltViewModel(owner))
     }
 }

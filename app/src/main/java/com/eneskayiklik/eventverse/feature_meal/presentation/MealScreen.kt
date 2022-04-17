@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.util.Screen
@@ -193,6 +194,7 @@ private fun BoxScope.ItemsContent(viewModel: MealViewModel, onNavigate: (String)
 fun NavGraphBuilder.mealComposable(
     onNavigate: (String) -> Unit,
     clearBackStack: () -> Unit,
+    owner: ViewModelStoreOwner
 ) {
     composable(
         route = Screen.Meal.route,
@@ -201,6 +203,6 @@ fun NavGraphBuilder.mealComposable(
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
     ) {
-        MealScreen(onNavigate, clearBackStack)
+        MealScreen(onNavigate, clearBackStack, hiltViewModel(owner))
     }
 }

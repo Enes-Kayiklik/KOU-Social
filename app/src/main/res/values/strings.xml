@@ -99,4 +99,9 @@
     <string name="main_dish">MAIN DISH</string>
     <string name="side_dish">SIDE DISH</string>
     <string name="extra">EXTRA</string>
+    <string name="create_poll">Create Poll</string>
+    <string name="share_poll">Share Poll</string>
+    <string name="create_post">Create Post</string>
+    <string name="poll_placeholder">Option %d</string>
+    <string name="create_poll_title_placeholder">Ask a question</string>
 </resources>

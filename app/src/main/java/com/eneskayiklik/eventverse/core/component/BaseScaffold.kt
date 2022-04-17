@@ -1,13 +1,11 @@
 package com.eneskayiklik.eventverse.core.component
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -49,7 +47,6 @@ fun BaseScaffold(
     content: @Composable () -> Unit
 ) {
     var isClicked by remember { mutableStateOf(false) }
-    val alphaAnim = animateFloatAsState(targetValue = if (isClicked) .3F else 1F).value
     Scaffold(
         bottomBar = {
             AnimatedVisibility(
@@ -63,8 +60,7 @@ fun BaseScaffold(
             ) {
                 BottomAppBar(
                     modifier = Modifier
-                        .shadow(elevation = 0.dp, clip = false, shape = CircleShape)
-                        .alpha(alphaAnim),
+                        .shadow(elevation = 0.dp, clip = false, shape = CircleShape),
                     backgroundColor = MaterialTheme.colors.secondary,
                 ) {
                     Row(
@@ -97,9 +93,12 @@ fun BaseScaffold(
                 enter = scaleIn() + fadeIn(),
                 exit = scaleOut() + fadeOut()
             ) {
-                MainFloatingActionGroup(isClicked) {
+                MainFloatingActionGroup(isClicked, onNavigate = {
+                    navController.navigate(it)
                     isClicked = isClicked.not()
-                }
+                }, onFabClick = {
+                    isClicked = isClicked.not()
+                })
             }
         },
         isFloatingActionButtonDocked = false,
@@ -109,7 +108,6 @@ fun BaseScaffold(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .alpha(alphaAnim)
                 .padding(padding)
         ) {
             content()

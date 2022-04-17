@@ -17,7 +17,7 @@ object ScreensAnim {
     fun AnimatedContentScope<NavBackStackEntry>.enterTransition(): EnterTransition {
         return when (targetState.destination.route) {
             in BOTTOM_NAV_ITEMS -> fadeIn()
-            Screen.CreateEvent.route, Screen.Share.route -> slideInVertically(
+            Screen.CreateEvent.route, Screen.Share.route, Screen.CreatePoll.route -> slideInVertically(
                 animationSpec = tween(300),
                 initialOffsetY = { it })
             else -> slideInHorizontally(animationSpec = tween(300), initialOffsetX = { it })
@@ -27,7 +27,7 @@ object ScreensAnim {
     fun AnimatedContentScope<NavBackStackEntry>.exitTransition(): ExitTransition {
         return when (targetState.destination.route) {
             in BOTTOM_NAV_ITEMS -> fadeOut()
-            Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
+            Screen.CreateEvent.route, Screen.Share.route, Screen.CreatePoll.route -> slideOutVertically(
                 animationSpec = tween(300),
                 targetOffsetY = { (-it / 7) })
             else -> slideOutHorizontally(
@@ -39,7 +39,7 @@ object ScreensAnim {
     fun AnimatedContentScope<NavBackStackEntry>.popEnterTransition(): EnterTransition {
         return when (initialState.destination.route) {
             in BOTTOM_NAV_ITEMS -> fadeIn()
-            Screen.CreateEvent.route, Screen.Share.route -> slideInVertically(
+            Screen.CreateEvent.route, Screen.Share.route, Screen.CreatePoll.route -> slideInVertically(
                 animationSpec = tween(300),
                 initialOffsetY = { -it })
             else -> slideInHorizontally(
@@ -51,7 +51,7 @@ object ScreensAnim {
     fun AnimatedContentScope<NavBackStackEntry>.popExitTransition(): ExitTransition {
         return when (initialState.destination.route) {
             in BOTTOM_NAV_ITEMS -> fadeOut()
-            Screen.CreateEvent.route, Screen.Share.route -> slideOutVertically(
+            Screen.CreateEvent.route, Screen.Share.route, Screen.CreatePoll.route -> slideOutVertically(
                 animationSpec = tween(300),
                 targetOffsetY = { it / 7 })
             else -> slideOutHorizontally(animationSpec = tween(300), targetOffsetX = { it / 7 })

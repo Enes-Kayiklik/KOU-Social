@@ -43,7 +43,8 @@ data class AppUser(
         userId = userId,
         email = email,
         fullName = fullName,
-        profilePic = profilePic
+        profilePic = profilePic,
+        department = department.departmentName
     )
 
     fun toUser() = User(
@@ -62,5 +63,6 @@ data class PostUser(
     val userId: String = "",
     val email: String = "",
     val fullName: String = "",
-    val profilePic: String = ""
+    val profilePic: String = "",
+    val department: String = ""
 )
