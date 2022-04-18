@@ -1,8 +1,7 @@
 package com.eneskayiklik.eventverse.di
 
 import android.content.Context
-import com.eneskayiklik.eventverse.feature_profile.data.repository.ProfileRepositoryImpl
-import com.eneskayiklik.eventverse.feature_settings.data.repository.*
+import com.eneskayiklik.eventverse.data.repository.profile.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

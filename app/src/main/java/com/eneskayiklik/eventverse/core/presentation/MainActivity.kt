@@ -17,8 +17,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.eneskayiklik.eventverse.core.component.BaseAnimatedNavigation
 import com.eneskayiklik.eventverse.core.component.BaseScaffold
 import com.eneskayiklik.eventverse.core.ui.theme.EventverseTheme
-import com.eneskayiklik.eventverse.core.util.Screen
-import com.eneskayiklik.eventverse.core.util.data_store.AppDataStore
+import com.eneskayiklik.eventverse.util.Screen
+import com.eneskayiklik.eventverse.util.data_store.AppDataStore
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint

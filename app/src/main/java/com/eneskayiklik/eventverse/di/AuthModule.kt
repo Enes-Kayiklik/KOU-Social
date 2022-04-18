@@ -1,8 +1,6 @@
 package com.eneskayiklik.eventverse.di
 
-import com.eneskayiklik.eventverse.feature_auth.data.repository.*
-import com.eneskayiklik.eventverse.feature_auth.domain.repository.AuthRepository
-import com.eneskayiklik.eventverse.feature_auth.domain.repository.SelectInterestRepository
+import com.eneskayiklik.eventverse.data.repository.auth.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,10 +10,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AuthModule {
-
-    @Singleton
-    @Provides
-    fun provideAuthRepository(): AuthRepository = AuthRepositoryImpl()
 
     @Singleton
     @Provides
@@ -32,8 +26,4 @@ object AuthModule {
     @Singleton
     @Provides
     fun provideIntroRepository(): IntroRepositoryImpl = IntroRepositoryImpl()
-
-    @Singleton
-    @Provides
-    fun provideSelectInterestRepository(): SelectInterestRepository = SelectInterestRepositoryImpl()
 }

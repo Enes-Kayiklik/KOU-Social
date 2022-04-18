@@ -1,9 +1,7 @@
 package com.eneskayiklik.eventverse.di
 
-import com.eneskayiklik.eventverse.feature_create.data.repository.CreateEventRepositoryImpl
-import com.eneskayiklik.eventverse.feature_create.domain.repository.CreateRepository
-import com.eneskayiklik.eventverse.feature_polls.data.repository.CreatePollRepositoryImpl
-import com.eneskayiklik.eventverse.feature_share.data.repository.ShareRepositoryImpl
+import com.eneskayiklik.eventverse.data.repository.polls.CreatePollRepositoryImpl
+import com.eneskayiklik.eventverse.data.repository.share.ShareRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,10 +11,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object CreateModule {
-
-    @Singleton
-    @Provides
-    fun provideCreateRepository(): CreateRepository = CreateEventRepositoryImpl()
 
     @Singleton
     @Provides

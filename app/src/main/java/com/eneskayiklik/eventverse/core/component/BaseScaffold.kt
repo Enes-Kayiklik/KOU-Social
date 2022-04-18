@@ -11,8 +11,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.core.util.BottomNavItem
-import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.util.BottomNavItem
+import com.eneskayiklik.eventverse.util.Screen
 
 @ExperimentalAnimationApi
 @Composable

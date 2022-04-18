@@ -1,7 +1,7 @@
 package com.eneskayiklik.eventverse.di
 
 import com.eneskayiklik.eventverse.BuildConfig
-import com.eneskayiklik.eventverse.feature_meal.domain.gateway.MealAPI
+import com.eneskayiklik.eventverse.data.remote.meal.MealAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

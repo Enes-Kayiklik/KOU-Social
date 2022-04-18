@@ -62,33 +62,6 @@
 -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
 
 # Keep model classes
--keepclassmembers class com.eneskayiklik.eventverse.feature_auth.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_auth.domain.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_announcement.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_create.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_explore.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_meal.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_polls.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_profile.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_settings.data.model** {
-    *;
-}
--keepclassmembers class com.eneskayiklik.eventverse.feature_share.data.model** {
+-keepclassmembers class com.eneskayiklik.eventverse.data.model** {
     *;
 }

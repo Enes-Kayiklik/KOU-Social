@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.ui.theme.White
-import com.eneskayiklik.eventverse.core.util.Screen
+import com.eneskayiklik.eventverse.util.Screen
 
 @Composable
 fun MainFloatingActionGroup(
