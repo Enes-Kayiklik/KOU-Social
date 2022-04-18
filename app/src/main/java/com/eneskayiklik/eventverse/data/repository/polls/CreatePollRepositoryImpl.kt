@@ -1,9 +1,8 @@
 package com.eneskayiklik.eventverse.data.repository.polls
 
-import android.util.Log
 import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.util.Settings
-import com.eneskayiklik.eventverse.data.model.poll.Poll
+import com.eneskayiklik.eventverse.data.model.poll.PollDto
 import com.eneskayiklik.eventverse.data.model.share.ShareResult
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -15,10 +14,10 @@ class CreatePollRepositoryImpl(
 ) {
 
     suspend fun createPoll(title: String, options: List<String>): ShareResult {
-        val poll = Poll(
+        val poll = PollDto(
             title = title,
             options = options,
-            fromUser = Settings.currentUser.toPostUser()
+            userId = Settings.currentUser.userId
         )
 
         return try {
@@ -30,7 +29,6 @@ class CreatePollRepositoryImpl(
             ShareResult(isSuccess = true)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("TAG", "createPoll: $e", )
             ShareResult(error = e.message ?: "")
         }
     }

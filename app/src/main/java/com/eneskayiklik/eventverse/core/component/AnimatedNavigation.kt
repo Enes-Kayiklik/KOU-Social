@@ -13,7 +13,7 @@ import com.eneskayiklik.eventverse.feature.auth.introduction.introComposable
 import com.eneskayiklik.eventverse.feature.auth.login.loginComposable
 import com.eneskayiklik.eventverse.feature.auth.signup.signupComposable
 import com.eneskayiklik.eventverse.feature.auth.splash.splashComposable
-import com.eneskayiklik.eventverse.feature_polls.presentation.pollsComposable
+import com.eneskayiklik.eventverse.feature.polls.pollsComposable
 import com.eneskayiklik.eventverse.feature.create.createComposable
 import com.eneskayiklik.eventverse.feature.explore.exploreComposable
 import com.eneskayiklik.eventverse.feature.announcement.announcementComposable
@@ -66,7 +66,7 @@ fun BaseAnimatedNavigation(
             }
         }, navController::popBackStack, scaffoldState)
         exploreComposable(navigateSingleTop, navController::popBackStack)
-        pollsComposable(navigateSingleTop, navController::popBackStack)
+        pollsComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         createPollComposable(navigateSingleTop, navController::popBackStack)
         announcementComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         mealComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)

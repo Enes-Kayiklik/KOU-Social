@@ -1,6 +1,7 @@
 package com.eneskayiklik.eventverse.di
 
 import com.eneskayiklik.eventverse.data.repository.polls.CreatePollRepositoryImpl
+import com.eneskayiklik.eventverse.data.repository.polls.PollsRepositoryImpl
 import com.eneskayiklik.eventverse.data.repository.share.ShareRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -19,4 +20,8 @@ object CreateModule {
     @Singleton
     @Provides
     fun provideCreatePollRepository(): CreatePollRepositoryImpl = CreatePollRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun providePollsRepository(): PollsRepositoryImpl = PollsRepositoryImpl()
 }

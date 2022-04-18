@@ -25,6 +25,14 @@ data class User(
         socialAccounts = socialAccounts,
         socialLogin = socialLogin
     )
+
+    fun toPostUser() = PostUser(
+        userId = userId,
+        department = department.departmentName,
+        email = email,
+        fullName = fullName,
+        profilePic = profilePic
+    )
 }
 
 data class AppUser(
