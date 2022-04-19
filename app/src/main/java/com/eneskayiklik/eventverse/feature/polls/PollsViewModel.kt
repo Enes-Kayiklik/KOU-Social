@@ -86,5 +86,6 @@ class PollsViewModel @Inject constructor(
         _state.value = _state.value.copy(
             polls = newList
         )
+        pollsRepository.votePoll(pollId, optionIndex)
     }
 }
