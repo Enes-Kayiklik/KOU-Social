@@ -27,6 +27,7 @@ class CreatePollViewModel @Inject constructor(
 
     fun onOptionChanged(text: String, index: Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            if (text.count() > 25) return@launch
             val newItems = _state.value.options.toMutableList()
             val lastIndex = newItems.lastIndex
 

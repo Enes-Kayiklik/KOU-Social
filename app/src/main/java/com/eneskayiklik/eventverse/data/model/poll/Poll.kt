@@ -25,7 +25,7 @@ data class Poll(
     val showAnswers = userAnswer != -1
 
     val formattedDate: String =
-        SimpleDateFormat("dd.MMM hh:mm", Locale.getDefault()).format(createdAt.toDate())
+        SimpleDateFormat("dd MMM hh:mm", Locale.getDefault()).format(createdAt.toDate())
 }
 
 data class PollDto(

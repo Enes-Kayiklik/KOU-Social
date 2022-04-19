@@ -35,12 +35,13 @@ fun SinglePollView(
             text = poll.title, style = MaterialTheme.typography.h1.copy(
                 color = MaterialTheme.colors.onBackground,
                 fontSize = 20.sp
-            )
+            ), modifier = Modifier.padding(vertical = 10.dp)
         )
         PollOptionsList(
             poll.userAnswer, poll.showAnswers, poll.percentages, poll.options
         ) {
-            onOptionSelected(poll.id, it)
+            // if user rated once then can't re rate
+            if (poll.showAnswers.not()) onOptionSelected(poll.id, it)
         }
     }
 }
