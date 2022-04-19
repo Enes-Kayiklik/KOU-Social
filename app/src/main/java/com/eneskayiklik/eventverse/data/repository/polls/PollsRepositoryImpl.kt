@@ -1,31 +1,45 @@
 package com.eneskayiklik.eventverse.data.repository.polls
 
+import android.util.Log
 import com.eneskayiklik.eventverse.BuildConfig
-import com.eneskayiklik.eventverse.data.model.poll.Poll
 import com.eneskayiklik.eventverse.data.model.poll.PollDto
+import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.Settings
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 class PollsRepositoryImpl(
     private val db: FirebaseFirestore = Firebase.firestore
 ) {
 
-    suspend fun getPolls(): List<Poll> {
-        return try {
+    private var lastSnapshot: QuerySnapshot? = null
+    suspend fun getPolls(getNext: Boolean, isRefreshing: Boolean = false) = flow {
+        if (getNext.not()) return@flow
+        // Refresh page
+        if (isRefreshing) lastSnapshot = null
+        try {
+            emit(Resource.Loading())
             if (Settings.userStorage.isEmpty()) Settings.getAllUsers(db)
-            db.collection(BuildConfig.FIREBASE_REFERENCE)
+            val snapshot = db.collection(BuildConfig.FIREBASE_REFERENCE)
                 .document("polls")
                 .collection("polls")
+                .orderBy("createdAt")
+                .startAfter(lastSnapshot)
+                .limit(25)
                 .get().await()
-                .toObjects(PollDto::class.java)
+            lastSnapshot = snapshot
+            val data = snapshot.toObjects(PollDto::class.java)
                 .map { it.toPoll() }
+            emit(Resource.Success(data))
         } catch (e: Exception) {
             e.printStackTrace()
-            emptyList()
+            emit(Resource.Error(e.message ?: ""))
+            Log.e("TAG", "getPolls: $e", )
         }
     }
 

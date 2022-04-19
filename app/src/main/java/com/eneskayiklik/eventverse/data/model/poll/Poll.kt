@@ -4,6 +4,7 @@ import com.eneskayiklik.eventverse.data.model.auth.PostUser
 import com.eneskayiklik.eventverse.util.Settings
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -15,10 +16,16 @@ data class Poll(
     val createdAt: Timestamp = Timestamp(Date(System.currentTimeMillis())),
     val fromUser: PostUser = PostUser()
 ) {
-    private val answerSize = answers.count()
+    private val answerSize = answers.count().takeIf { it > 0 } ?: 1
     val percentages = options.indices.map { indices ->
         (answers.count { it.value == indices } * 100) / answerSize
     }
+
+    val userAnswer = answers[Settings.currentUser.userId] ?: -1
+    val showAnswers = userAnswer != -1
+
+    val formattedDate: String =
+        SimpleDateFormat("dd.MMM hh:mm", Locale.getDefault()).format(createdAt.toDate())
 }
 
 data class PollDto(
