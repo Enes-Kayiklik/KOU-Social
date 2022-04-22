@@ -38,13 +38,12 @@ private fun PollsScreen(
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
     ) {
-        CreatePollToolbar(
+        PollsToolbar(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.background)
                 .statusBarsPadding()
-                .height(56.dp),
-            onStartIconClick = clearBackStack
+                .height(56.dp)
         )
 
         Box(

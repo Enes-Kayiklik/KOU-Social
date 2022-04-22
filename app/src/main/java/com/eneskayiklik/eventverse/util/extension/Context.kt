@@ -36,7 +36,7 @@ fun Context.shareMeal(meal: Meal) {
         Yan Yemek
         - ${meal.sideDish.name} -- ${meal.sideDish.calorie} kalori
         
-        Extra
+        Ekstra
         - ${meal.side.name} -- ${meal.side.calorie} kalori
     """.trimIndent()
     try {
