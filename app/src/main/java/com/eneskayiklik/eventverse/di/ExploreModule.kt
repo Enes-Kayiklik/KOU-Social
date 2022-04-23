@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.di
 
+import com.eneskayiklik.eventverse.data.repository.explore.ExploreRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,5 +11,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ExploreModule {
 
-
+    @Provides
+    @Singleton
+    fun provideExploreRepository(): ExploreRepositoryImpl = ExploreRepositoryImpl()
 }

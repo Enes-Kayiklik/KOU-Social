@@ -13,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.feature.create.component.HeaderSection
-import com.eneskayiklik.eventverse.feature.explore.component.select_location.SelectLocationSection
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -30,11 +29,11 @@ fun LazyListScope.locationSection() {
     }
 
     item {
-        SelectLocationSection(
+        /*SelectLocationSection(
             modifier = Modifier.fillMaxWidth(),
             selectedLocation = "Osmaniye"
         ) {
             // TODO("select city on click")
-        }
+        }*/
     }
 }

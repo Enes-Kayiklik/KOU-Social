@@ -33,8 +33,6 @@ import com.eneskayiklik.eventverse.feature.create.component.lazy_section.dateTim
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.eventPhotoSection
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.locationSection
 import com.eneskayiklik.eventverse.feature.create.util.CreateState
-import com.eneskayiklik.eventverse.feature.explore.component.EventverseAppbar
-import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -82,7 +80,7 @@ private fun CreateScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            EventverseAppbar(
+            /*EventverseAppbar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colors.primary)
@@ -91,7 +89,7 @@ private fun CreateScreen(
                 title = stringResource(id = R.string.create_event),
                 startIcon = Icons.Rounded.ArrowBack,
                 onStartIconClick = clearBackStack,
-            )
+            )*/
 
             LazyColumn(
                 state = listState

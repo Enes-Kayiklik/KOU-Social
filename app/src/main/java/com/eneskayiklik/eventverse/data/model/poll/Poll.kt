@@ -2,9 +2,9 @@ package com.eneskayiklik.eventverse.data.model.poll
 
 import com.eneskayiklik.eventverse.data.model.auth.PostUser
 import com.eneskayiklik.eventverse.util.Settings
+import com.eneskayiklik.eventverse.util.extension.formatDate
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -24,8 +24,7 @@ data class Poll(
     val userAnswer = answers[Settings.currentUser.userId] ?: -1
     val showAnswers = userAnswer != -1
 
-    val formattedDate: String =
-        SimpleDateFormat("dd MMM hh:mm", Locale.getDefault()).format(createdAt.toDate())
+    val formattedDate: String = createdAt.toDate().formatDate()
 }
 
 data class PollDto(

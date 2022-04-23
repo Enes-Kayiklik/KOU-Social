@@ -3,10 +3,14 @@ package com.eneskayiklik.eventverse.feature.explore
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -17,10 +21,14 @@ import com.eneskayiklik.eventverse.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature.explore.component.ExploreToolbar
+import com.eneskayiklik.eventverse.feature.explore.component.SinglePostView
+import com.eneskayiklik.eventverse.feature.polls.component.EmptyPollsView
+import com.eneskayiklik.eventverse.feature.polls.component.ListLoadingView
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
-@ExperimentalMaterialApi
 @Composable
 private fun ExploreScreen(
     onNavigate: (String) -> Unit,
@@ -28,69 +36,87 @@ private fun ExploreScreen(
     viewModel: ExploreViewModel = hiltViewModel()
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(MaterialTheme.colors.background)
     ) {
         ExploreToolbar(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.background)
-                .padding(horizontal = 8.dp)
                 .statusBarsPadding()
-                .height(56.dp),
-            onStartIconClick = { },
-            onEndIconClick = { onNavigate(Screen.Profile.route(true)) }
-        )
-
-        /*LazyColumn(
-            contentPadding = PaddingValues(bottom = 50.dp)
+                .height(56.dp)
         ) {
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                SelectLocationSection(
-                    modifier = Modifier.fillMaxWidth(),
-                    selectedLocation = "Osmaniye"
-                ) {
-                    // TODO("select city on click")
-                }
-            }
+            onNavigate(Screen.Profile.route(true))
+        }
 
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                PopularNowSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    items = upcoming
-                ) {
-                    // TODO("On item selected")
-                }
-            }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            ItemsContent(viewModel, onNavigate)
+        }
+    }
+}
 
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                PopularNowSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    items = upcoming
-                ) {
-                    // TODO("On item selected")
-                }
-            }
+@Composable
+private fun BoxScope.ItemsContent(viewModel: ExploreViewModel, onNavigate: (String) -> Unit) {
+    val state = viewModel.state.collectAsState().value
+    val posts = state.posts
 
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                PopularNowSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    items = upcoming
-                ) {
-                    // TODO("On item selected")
+    if (state.showInitialLoading) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(32.dp)
+                .align(Alignment.Center),
+            color = MaterialTheme.colors.primary,
+            strokeWidth = 2.dp
+        )
+    } else {
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = state.isRefreshing),
+            onRefresh = viewModel::refreshPosts
+        ) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentPadding = PaddingValues(bottom = 56.dp),
+                verticalArrangement = if (state.showEmptyScreen) Arrangement.Center else Arrangement.Top
+            ) {
+                if (state.showEmptyScreen) {
+                    item {
+                        EmptyPollsView(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(32.dp)
+                        )
+                    }
+                } else {
+                    items(
+                        posts.count(),
+                        key = { posts[it].id }) { index ->
+                        val currentItem = posts[index]
+                        SinglePostView(
+                            post = currentItem,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            onPostAction = { }
+                        )
+                        if (index != posts.lastIndex) {
+                            Divider(
+                                modifier = Modifier
+                                    .height(1.dp)
+                                    .background(MaterialTheme.colors.secondary)
+                            )
+                        } else if (state.hasNext) {
+                            ListLoadingView {
+                                viewModel.getPolls()
+                            }
+                        }
+                    }
                 }
             }
-        }*/
+        }
     }
 }
 

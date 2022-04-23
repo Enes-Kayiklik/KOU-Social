@@ -21,7 +21,6 @@ import com.eneskayiklik.eventverse.feature.profile.profile.component.ProfileImag
 @Composable
 fun ExploreToolbar(
     modifier: Modifier = Modifier,
-    onStartIconClick: () -> Unit = { },
     onEndIconClick: () -> Unit = { },
 ) {
     Box(modifier = modifier) {
