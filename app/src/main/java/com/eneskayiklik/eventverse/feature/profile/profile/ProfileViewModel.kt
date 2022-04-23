@@ -53,4 +53,13 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
+
+    fun updateCurrentUser() {
+        viewModelScope.launch {
+            if (_state.value.isSelf)
+                _state.value = _state.value.copy(
+                    user = Settings.currentUser.toUser()
+                )
+        }
+    }
 }

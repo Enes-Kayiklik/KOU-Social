@@ -16,6 +16,7 @@ data class SettingsState(
     val user: User = Settings.currentUser.toUser(),
     val fullName: TextFieldState = TextFieldState(user.fullName),
     val profilePic: String = user.profilePic,
+    val cropperImage: String = "",
     val birthDate: LocalDate? = user.birthDate?.toDate()?.toInstant()
         ?.atZone(ZoneId.systemDefault())?.toLocalDate(),
     val department: Department = user.department,

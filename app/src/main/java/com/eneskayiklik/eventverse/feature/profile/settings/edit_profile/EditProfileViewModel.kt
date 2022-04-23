@@ -2,15 +2,14 @@ package com.eneskayiklik.eventverse.feature.profile.settings.edit_profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eneskayiklik.eventverse.core.data.event.CropperEvent
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.UiEvent
-import com.eneskayiklik.eventverse.util.extension.isValidFullName
-import com.eneskayiklik.eventverse.util.extension.isValidGitHubUsername
-import com.eneskayiklik.eventverse.util.extension.isValidInstagramUsername
-import com.eneskayiklik.eventverse.util.extension.isValidTwitterUsername
 import com.eneskayiklik.eventverse.data.event.profile.EditProfileEvent
 import com.eneskayiklik.eventverse.data.repository.profile.EditProfileRepositoryImpl
 import com.eneskayiklik.eventverse.data.state.profile.SettingsState
+import com.eneskayiklik.eventverse.util.Settings
+import com.eneskayiklik.eventverse.util.extension.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -50,7 +49,11 @@ class EditProfileViewModel @Inject constructor(
             )
             is EditProfileEvent.OnPhoto -> _state.value = _state.value.copy(
                 profilePic = event.uri.toString(),
+                cropperImage = "",
                 isProfilePicUpdated = true
+            )
+            is EditProfileEvent.OnCropper -> _state.value = _state.value.copy(
+                cropperImage = event.uri.toString(),
             )
             is EditProfileEvent.OnBirthdate -> _state.value = _state.value.copy(
                 birthDate = event.date
@@ -58,6 +61,19 @@ class EditProfileViewModel @Inject constructor(
             is EditProfileEvent.ShowDepartmentPopup -> _state.value = _state.value.copy(
                 isDepartmentPopupVisible = event.isVisible
             )
+        }
+    }
+
+    fun onCropperEvent(event: CropperEvent) {
+        when (event) {
+            is CropperEvent.OnCropFinish -> {
+                val uri = event.context.getImageUri(event.bitmap)
+                onEvent(EditProfileEvent.OnPhoto(uri))
+            }
+            CropperEvent.OnCropCancel -> _state.value = _state.value.copy(
+                cropperImage = "",
+            )
+            else -> Unit
         }
     }
 
@@ -80,17 +96,18 @@ class EditProfileViewModel @Inject constructor(
                 return@launch
             }
 
-            editProfileRepository.updateUser(data.getFieldsAsUser(), data.isProfilePicUpdated).collectLatest {
-                when (it) {
-                    is Resource.Error -> _state.value = _state.value.copy(
-                        isLoading = false
-                    )
-                    is Resource.Loading -> _state.value = _state.value.copy(
-                        isLoading = true
-                    )
-                    is Resource.Success -> _event.emit(UiEvent.ClearBackStack)
+            editProfileRepository.updateUser(data.getFieldsAsUser(), data.isProfilePicUpdated)
+                .collectLatest {
+                    when (it) {
+                        is Resource.Error -> _state.value = _state.value.copy(
+                            isLoading = false
+                        )
+                        is Resource.Loading -> _state.value = _state.value.copy(
+                            isLoading = true
+                        )
+                        is Resource.Success -> _event.emit(UiEvent.ClearBackStack)
+                    }
                 }
-            }
         }
     }
 }

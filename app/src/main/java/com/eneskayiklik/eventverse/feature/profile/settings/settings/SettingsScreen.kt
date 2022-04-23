@@ -14,14 +14,18 @@ import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.core.presentation.MainActivity
 import com.eneskayiklik.eventverse.util.Screen
@@ -58,6 +62,7 @@ private fun SettingsScreen(
     val accountTitle = stringResource(id = R.string.account)
     val settingsTitle = stringResource(id = R.string.settings)
     val isDarkModeEnabled = viewModel.isDarkModeEnabled.collectAsState(false).value
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     val contract = rememberLauncherForActivityResult(contract = GoogleLoginContract()) { task ->
         try {
@@ -65,6 +70,22 @@ private fun SettingsScreen(
             viewModel.deleteAccountPopup(account ?: return@rememberLauncherForActivityResult)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.updateCurrentUser()
+            }
+        }
+
+        // Add the observer to the lifecycle
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        // When the effect leaves the Composition, remove the observer
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
 

@@ -2,7 +2,11 @@ package com.eneskayiklik.eventverse.feature.profile.settings.edit_profile
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.component.cropper.CropperView
 import com.eneskayiklik.eventverse.core.presentation.MainActivity
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.UiEvent
@@ -101,7 +106,7 @@ private fun SettingsScreen(
                 )
                 photoSection(state.profilePic, viewModel::onEvent)
                 nameSection(state.fullName, viewModel::onEvent)
-                ageSection(state.formattedBirthdate, viewModel::onEvent)
+                // ageSection(state.formattedBirthdate, viewModel::onEvent)
                 departmentSection(
                     state.department,
                     state.isDepartmentPopupVisible,
@@ -133,6 +138,17 @@ private fun SettingsScreen(
         ) {
             viewModel.updateProfile()
         }
+    }
+
+    AnimatedVisibility(visible = state.cropperImage.isNotEmpty(),
+        enter = slideInHorizontally(initialOffsetX = { it }),
+        exit = slideOutHorizontally(targetOffsetX = { it })
+    ) {
+        CropperView(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background),
+            uri = Uri.parse(state.cropperImage),
+            onCropEvent = viewModel::onCropperEvent)
     }
 }
 

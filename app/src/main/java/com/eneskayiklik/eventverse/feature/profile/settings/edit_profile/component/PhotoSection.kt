@@ -26,7 +26,7 @@ fun LazyListScope.photoSection(
         val launcher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetContent()
         ) {
-            if (it != null) event(EditProfileEvent.OnPhoto(it))
+            if (it != null) event(EditProfileEvent.OnCropper(it))
         }
 
         Row(

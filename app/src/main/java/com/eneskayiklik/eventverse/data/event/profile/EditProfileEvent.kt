@@ -7,6 +7,7 @@ import java.time.LocalDate
 sealed class EditProfileEvent {
     data class OnFullName(val text: String) : EditProfileEvent()
     data class OnPhoto(val uri: Uri) : EditProfileEvent()
+    data class OnCropper(val uri: Uri) : EditProfileEvent()
     data class OnInstagram(val text: String) : EditProfileEvent()
     data class OnLinkedIn(val text: String) : EditProfileEvent()
     data class OnTwitter(val text: String) : EditProfileEvent()

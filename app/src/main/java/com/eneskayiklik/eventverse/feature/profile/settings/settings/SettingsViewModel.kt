@@ -95,4 +95,12 @@ class SettingsViewModel @Inject constructor(
             dataStore.setDarkMode(value)
         }
     }
+
+    fun updateCurrentUser() {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                user = Settings.currentUser.toUser()
+            )
+        }
+    }
 }
