@@ -1,24 +1,25 @@
 package com.eneskayiklik.eventverse.feature.share
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eneskayiklik.eventverse.core.data.event.CropperEvent
 import com.eneskayiklik.eventverse.util.UiEvent
 import com.eneskayiklik.eventverse.data.event.share.ShareEvent
 import com.eneskayiklik.eventverse.data.repository.share.ShareRepositoryImpl
 import com.eneskayiklik.eventverse.data.state.share.ShareState
+import com.eneskayiklik.eventverse.util.Resource
+import com.eneskayiklik.eventverse.util.extension.getImageUri
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ShareViewModel @Inject constructor(
     private val shareRepository: ShareRepositoryImpl
-): ViewModel() {
+) : ViewModel() {
 
     private val _state = MutableStateFlow(ShareState())
     val state: StateFlow<ShareState> = _state
@@ -29,10 +30,8 @@ class ShareViewModel @Inject constructor(
     fun onEvent(event: ShareEvent) {
         viewModelScope.launch {
             when (event) {
-                is ShareEvent.OnTitle -> _state.value = _state.value.copy(
-                    titleState = _state.value.titleState.copy(
-                        text = event.text
-                    )
+                is ShareEvent.OnImage -> _state.value = _state.value.copy(
+                    selectedImage = event.uri.toString()
                 )
                 is ShareEvent.OnBody -> _state.value = _state.value.copy(
                     bodyState = _state.value.bodyState.copy(
@@ -43,19 +42,39 @@ class ShareViewModel @Inject constructor(
         }
     }
 
+    fun onCropperEvent(event: CropperEvent) {
+        when (event) {
+            is CropperEvent.OnCropFinish -> {
+                val uri = event.context.getImageUri(event.bitmap)
+                Log.e("TAG", "onCropperEvent: $uri", )
+                _state.value = _state.value.copy(
+                    postImage = uri.toString(),
+                    selectedImage = ""
+                )
+            }
+            CropperEvent.OnCropCancel -> _state.value = _state.value.copy(
+                selectedImage = "",
+            )
+            else -> Unit
+        }
+    }
+
     fun sharePost() {
         viewModelScope.launch(Dispatchers.IO) {
             val body = _state.value.bodyState.text
-            val title = _state.value.titleState.text
-            if (body.isNotEmpty() && _state.value.isLoading.not()) {
-                _state.value = _state.value.copy(
-                    isLoading = true
-                )
-                val result = shareRepository.sharePost(title, body)
-                _state.value = _state.value.copy(
-                    isLoading = true
-                )
-                if (result.isSuccess) _event.emit(UiEvent.ClearBackStack)
+            val image = _state.value.postImage
+            if (body.isEmpty() && image.isEmpty()) return@launch
+
+            shareRepository.sharePost(body, image).collectLatest {
+                when (it) {
+                    is Resource.Error -> _state.value = _state.value.copy(
+                        isLoading = false
+                    )
+                    is Resource.Loading -> _state.value = _state.value.copy(
+                        isLoading = true
+                    )
+                    is Resource.Success -> _event.emit(UiEvent.ClearBackStack)
+                }
             }
         }
     }

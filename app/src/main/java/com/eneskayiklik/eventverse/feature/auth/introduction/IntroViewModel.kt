@@ -2,7 +2,7 @@ package com.eneskayiklik.eventverse.feature.auth.introduction
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eneskayiklik.eventverse.core.model.ErrorState
+import com.eneskayiklik.eventverse.core.data.model.ErrorState
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.UiEvent

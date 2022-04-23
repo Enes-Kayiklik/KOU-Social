@@ -130,4 +130,6 @@ dependencies {
     // Pager
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
 
+    // Cropper
+    implementation 'com.github.CanHub:Android-Image-Cropper:4.2.1'
 }

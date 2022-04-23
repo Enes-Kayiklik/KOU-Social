@@ -2,8 +2,14 @@ package com.eneskayiklik.eventverse.util.extension
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Environment
+import androidx.core.net.toUri
 import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.data.model.meal.Meal
+import java.io.File
+import java.io.FileOutputStream
 import java.lang.Exception
 
 
@@ -49,4 +55,14 @@ fun Context.shareMeal(meal: Meal) {
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+fun Context.getImageUri(bitmap: Bitmap?): Uri {
+    if (bitmap == null) return Uri.EMPTY
+    val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+         "${System.currentTimeMillis()}.png")
+    val out = FileOutputStream(file)
+    bitmap.compress(Bitmap.CompressFormat.PNG, 80, out)
+    out.close()
+    return file.toUri()
 }

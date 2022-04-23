@@ -4,6 +4,7 @@ import com.eneskayiklik.eventverse.util.TextFieldState
 
 data class ShareState(
     val isLoading: Boolean = false,
-    val titleState: TextFieldState = TextFieldState(),
+    val selectedImage: String = "",
+    val postImage: String = "",
     val bodyState: TextFieldState = TextFieldState()
 )

@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.core.model
+package com.eneskayiklik.eventverse.core.data.model
 
 data class ErrorState(
     val title: String? = null,

@@ -1,6 +1,6 @@
 package com.eneskayiklik.eventverse.data.state.auth
 
-import com.eneskayiklik.eventverse.core.model.ErrorState
+import com.eneskayiklik.eventverse.core.data.model.ErrorState
 import com.eneskayiklik.eventverse.util.TextFieldState
 
 data class LoginState(

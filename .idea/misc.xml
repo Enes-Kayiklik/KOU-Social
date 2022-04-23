@@ -30,26 +30,44 @@
         <entry key="app/src/main/res/drawable/ic_baking.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.28055555555555556" />
+        <entry key="app/src/main/res/drawable/ic_done.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_education.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_github.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_globe.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/drawable/ic_home_2.xml" value="0.1734375" />
+        <entry key="app/src/main/res/drawable/ic_instagram.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_invite_friend.xml" value="0.23981481481481481" />
         <entry key="app/src/main/res/drawable/ic_kou.xml" value="0.2462962962962963" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.22314814814814815" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2462962962962963" />
+        <entry key="app/src/main/res/drawable/ic_linkedin.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_login_background.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/drawable/ic_logout_filled.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_meal.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_megaphone.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_megaphone_filled.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_message.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_message_outline.xml" value="0.23981481481481481" />
         <entry key="app/src/main/res/drawable/ic_messages.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/drawable/ic_moon.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/drawable/ic_password.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_pen.xml" value="0.23981481481481481" />
+        <entry key="app/src/main/res/drawable/ic_pizza.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_poll.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/drawable/ic_reviews.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_right_arrow.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_rotate.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_select_photo.xml" value="0.2462962962962963" />
         <entry key="app/src/main/res/drawable/ic_send.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/drawable/ic_share.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_splash_back.xml" value="0.20625" />
+        <entry key="app/src/main/res/drawable/ic_twitter.xml" value="0.203125" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.23981481481481481" />
+        <entry key="app/src/main/res/drawable/ic_verify.xml" value="0.203125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_background.xml" value="0.20625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_background_round.xml" value="0.20625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20625" />

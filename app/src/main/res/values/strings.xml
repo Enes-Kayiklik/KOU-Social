@@ -104,4 +104,7 @@
     <string name="create_post">Create Post</string>
     <string name="poll_placeholder">Option %d</string>
     <string name="create_poll_title_placeholder">Ask a question</string>
+    <string name="share">Share</string>
+    <string name="share_write_desc">Write description…</string>
+    <string name="select_post_photo">Click here for add post image</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.eneskayiklik.eventverse.core.component
 
-import com.eneskayiklik.eventverse.core.model.ErrorState
+import com.eneskayiklik.eventverse.core.data.model.ErrorState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring

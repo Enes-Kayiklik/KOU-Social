@@ -1,11 +1,13 @@
 package com.eneskayiklik.eventverse.di
 
+import android.content.Context
 import com.eneskayiklik.eventverse.data.repository.polls.CreatePollRepositoryImpl
 import com.eneskayiklik.eventverse.data.repository.polls.PollsRepositoryImpl
 import com.eneskayiklik.eventverse.data.repository.share.ShareRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -15,7 +17,9 @@ object CreateModule {
 
     @Singleton
     @Provides
-    fun provideShareRepository(): ShareRepositoryImpl = ShareRepositoryImpl()
+    fun provideShareRepository(
+        @ApplicationContext context: Context
+    ): ShareRepositoryImpl = ShareRepositoryImpl(context = context)
 
     @Singleton
     @Provides

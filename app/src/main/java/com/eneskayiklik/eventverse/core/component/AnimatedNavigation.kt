@@ -71,7 +71,7 @@ fun BaseAnimatedNavigation(
         announcementComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         mealComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         createComposable(navigateSingleTop, navController::popBackStack, scaffoldState)
-        shareComposable(navigateSingleTop, navController::popBackStack, scaffoldState)
+        shareComposable(navigateSingleTop, navController::popBackStack)
         settingsComposable(navigateSingleTop, navController::popBackStack)
         editProfileComposable(navigateSingleTop, navController::popBackStack)
         profileComposable(navigateSingleTop, navController::popBackStack)

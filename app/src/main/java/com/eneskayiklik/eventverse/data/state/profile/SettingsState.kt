@@ -1,6 +1,6 @@
 package com.eneskayiklik.eventverse.data.state.profile
 
-import com.eneskayiklik.eventverse.core.model.ErrorState
+import com.eneskayiklik.eventverse.core.data.model.ErrorState
 import com.eneskayiklik.eventverse.data.model.auth.Department
 import com.eneskayiklik.eventverse.data.model.auth.SocialAccount
 import com.eneskayiklik.eventverse.util.Settings
