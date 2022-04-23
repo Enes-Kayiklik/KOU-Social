@@ -92,9 +92,7 @@ private fun BoxScope.ItemsContent(viewModel: ExploreViewModel, onNavigate: (Stri
                         )
                     }
                 } else {
-                    items(
-                        posts.count(),
-                        key = { posts[it].id }) { index ->
+                    items(posts.count()) { index ->
                         val currentItem = posts[index]
                         SinglePostView(
                             post = currentItem,

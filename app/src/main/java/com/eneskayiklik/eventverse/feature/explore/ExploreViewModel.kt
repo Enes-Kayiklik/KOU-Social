@@ -43,7 +43,7 @@ class ExploreViewModel @Inject constructor(
                 is Resource.Success -> _state.value = _state.value.copy(
                     isLoading = false,
                     posts = _state.value.posts.plus(it.data),
-                    hasNext = it.data.count() > 4
+                    hasNext = it.data.count() > 3
                 )
             }
         }
@@ -64,7 +64,7 @@ class ExploreViewModel @Inject constructor(
                     isLoading = false,
                     isRefreshing = false,
                     posts = it.data,
-                    hasNext = it.data.count() > 20
+                    hasNext = it.data.count() > 3
                 )
             }
         }
