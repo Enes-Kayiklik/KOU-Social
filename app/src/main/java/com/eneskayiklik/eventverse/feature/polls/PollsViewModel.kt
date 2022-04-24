@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.data.model.poll.Poll
 import com.eneskayiklik.eventverse.data.repository.polls.PollsRepositoryImpl
 import com.eneskayiklik.eventverse.data.state.poll.PollsState
+import com.eneskayiklik.eventverse.util.POLL_PAGE_SIZE
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.Settings
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,9 @@ class PollsViewModel @Inject constructor(
     private val _getNext: Boolean
         get() = _state.value.isLoading.not() && _state.value.hasNext
 
+    private val _canRefresh: Boolean
+        get() = _state.value.isLoading.not()
+
     init {
         getPolls()
     }
@@ -33,7 +37,8 @@ class PollsViewModel @Inject constructor(
         pollsRepository.getPolls(_getNext).collectLatest {
             when (it) {
                 is Resource.Error -> _state.value = _state.value.copy(
-                    isLoading = false
+                    isLoading = false,
+                    hasNext = false
                 )
                 is Resource.Loading -> _state.value = _state.value.copy(
                     isLoading = true
@@ -41,18 +46,19 @@ class PollsViewModel @Inject constructor(
                 is Resource.Success -> _state.value = _state.value.copy(
                     isLoading = false,
                     polls = _state.value.polls.plus(it.data),
-                    hasNext = it.data.count() > 4
+                    hasNext = it.data.count() > POLL_PAGE_SIZE - 1
                 )
             }
         }
     }
 
     fun refreshPolls() = viewModelScope.launch(Dispatchers.IO) {
-        pollsRepository.getPolls(_getNext, true).collectLatest {
+        pollsRepository.getPolls(_canRefresh, true).collectLatest {
             when (it) {
                 is Resource.Error -> _state.value = _state.value.copy(
                     isLoading = false,
                     isRefreshing = false,
+                    hasNext = false
                 )
                 is Resource.Loading -> _state.value = _state.value.copy(
                     isLoading = false,
@@ -61,8 +67,8 @@ class PollsViewModel @Inject constructor(
                 is Resource.Success -> _state.value = _state.value.copy(
                     isLoading = false,
                     isRefreshing = false,
-                    polls = _state.value.polls.plus(it.data),
-                    hasNext = it.data.count() > 4
+                    polls = it.data,
+                    hasNext = it.data.count() > POLL_PAGE_SIZE - 1
                 )
             }
         }

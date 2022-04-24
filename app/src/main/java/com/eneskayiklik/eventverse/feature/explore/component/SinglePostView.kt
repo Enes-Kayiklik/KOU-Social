@@ -1,13 +1,17 @@
 package com.eneskayiklik.eventverse.feature.explore.component
 
+import androidx.compose.animation.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -24,6 +28,7 @@ import com.eneskayiklik.eventverse.R
 fun SinglePostView(
     post: Post,
     modifier: Modifier = Modifier,
+    onLike: () -> Unit,
     onPostAction: () -> Unit
 ) {
     Column(
@@ -37,7 +42,7 @@ fun SinglePostView(
 
         }
         PostBody(body = post.body, image = post.image)
-        PostInteractions(isLiked = post.isUserLike, likeCount = post.likeCount)
+        PostInteractions(isLiked = post.isUserLike, likeCount = post.likeCount, onLike = onLike)
     }
 }
 
@@ -67,29 +72,57 @@ private fun PostBody(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
+                .clip(RoundedCornerShape(10.dp))
         )
     }
 }
 
+@OptIn(
+    ExperimentalAnimationApi::class
+)
 @Composable
 private fun PostInteractions(
     isLiked: Boolean,
-    likeCount: Int
+    likeCount: Int,
+    onLike: () -> Unit
 ) {
+    val colorAnim =
+        animateColorAsState(targetValue = if (isLiked.not()) MaterialTheme.colors.onBackground else MaterialTheme.colors.error).value
+
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .animateContentSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(5.dp)
     ) {
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(painter = painterResource(id = R.drawable.ic_like), contentDescription = null)
-        }
-        Text(
-            text = likeCount.toString(), style = MaterialTheme.typography.h1.copy(
-                color = MaterialTheme.colors.onSecondary,
-                fontSize = 12.sp
-            )
+        Icon(
+            painter = painterResource(id = R.drawable.ic_like),
+            contentDescription = null,
+            tint = colorAnim,
+            modifier = Modifier.clickable {
+                onLike()
+            }
         )
+        AnimatedContent(
+            targetState = likeCount,
+            transitionSpec = {
+                if (targetState > initialState) {
+                    slideInVertically { height -> height } + fadeIn() with
+                            slideOutVertically { height -> -height } + fadeOut()
+                } else {
+                    slideInVertically { height -> -height } + fadeIn() with
+                            slideOutVertically { height -> height } + fadeOut()
+                }.using(
+                    SizeTransform(clip = false)
+                )
+            }
+        ) { targetCount ->
+            if (targetCount != 0)
+                Text(
+                    text = "$targetCount",
+                    style = MaterialTheme.typography.h4.copy(color = colorAnim, fontSize = 12.sp)
+                )
+        }
         IconButton(onClick = { /*TODO*/ }) {
             Icon(painter = painterResource(id = R.drawable.ic_reviews), contentDescription = null)
         }

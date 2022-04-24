@@ -132,4 +132,7 @@ dependencies {
 
     // Cropper
     implementation 'com.github.CanHub:Android-Image-Cropper:4.2.1'
+
+    // Lottie
+    implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 }

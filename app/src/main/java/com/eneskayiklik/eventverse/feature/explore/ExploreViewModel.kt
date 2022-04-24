@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.data.model.share.Post
 import com.eneskayiklik.eventverse.data.repository.explore.ExploreRepositoryImpl
 import com.eneskayiklik.eventverse.data.state.explore.PostsState
+import com.eneskayiklik.eventverse.util.POST_PAGE_SIZE
 import com.eneskayiklik.eventverse.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +36,8 @@ class ExploreViewModel @Inject constructor(
         exploreRepository.getPosts(_getNext).collectLatest {
             when (it) {
                 is Resource.Error -> _state.value = _state.value.copy(
-                    isLoading = false
+                    isLoading = false,
+                    hasNext = false
                 )
                 is Resource.Loading -> _state.value = _state.value.copy(
                     isLoading = true
@@ -43,7 +45,7 @@ class ExploreViewModel @Inject constructor(
                 is Resource.Success -> _state.value = _state.value.copy(
                     isLoading = false,
                     posts = _state.value.posts.plus(it.data),
-                    hasNext = it.data.count() > 3
+                    hasNext = it.data.count() > POST_PAGE_SIZE - 1
                 )
             }
         }
@@ -55,6 +57,7 @@ class ExploreViewModel @Inject constructor(
                 is Resource.Error -> _state.value = _state.value.copy(
                     isLoading = false,
                     isRefreshing = false,
+                    hasNext = false
                 )
                 is Resource.Loading -> _state.value = _state.value.copy(
                     isLoading = false,
@@ -64,7 +67,7 @@ class ExploreViewModel @Inject constructor(
                     isLoading = false,
                     isRefreshing = false,
                     posts = it.data,
-                    hasNext = it.data.count() > 3
+                    hasNext = it.data.count() > POST_PAGE_SIZE - 1
                 )
             }
         }
@@ -79,7 +82,7 @@ class ExploreViewModel @Inject constructor(
                     id = it.id,
                     body = it.body,
                     isUserLike = isLike,
-                    likeCount = it.likeCount,
+                    likeCount = if (isLike) it.likeCount + 1 else it.likeCount - 1,
                     createdAt = it.createdAt,
                     fromUser = it.fromUser,
                     image = it.image

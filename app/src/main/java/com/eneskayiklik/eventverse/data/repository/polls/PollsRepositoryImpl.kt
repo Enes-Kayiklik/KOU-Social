@@ -26,9 +26,8 @@ class PollsRepositoryImpl(
             val data = db.collection(BuildConfig.FIREBASE_REFERENCE)
                 .document("polls")
                 .collection("polls")
-                .orderBy("createdAt")
-                .startAfter(lastCreatedAt)
-                .limit(5)
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .whereLessThan("createdAt", lastCreatedAt ?: Timestamp.now())
                 .get().await().toObjects(PollDto::class.java)
                 .map { it.toPoll() }
             lastCreatedAt = data.last().createdAt

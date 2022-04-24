@@ -98,6 +98,7 @@ private fun BoxScope.ItemsContent(viewModel: ExploreViewModel, onNavigate: (Stri
                             post = currentItem,
                             modifier = Modifier
                                 .fillMaxWidth(),
+                            onLike = { viewModel.likePost(currentItem.id) },
                             onPostAction = { }
                         )
                         if (index != posts.lastIndex) {
