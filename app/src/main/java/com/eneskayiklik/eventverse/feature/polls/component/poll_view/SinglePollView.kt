@@ -50,10 +50,11 @@ fun SinglePollView(
 fun UserSection(
     user: PostUser,
     date: String,
+    modifier: Modifier = Modifier,
     onUserClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {

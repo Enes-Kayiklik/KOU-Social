@@ -2,12 +2,14 @@ package com.eneskayiklik.eventverse.feature.explore.component
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,16 +34,22 @@ fun SinglePostView(
     onPostAction: () -> Unit
 ) {
     Column(
-        modifier = modifier
-            .padding(16.dp), verticalArrangement = Arrangement.spacedBy(5.dp)
+        modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         UserSection(
             post.fromUser,
-            post.formattedDate
+            post.formattedDate,
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .padding(top = 16.dp)
         ) {
 
         }
-        PostBody(body = post.body, image = post.image)
+        PostBody(
+            body = post.body,
+            image = post.image,
+            modifier = Modifier.padding(horizontal = 16.dp).padding(top = 5.dp)
+        )
         PostInteractions(isLiked = post.isUserLike, likeCount = post.likeCount, onLike = onLike)
     }
 }
@@ -49,31 +57,34 @@ fun SinglePostView(
 @Composable
 private fun PostBody(
     body: String,
-    image: String
+    image: String,
+    modifier: Modifier = Modifier
 ) {
-    Text(
-        text = body, style = MaterialTheme.typography.h1.copy(
-            color = MaterialTheme.colors.onBackground,
-            fontSize = 16.sp
-        ), maxLines = 3, overflow = TextOverflow.Ellipsis
-    )
-
-    if (image.isNotEmpty()) {
-        SubcomposeAsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(image)
-                .crossfade(true)
-                .build(),
-            loading = {
-
-            },
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .clip(RoundedCornerShape(10.dp))
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)) {
+        Text(
+            text = body, style = MaterialTheme.typography.h1.copy(
+                color = MaterialTheme.colors.onBackground,
+                fontSize = 16.sp
+            ), maxLines = 3, overflow = TextOverflow.Ellipsis
         )
+
+        if (image.isNotEmpty()) {
+            SubcomposeAsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(image)
+                    .crossfade(true)
+                    .build(),
+                loading = {
+
+                },
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .clip(RoundedCornerShape(10.dp))
+            )
+        }
     }
 }
 
@@ -99,9 +110,11 @@ private fun PostInteractions(
             painter = painterResource(id = R.drawable.ic_like),
             contentDescription = null,
             tint = colorAnim,
-            modifier = Modifier.clickable {
-                onLike()
-            }
+            modifier = Modifier.padding(start = 16.dp).clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = false),
+                onClick = onLike
+            )
         )
         AnimatedContent(
             targetState = likeCount,
