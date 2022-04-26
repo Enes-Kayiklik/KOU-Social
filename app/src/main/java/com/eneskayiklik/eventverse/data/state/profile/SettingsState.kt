@@ -51,6 +51,7 @@ data class SettingsState(
                         ZoneId.of("Turkey")
                     ).toInstant()
             )
-        ) else null
+        ) else null,
+        socialLogin = user.socialLogin
     )
 }
