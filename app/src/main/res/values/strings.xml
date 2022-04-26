@@ -107,4 +107,5 @@
     <string name="share">Share</string>
     <string name="share_write_desc">Write description…</string>
     <string name="select_post_photo">Click here for add post image</string>
+    <string name="events">Events</string>
 </resources>

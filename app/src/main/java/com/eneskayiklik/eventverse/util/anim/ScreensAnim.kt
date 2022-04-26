@@ -9,6 +9,7 @@ import com.eneskayiklik.eventverse.util.Screen
 object ScreensAnim {
     private val BOTTOM_NAV_ITEMS = listOf(
         Screen.Home.route,
+        Screen.Events.route,
         Screen.Meal.route,
         Screen.Announcement.route,
         Screen.Polls.route

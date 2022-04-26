@@ -41,7 +41,7 @@ fun BaseBottomNavItem(
         Row(
             horizontalArrangement = Arrangement.spacedBy(5.dp),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 10.dp)
+            modifier = Modifier.padding(horizontal = 10.dp).height(40.dp)
         ) {
             if (icon != null) {
                 Icon(

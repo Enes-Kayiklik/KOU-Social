@@ -28,6 +28,11 @@ fun BaseScaffold(
             contentDescription = stringResource(id = R.string.explore)
         ),
         BottomNavItem(
+            route = Screen.Events.route,
+            icon = R.drawable.ic_ticket,
+            contentDescription = stringResource(id = R.string.events)
+        ),
+        BottomNavItem(
             route = Screen.Polls.route,
             icon = R.drawable.ic_poll,
             contentDescription = stringResource(id = R.string.polls)
