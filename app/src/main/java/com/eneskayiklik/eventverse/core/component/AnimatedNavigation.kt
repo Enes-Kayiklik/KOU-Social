@@ -25,6 +25,7 @@ import com.eneskayiklik.eventverse.feature.profile.profile.profileComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.delete_account.deleteAccountComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.settings.settingsComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.update_password.updatePasswordComposable
+import com.eneskayiklik.eventverse.feature.profile.settings.verify.verifyAccountComposable
 import com.eneskayiklik.eventverse.feature.share.shareComposable
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -42,6 +43,11 @@ fun BaseAnimatedNavigation(
             launchSingleTop = true
         }
     }
+    val navigateClearWholeBackstack: (String) -> Unit = {
+        navController.navigate(it) {
+            popUpTo(0)
+        }
+    }
     val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
         "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
     }
@@ -50,22 +56,10 @@ fun BaseAnimatedNavigation(
         navController = navController,
         startDestination = Screen.Splash.route
     ) {
-        splashComposable({
-            navController.navigate(it) {
-                popUpTo(0)
-            }
-        }, navController::popBackStack)
-        introComposable(navController::navigate, navController::popBackStack)
-        loginComposable({
-            navController.navigate(it) {
-                popUpTo(0)
-            }
-        }, navController::popBackStack)
-        signupComposable({
-            navController.navigate(it) {
-                popUpTo(0)
-            }
-        }, navController::popBackStack, scaffoldState)
+        splashComposable(navigateClearWholeBackstack, navController::popBackStack)
+        introComposable(navigateSingleTop, navController::popBackStack)
+        loginComposable(navigateClearWholeBackstack, navController::popBackStack)
+        signupComposable(navigateClearWholeBackstack, navController::popBackStack, scaffoldState)
         exploreComposable(navigateSingleTop, navController::popBackStack)
         eventsComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         pollsComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
@@ -79,5 +73,6 @@ fun BaseAnimatedNavigation(
         profileComposable(navigateSingleTop, navController::popBackStack)
         updatePasswordComposable(navigateSingleTop, navController::popBackStack)
         deleteAccountComposable(navigateSingleTop, navController::popBackStack)
+        verifyAccountComposable(navigateSingleTop, navController::popBackStack)
     }
 }

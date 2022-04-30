@@ -38,4 +38,8 @@ object ProfileModule {
     @Singleton
     @Provides
     fun provideDeleteAccountRepository(): DeleteAccountRepositoryImpl = DeleteAccountRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun verifyAccountRepository(): VerifyAccountRepositoryImpl = VerifyAccountRepositoryImpl()
 }

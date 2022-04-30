@@ -61,6 +61,7 @@
     <string name="invite_friend_desc">Invite your friends to use this app</string>
     <string name="verify_account">Verify</string>
     <string name="verify_account_desc">Verify your account to create event</string>
+    <string name="account_verified">Your account is verified. You can create Event!</string>
     <string name="delete_account">Delete</string>
     <string name="delete_account_toolbar">Delete Account</string>
     <string name="delete_account_desc">Delete your account permanently</string>
@@ -108,4 +109,7 @@
     <string name="share_write_desc">Write description…</string>
     <string name="select_post_photo">Click here for add post image</string>
     <string name="events">Events</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verification_code_placeholder">Input 6 digit  code</string>
+    <string name="verify_account_title">Verify Account</string>
 </resources>

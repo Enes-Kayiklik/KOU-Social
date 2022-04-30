@@ -13,7 +13,8 @@ data class User(
     val fullName: String = "",
     val birthDate: Timestamp? = null,
     val profilePic: String = "",
-    val socialLogin: Boolean = false
+    val socialLogin: Boolean = false,
+    val verified: Boolean = false
 ) {
     fun toAppUser() = AppUser(
         userId = userId,
@@ -23,7 +24,8 @@ data class User(
         birthDate = birthDate?.toDate(),
         profilePic = profilePic,
         socialAccounts = socialAccounts,
-        socialLogin = socialLogin
+        socialLogin = socialLogin,
+        verified = verified
     )
 
     fun toPostUser() = PostUser(
@@ -31,7 +33,8 @@ data class User(
         department = department.departmentName,
         email = email,
         fullName = fullName,
-        profilePic = profilePic
+        profilePic = profilePic,
+        verified = verified
     )
 }
 
@@ -43,6 +46,7 @@ data class AppUser(
     val profilePic: String = "",
     val birthDate: Date? = null,
     val socialLogin: Boolean = false,
+    val verified: Boolean = false,
     val socialAccounts: SocialAccount = SocialAccount()
 ) {
     fun toPostUser() = PostUser(
@@ -61,7 +65,8 @@ data class AppUser(
         profilePic = profilePic,
         department = department,
         socialLogin = socialLogin,
-        socialAccounts = socialAccounts
+        socialAccounts = socialAccounts,
+        verified = verified
     )
 }
 
@@ -70,7 +75,8 @@ data class PostUser(
     val email: String = "",
     val fullName: String = "",
     val profilePic: String = "",
-    val department: String = ""
+    val department: String = "",
+    val verified: Boolean = false
 )
 
 data class SocialAccount(

@@ -52,6 +52,7 @@ data class SettingsState(
                     ).toInstant()
             )
         ) else null,
-        socialLogin = user.socialLogin
+        socialLogin = user.socialLogin,
+        verified = user.verified
     )
 }

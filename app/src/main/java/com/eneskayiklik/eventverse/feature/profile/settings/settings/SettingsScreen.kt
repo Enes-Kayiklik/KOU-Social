@@ -137,12 +137,14 @@ private fun SettingsScreen(
                         horizontal = 32.dp, vertical = 8.dp
                     )
                 )
-                verifyAccountButton { }
+                verifyAccountButton(user.verified) {
+                    if (user.verified.not()) onNavigate(Screen.Verify.route)
+                }
                 if (user.socialLogin.not()) updatePasswordButton {
                     onNavigate(Screen.UpdatePassword.route)
                 }
                 deleteAccountButton(user.socialLogin) {
-                    // We need to re auth user. This is for re auth see: https://firebase.google.com/docs/auth/android/manage-users#delete_a_user
+                    // We need to re auth user. see: https://firebase.google.com/docs/auth/android/manage-users#delete_a_user
                     if (user.socialLogin) contract.launch(GOOGLE_LOGIN_KEY)
                     else onNavigate(Screen.DeleteAccount.route)
                 }

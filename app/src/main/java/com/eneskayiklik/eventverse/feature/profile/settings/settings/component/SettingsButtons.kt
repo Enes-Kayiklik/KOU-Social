@@ -120,13 +120,14 @@ fun LazyListScope.inviteFriendButton(
 }
 
 fun LazyListScope.verifyAccountButton(
+    isVerified: Boolean,
     onClick: () -> Unit
 ) {
     item {
         SettingsButton(
             onClick = onClick,
             title = stringResource(id = R.string.verify_account),
-            subtitle = stringResource(id = R.string.verify_account_desc),
+            subtitle = stringResource(id = if (isVerified.not()) R.string.verify_account_desc else R.string.account_verified),
             icon = R.drawable.ic_verify,
             color = Blue,
             isEndButtonActive = true
