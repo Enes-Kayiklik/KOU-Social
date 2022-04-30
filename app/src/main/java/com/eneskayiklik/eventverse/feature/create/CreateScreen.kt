@@ -28,11 +28,13 @@ import com.eneskayiklik.eventverse.util.anim.ScreensAnim.exitTransition
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature.auth.login.component.LoginButton
+import com.eneskayiklik.eventverse.feature.create.component.CreateEventToolbar
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.aboutEventSection
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.dateTimeSection
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.eventPhotoSection
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.locationSection
 import com.eneskayiklik.eventverse.feature.create.util.CreateState
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -67,6 +69,7 @@ private fun CreateScreen(
                     onNavigate(it.id)
                 }
                 UiEvent.ClearBackStack -> clearBackStack()
+                else -> Unit
             }
         }
     }
@@ -80,29 +83,26 @@ private fun CreateScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            /*EventverseAppbar(
+            CreateEventToolbar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.primary)
+                    .background(MaterialTheme.colors.background)
                     .statusBarsPadding()
-                    .height(60.dp),
-                title = stringResource(id = R.string.create_event),
-                startIcon = Icons.Rounded.ArrowBack,
-                onStartIconClick = clearBackStack,
-            )*/
+                    .height(56.dp),
+                onStartIconClick = {
+                    clearBackStack()
+                }
+            )
 
             LazyColumn(
-                state = listState
+                state = listState,
+                contentPadding = PaddingValues(bottom = 76.dp)
             ) {
-                aboutEventSection(state, viewModel::onCreateState)
-                item { Spacer(modifier = Modifier.height(10.dp)) }
                 eventPhotoSection(state.coverImage, viewModel::onCreateState)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
-                dateTimeSection(state, viewModel::onCreateState)
+                aboutEventSection(state, viewModel::onCreateState)
                 item { Spacer(modifier = Modifier.height(10.dp)) }
-                locationSection()
-                // Empty space for create button
-                item { Spacer(modifier = Modifier.height(84.dp)) }
+                dateTimeSection(state, viewModel::onCreateState)
             }
         }
         LoginButton(

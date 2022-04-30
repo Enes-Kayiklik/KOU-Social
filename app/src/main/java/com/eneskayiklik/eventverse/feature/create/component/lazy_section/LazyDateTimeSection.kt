@@ -26,7 +26,7 @@ fun LazyListScope.dateTimeSection(
     state: CreateSectionState,
     onCreateState: (CreateState) -> Unit
 ) {
-    item {
+    /*item {
         HeaderSection(
             title = stringResource(id = R.string.date_and_time),
             modifier = Modifier
@@ -35,7 +35,7 @@ fun LazyListScope.dateTimeSection(
                 .padding(16.dp)
         )
         Divider(color = MaterialTheme.colors.background, thickness = 2.dp)
-    }
+    }*/
 
     item {
         DateSection(state, onCreateState)
@@ -85,7 +85,6 @@ private fun DateSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.surface)
             .padding(16.dp)
     ) {
         Row(

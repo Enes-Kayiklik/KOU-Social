@@ -7,23 +7,24 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.Divider
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import coil.size.OriginalSize
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.feature.create.component.HeaderSection
 import com.eneskayiklik.eventverse.feature.create.util.CreateState
 
 @ExperimentalAnimationApi
@@ -32,17 +33,6 @@ fun LazyListScope.eventPhotoSection(
     coverImage: Uri?,
     onCreateState: (CreateState) -> Unit
 ) {
-    item {
-        HeaderSection(
-            title = stringResource(id = R.string.event_photo),
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colors.surface)
-                .padding(16.dp)
-        )
-        Divider(color = MaterialTheme.colors.background, thickness = 2.dp)
-    }
-
     item {
         val launcher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetContent()
@@ -68,18 +58,22 @@ private fun SelectedImageView(coverImage: Uri, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.surface)
             .padding(16.dp)
             .clickable { onClick() }, contentAlignment = Alignment.Center
     ) {
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = rememberImagePainter(data = coverImage, builder = {
-                crossfade(true)
-                size(OriginalSize)
-            }),
-            contentScale = ContentScale.FillWidth,
-            contentDescription = null
+        SubcomposeAsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(coverImage)
+                .crossfade(true)
+                .build(),
+            loading = {
+
+            },
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
         )
     }
 }
@@ -94,7 +88,6 @@ private fun SelectImageView(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.surface)
             .padding(16.dp)
             .height(170.dp)
             .clickable { onClick() }, contentAlignment = Alignment.Center

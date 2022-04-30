@@ -77,7 +77,7 @@ fun MainFloatingActionGroup(
                     translationX = translationValue.value / 2
                 }
                 .size(40.dp), onClick = {
-                onNavigate(Screen.Share.route)
+                onNavigate(Screen.CreateEvent.route)
             }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_ticket),

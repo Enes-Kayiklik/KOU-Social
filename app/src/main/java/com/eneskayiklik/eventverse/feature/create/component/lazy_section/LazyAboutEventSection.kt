@@ -23,7 +23,7 @@ fun LazyListScope.aboutEventSection(
     state: CreateSectionState,
     onCreateState: (CreateState) -> Unit
 ) {
-    item {
+    /*item {
         HeaderSection(
             title = stringResource(id = R.string.about_event),
             modifier = Modifier
@@ -32,12 +32,11 @@ fun LazyListScope.aboutEventSection(
                 .padding(16.dp)
         )
         Divider(color = MaterialTheme.colors.background, thickness = 2.dp)
-    }
+    }*/
 
     item {
         AboutEventSection(
             modifier = Modifier
-                .background(MaterialTheme.colors.surface)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             title = state.title.text,
             description = state.description.text,

@@ -33,7 +33,7 @@
     <string name="about_event">About Event</string>
     <string name="event_photo">Event Photo</string>
     <string name="select_image">Select Photo</string>
-    <string name="select_photo">Click here for add event image</string>
+    <string name="select_photo">Click here to add event image</string>
     <string name="date_and_time"><![CDATA[Date & Time]]></string>
     <string name="location_section">Select Location</string>
     <string name="cancel">Cancel</string>
