@@ -81,11 +81,15 @@ class DeleteAccountRepositoryImpl(
                 .await()
 
             // Delete photos uploaded by this user
-            storage.reference
-                .child("images/$uid/")
-                .listAll()
-                .await()
-                .items.forEach { it.delete() }
+            try {
+                storage.reference
+                    .child("images/$uid")
+                    .listAll()
+                    .await()
+                    .items.forEach { it.delete() }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             // Delete polls created by this user
             db.collection(BuildConfig.FIREBASE_REFERENCE)
