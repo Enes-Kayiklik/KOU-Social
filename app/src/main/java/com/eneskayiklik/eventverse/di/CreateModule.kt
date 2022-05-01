@@ -1,6 +1,7 @@
 package com.eneskayiklik.eventverse.di
 
 import android.content.Context
+import com.eneskayiklik.eventverse.data.repository.create.CreateEventRepositoryImpl
 import com.eneskayiklik.eventverse.data.repository.polls.CreatePollRepositoryImpl
 import com.eneskayiklik.eventverse.data.repository.polls.PollsRepositoryImpl
 import com.eneskayiklik.eventverse.data.repository.share.ShareRepositoryImpl
@@ -24,6 +25,12 @@ object CreateModule {
     @Singleton
     @Provides
     fun provideCreatePollRepository(): CreatePollRepositoryImpl = CreatePollRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideCreateEventRepository(
+        @ApplicationContext context: Context
+    ): CreateEventRepositoryImpl = CreateEventRepositoryImpl(context = context)
 
     @Singleton
     @Provides

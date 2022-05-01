@@ -3,6 +3,7 @@ package com.eneskayiklik.eventverse.feature.create.util
 import android.net.Uri
 import com.eneskayiklik.eventverse.util.TextFieldState
 import com.eneskayiklik.eventverse.data.model.create.CreateEventModel
+import com.google.firebase.Timestamp
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -12,13 +13,12 @@ import java.time.format.DateTimeFormatter
 data class CreateSectionState(
     val title: TextFieldState = TextFieldState(),
     val description: TextFieldState = TextFieldState(),
-    val attendee: TextFieldState = TextFieldState(),
+    val location: TextFieldState = TextFieldState(),
     val startDate: LocalDate = LocalDate.now(),
     val endDate: LocalDate = LocalDate.now().plusDays(1),
     val startTime: LocalTime = LocalTime.now(),
     val endTime: LocalTime = LocalTime.now(),
     val coverImage: Uri? = null,
-    val selectedLocation: String = "Istanbul"
 ) {
     val formattedStartDate: String = startDate.format(
         DateTimeFormatter.ofPattern("dd.MM.yyyy")
@@ -36,15 +36,15 @@ data class CreateSectionState(
         .toEpochSecond(ZoneOffset.UTC)
     val endTimeLong: Long = LocalDateTime.of(endDate, endTime)
         .toEpochSecond(ZoneOffset.UTC)
-}
 
-fun CreateSectionState.toCreateEventModel(): CreateEventModel {
-    return CreateEventModel(
-        title = title.text,
-        description = description.text,
-        startTimeLong * 1000,
-        endTimeLong * 1000,
-        "",
-        ""
-    )
+    fun toCreateEventModel(): CreateEventModel {
+        return CreateEventModel(
+            title = title.text,
+            description = description.text,
+            startTime = Timestamp(startTimeLong - 60 * 60 * 3, 1000),
+            endTime = Timestamp(endTimeLong - 60 * 60 * 3, 1000),
+            location = location.text,
+            coverImage = coverImage?.toString() ?: ""
+        )
+    }
 }

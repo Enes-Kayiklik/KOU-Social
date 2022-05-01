@@ -12,22 +12,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.ExtendedTextField
-import com.eneskayiklik.eventverse.data.event.auth.LoginEvent
+import com.eneskayiklik.eventverse.feature.create.util.CreateSectionState
 
 @ExperimentalAnimationApi
 @Composable
 fun AboutEventSection(
     modifier: Modifier = Modifier,
-    title: String,
-    description: String,
-    attendee: String,
+    state: CreateSectionState,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
-    onAttendeeChange: (String) -> Unit,
+    onLocationChange: (String) -> Unit,
 ) {
     Column(modifier = modifier) {
         ExtendedTextField(
-            text = title,
+            text = state.title.text,
+            error = state.title.error,
             onValueChange = onTitleChange,
             label = stringResource(id = R.string.event_name),
             placeholder = stringResource(id = R.string.event_name),
@@ -36,29 +35,26 @@ fun AboutEventSection(
         )
         Spacer(modifier = Modifier.height(10.dp))
         ExtendedTextField(
-            text = description,
+            text = state.description.text,
             onValueChange = onDescriptionChange,
             label = stringResource(id = R.string.description_short),
-            // error = password.error,
+            error = state.description.error,
             placeholder = stringResource(id = R.string.description),
             keyboardType = KeyboardType.Text,
             singleLine = false,
             maxLines = Int.MAX_VALUE,
             modifier = Modifier.fillMaxWidth()
         )
-        /*Spacer(modifier = Modifier.height(16.dp))
-        SectionTitle(title = stringResource(id = R.string.attendee_count))
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         ExtendedTextField(
-            text = attendee,
-            onValueChange = onAttendeeChange,
-            // error = password.error,
-            label = ,
-            placeholder = stringResource(id = R.string.max_attendee_count),
-            keyboardType = KeyboardType.Number,
-            maxLines = 1,
-            onValueChangeLogic = { it.count() <= 3 && (it.isEmpty() || it.last().isDigit()) },
+            text = state.location.text,
+            onValueChange = onLocationChange,
+            error = state.location.error,
+            label = stringResource(id = R.string.location),
+            placeholder = stringResource(id = R.string.location_placeholder),
+            keyboardType = KeyboardType.Text,
+            maxLines = 2,
             modifier = Modifier.fillMaxWidth()
-        )*/
+        )
     }
 }

@@ -8,15 +8,13 @@ import java.time.ZoneOffset
 import javax.inject.Inject
 
 class CreateEventUseCase @Inject constructor(
-    //private val createRepository: CreateEventRepositoryImpl
+    private val createRepository: CreateEventRepositoryImpl
 ) {
     suspend fun createEvent(
         event: CreateSectionState
     ): CreateResult {
-        if (event.title.text.length > 3)
-            return CreateResult(message = "Title length must be greater than 3.")
         val timeCheck = calculateValidDate(event.startTimeLong, event.endTimeLong)
-        return timeCheck ?: CreateResult()//?: createRepository.createEvent(event.toCreateEventModel())
+        return timeCheck ?: createRepository.createEvent(event.toCreateEventModel())
     }
 
     private fun calculateValidDate(startDate: Long, endDate: Long): CreateResult? {

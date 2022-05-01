@@ -9,8 +9,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -32,7 +30,6 @@ import com.eneskayiklik.eventverse.feature.create.component.CreateEventToolbar
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.aboutEventSection
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.dateTimeSection
 import com.eneskayiklik.eventverse.feature.create.component.lazy_section.eventPhotoSection
-import com.eneskayiklik.eventverse.feature.create.component.lazy_section.locationSection
 import com.eneskayiklik.eventverse.feature.create.util.CreateState
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable

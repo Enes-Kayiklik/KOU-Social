@@ -1,10 +1,15 @@
 package com.eneskayiklik.eventverse.data.model.create
 
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentId
+
 data class CreateEventModel(
-    val title: String,
-    val description: String,
-    val startTime: Long,
-    val endTime: Long,
-    val location: String,
-    val coverImage: String
+    @DocumentId
+    val id: String = "",
+    val title: String = "",
+    val description: String = "",
+    val startTime: Timestamp = Timestamp.now(),
+    val endTime: Timestamp = Timestamp.now(),
+    val location: String = "",
+    val coverImage: String = ""
 )
