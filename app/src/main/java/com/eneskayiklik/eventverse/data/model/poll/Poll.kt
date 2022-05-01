@@ -42,6 +42,6 @@ data class PollDto(
         options = options,
         answers = answers,
         createdAt = createdAt,
-        fromUser = Settings.userStorage.first { it.userId == userId }
+        fromUser = Settings.userStorage.firstOrNull { it.userId == userId } ?: PostUser()
     )
 }
