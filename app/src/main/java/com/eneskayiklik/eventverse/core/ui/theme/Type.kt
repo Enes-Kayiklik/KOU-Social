@@ -10,7 +10,6 @@ import com.eneskayiklik.eventverse.R
 private val NunitoSansBold = FontFamily(Font(R.font.nunito_sans_bold))
 private val NunitoSansLight = FontFamily(Font(R.font.nunito_sans_light))
 private val NunitoSansSemiBold = FontFamily(Font(R.font.nunito_sans_semi_bold))
-private val AtmaSemiBold = FontFamily(Font(R.font.atma_semi_bold))
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -25,7 +24,7 @@ val Typography = Typography(
         fontSize = 14.sp
     ),
     h3 = TextStyle(
-        fontFamily = AtmaSemiBold,
+        fontFamily = NunitoSansBold,
         letterSpacing = 0.15.sp,
         fontSize = 14.sp
     ),

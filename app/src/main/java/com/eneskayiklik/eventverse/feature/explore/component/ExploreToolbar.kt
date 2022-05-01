@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
@@ -28,7 +30,8 @@ fun ExploreToolbar(
             text = stringResource(id = R.string.app_name).lowercase(),
             style = MaterialTheme.typography.h3.copy(
                 color = MaterialTheme.colors.onBackground,
-                fontSize = 28.sp
+                fontSize = 28.sp,
+                fontFamily = FontFamily(Font(R.font.atma_semi_bold))
             ),
             modifier = Modifier.align(Alignment.Center)
         )

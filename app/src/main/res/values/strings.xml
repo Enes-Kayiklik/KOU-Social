@@ -38,7 +38,8 @@
     <string name="location_placeholder">Location that where attendees find this event</string>
     <string name="cancel">Cancel</string>
     <string name="max_attendee_count">Max Attendee Count</string>
-    <string name="attendee_count">Attendee Count</string>
+    <string name="attendee_count">%d attendee</string>
+    <string name="like_count">%d like</string>
     <string name="email_paceholder">mail@example.com</string>
     <string name="password_placeholder">at least 6 characters</string>
     <string name="sign_in_title">Sign In</string>

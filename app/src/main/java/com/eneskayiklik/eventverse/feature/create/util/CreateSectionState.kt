@@ -2,7 +2,8 @@ package com.eneskayiklik.eventverse.feature.create.util
 
 import android.net.Uri
 import com.eneskayiklik.eventverse.util.TextFieldState
-import com.eneskayiklik.eventverse.data.model.create.CreateEventModel
+import com.eneskayiklik.eventverse.data.model.create.EventDto
+import com.eneskayiklik.eventverse.util.Settings
 import com.google.firebase.Timestamp
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -37,14 +38,15 @@ data class CreateSectionState(
     val endTimeLong: Long = LocalDateTime.of(endDate, endTime)
         .toEpochSecond(ZoneOffset.UTC)
 
-    fun toCreateEventModel(): CreateEventModel {
-        return CreateEventModel(
+    fun toCreateEventModel(): EventDto {
+        return EventDto(
             title = title.text,
             description = description.text,
             startTime = Timestamp(startTimeLong - 60 * 60 * 3, 1000),
             endTime = Timestamp(endTimeLong - 60 * 60 * 3, 1000),
             location = location.text,
-            coverImage = coverImage?.toString() ?: ""
+            coverImage = coverImage?.toString() ?: "",
+            user = Settings.currentUser.userId
         )
     }
 }

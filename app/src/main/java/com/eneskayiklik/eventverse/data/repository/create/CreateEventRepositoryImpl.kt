@@ -3,7 +3,7 @@ package com.eneskayiklik.eventverse.data.repository.create
 import android.content.Context
 import android.net.Uri
 import com.eneskayiklik.eventverse.BuildConfig
-import com.eneskayiklik.eventverse.data.model.create.CreateEventModel
+import com.eneskayiklik.eventverse.data.model.create.EventDto
 import com.eneskayiklik.eventverse.util.Settings
 import com.eneskayiklik.eventverse.util.extension.fileFromContentUri
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +20,7 @@ class CreateEventRepositoryImpl(
     private val context: Context
 ) {
 
-    suspend fun createEvent(event: CreateEventModel): CreateResult {
+    suspend fun createEvent(event: EventDto): CreateResult {
         val userId = Settings.currentUser.userId
         val picPath =
             if (event.coverImage.isNotEmpty()) uploadEventImage(event.coverImage, userId) else null
