@@ -35,6 +35,6 @@ data class PostDto(
         likeCount = likedBy.count(),
         createdAt = createdAt,
         isUserLike = Settings.currentUser.userId in likedBy,
-        fromUser = Settings.userStorage.first { it.userId == userId }
+        fromUser = Settings.userStorage.firstOrNull { it.userId == userId } ?: PostUser()
     )
 }
