@@ -12,8 +12,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
@@ -78,25 +80,37 @@ fun LazyListScope.languageButton(
 ) {
     item {
         var expanded by remember { mutableStateOf(false) }
-        SettingsButton(
-            onClick = { expanded = expanded.not() },
-            title = stringResource(id = R.string.language),
-            subtitle = activeLanguage.value,
-            icon = R.drawable.ic_globe,
-            color = Orange,
-            isEndButtonActive = true
-        )
+        var dropdownOffset by remember { mutableStateOf(DpOffset(0.dp, 0.dp)) }
 
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = expanded.not() }
-        ) {
-            selectableLanguages.forEachIndexed { i, item ->
-                DropdownMenuItem(onClick = {
-                    expanded = expanded.not()
-                    onLanguageSelected(i)
-                }) {
-                    Text(text = item.value)
+        Box {
+            SettingsButton(
+                onClick = { expanded = expanded.not() },
+                title = stringResource(id = R.string.language),
+                subtitle = activeLanguage.value,
+                icon = R.drawable.ic_globe,
+                color = Orange,
+                isEndButtonActive = true,
+                modifier = Modifier.onGloballyPositioned {
+                    val w = it.boundsInParent().topRight.x
+                    dropdownOffset = DpOffset(w.dp - 24.dp, (-60).dp)
+                }
+            )
+
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = expanded.not() },
+                offset = dropdownOffset
+            ) {
+                selectableLanguages.forEachIndexed { i, item ->
+                    DropdownMenuItem(onClick = {
+                        expanded = expanded.not()
+                        onLanguageSelected(i)
+                    }) {
+                        Text(text = item.value, style = MaterialTheme.typography.h1.copy(
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colors.onBackground
+                        ))
+                    }
                 }
             }
         }
@@ -206,13 +220,14 @@ private fun SettingsButton(
     subtitle: String,
     @DrawableRes icon: Int,
     color: Color,
+    modifier: Modifier = Modifier,
     isEndButtonActive: Boolean = false,
     isToggleEnabled: Boolean = false,
     isChecked: Boolean = false,
     onToggle: (Boolean) -> Unit = { }
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
             .padding(horizontal = 32.dp, vertical = 16.dp),
