@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavGraphBuilder
+import com.eneskayiklik.eventverse.feature.events.component.EmptyEventView
 import com.eneskayiklik.eventverse.feature.events.component.EventsToolbar
 import com.eneskayiklik.eventverse.feature.events.component.SingleEventView
-import com.eneskayiklik.eventverse.feature.polls.component.EmptyPollsView
 import com.eneskayiklik.eventverse.feature.polls.component.ListLoadingView
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.UiEvent
@@ -107,14 +107,13 @@ private fun BoxScope.ItemsContent(viewModel: EventsViewModel, onNavigate: (Strin
                 modifier = Modifier
                     .fillMaxSize(),
                 contentPadding = PaddingValues(bottom = 56.dp, top = 10.dp),
-                verticalArrangement = if (state.showEmptyScreen) Arrangement.Center else Arrangement.spacedBy(
-                    10.dp
-                )
+                verticalArrangement = if (state.showEmptyScreen) Arrangement.Center else Arrangement.Top
             ) {
                 if (state.showEmptyScreen) {
                     item {
-                        EmptyPollsView(
+                        EmptyEventView(
                             modifier = Modifier
+                                .fillMaxSize()
                                 .align(Alignment.Center)
                                 .padding(32.dp)
                         )

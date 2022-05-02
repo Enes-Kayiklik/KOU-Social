@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +20,8 @@ import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.ui.theme.*
 import com.eneskayiklik.eventverse.core.ui.theme.Blue
 import com.eneskayiklik.eventverse.data.model.auth.User
+import com.eneskayiklik.eventverse.data.model.profile.Language
+import com.eneskayiklik.eventverse.data.model.profile.selectableLanguages
 import com.eneskayiklik.eventverse.feature.profile.profile.component.ProfileImage
 
 fun LazyListScope.editProfileButton(
@@ -71,17 +73,33 @@ fun LazyListScope.editProfileButton(
 }
 
 fun LazyListScope.languageButton(
-    onClick: () -> Unit
+    activeLanguage: Language,
+    onLanguageSelected: (Int) -> Unit
 ) {
     item {
+        var expanded by remember { mutableStateOf(false) }
         SettingsButton(
-            onClick = onClick,
+            onClick = { expanded = expanded.not() },
             title = stringResource(id = R.string.language),
-            subtitle = stringResource(id = R.string.settings_edit_profile),
+            subtitle = activeLanguage.value,
             icon = R.drawable.ic_globe,
             color = Orange,
             isEndButtonActive = true
         )
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = expanded.not() }
+        ) {
+            selectableLanguages.forEachIndexed { i, item ->
+                DropdownMenuItem(onClick = {
+                    expanded = expanded.not()
+                    onLanguageSelected(i)
+                }) {
+                    Text(text = item.value)
+                }
+            }
+        }
     }
 }
 

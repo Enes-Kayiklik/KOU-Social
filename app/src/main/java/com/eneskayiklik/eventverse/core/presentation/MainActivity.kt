@@ -12,16 +12,20 @@ import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.eneskayiklik.eventverse.core.component.BaseAnimatedNavigation
 import com.eneskayiklik.eventverse.core.component.BaseScaffold
 import com.eneskayiklik.eventverse.core.ui.theme.EventverseTheme
+import com.eneskayiklik.eventverse.data.model.profile.Language
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.data_store.AppDataStore
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,6 +42,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val theme = dataStore.isDarkModeEnabled.collectAsState(initial = false).value
+            val language = dataStore.activeLanguage.collectAsState(initial = Language.UNDEFINED).value
+            SetLanguage(language = language)
+
             EventverseTheme(theme) {
                 ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
                     MainScreen()
@@ -45,6 +52,16 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@Composable
+private fun SetLanguage(language: Language) {
+    if (language == Language.UNDEFINED) return
+    val locale = Locale(language.key)
+    val config = LocalConfiguration.current
+    config.setLocale(locale)
+    val res = LocalContext.current.resources
+    res.updateConfiguration(config, res.displayMetrics)
 }
 
 @ExperimentalFoundationApi

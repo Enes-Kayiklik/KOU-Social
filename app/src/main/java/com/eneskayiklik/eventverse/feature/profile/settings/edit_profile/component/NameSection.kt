@@ -38,7 +38,7 @@ fun LazyListScope.nameSection(
     }
 }
 
-fun LazyListScope.ageSection(
+/*fun LazyListScope.ageSection(
     age: String,
     event: (EditProfileEvent) -> Unit
 ) {
@@ -68,7 +68,7 @@ fun LazyListScope.ageSection(
             }
         }
     }
-}
+}*/
 
 fun LazyListScope.departmentSection(
     department: Department,

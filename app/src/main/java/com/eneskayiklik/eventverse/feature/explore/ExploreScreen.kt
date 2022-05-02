@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
+import com.eneskayiklik.eventverse.feature.explore.component.EmptyExploreView
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.enterTransition
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.exitTransition
@@ -22,7 +23,6 @@ import com.eneskayiklik.eventverse.util.anim.ScreensAnim.popEnterTransition
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.popExitTransition
 import com.eneskayiklik.eventverse.feature.explore.component.ExploreToolbar
 import com.eneskayiklik.eventverse.feature.explore.component.SinglePostView
-import com.eneskayiklik.eventverse.feature.polls.component.EmptyPollsView
 import com.eneskayiklik.eventverse.feature.polls.component.ListLoadingView
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.navigation.animation.composable
@@ -85,8 +85,9 @@ private fun BoxScope.ItemsContent(viewModel: ExploreViewModel, onNavigate: (Stri
             ) {
                 if (state.showEmptyScreen) {
                     item {
-                        EmptyPollsView(
+                        EmptyExploreView(
                             modifier = Modifier
+                                .fillMaxSize()
                                 .align(Alignment.Center)
                                 .padding(32.dp)
                         )

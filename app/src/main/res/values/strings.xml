@@ -19,14 +19,10 @@
     <string name="polls">Polls</string>
     <string name="profile">Profile</string>
     <string name="announcement">Announcement</string>
-    <string name="message">Message</string>
     <string name="settings">Settings</string>
     <string name="select_and_go"><![CDATA[Select & Go]]></string>
-    <string name="interest_title">Interests</string>
-    <string name="interest_desc">Lorem ipsum dolor sit amet elit.</string>
     <string name="location">Location</string>
     <string name="change_location">Change Location</string>
-    <string name="popular_section">Popular Now</string>
     <string name="event_name">Event Name</string>
     <string name="description">Give us a bit more information about Event</string>
     <string name="description_short">Description</string>
@@ -37,7 +33,6 @@
     <string name="date_and_time"><![CDATA[Date & Time]]></string>
     <string name="location_placeholder">Location that where attendees find this event</string>
     <string name="cancel">Cancel</string>
-    <string name="max_attendee_count">Max Attendee Count</string>
     <string name="attendee_count">%d attendee</string>
     <string name="like_count">%d like</string>
     <string name="email_paceholder">mail@example.com</string>
@@ -70,13 +65,11 @@
     <string name="edit_photo">Photo</string>
     <string name="update_photo">Upload Image</string>
     <string name="edit_name">Name</string>
-    <string name="edit_age">Birthdate</string>
     <string name="change_password">Password</string>
     <string name="change_password_desc">Update your password</string>
     <string name="logout_desc">Logout from this account</string>
     <string name="personal">Personal</string>
     <string name="social_accounts">Social Accounts</string>
-    <string name="birthdate">Select Birthdate</string>
     <string name="instagram">Instagram</string>
     <string name="github">GitHub</string>
     <string name="twitter">Twitter</string>
@@ -113,4 +106,8 @@
     <string name="verification_code">Verification Code</string>
     <string name="verification_code_placeholder">Input 6 digit  code</string>
     <string name="verify_account_title">Verify Account</string>
+    <string name="no_explore_title">List is empty</string>
+    <string name="no_explore_desc">"We can't find any post. "</string>
+    <string name="no_event_desc">There is no available event at this time</string>
+    <string name="no_event_title">List is Empty</string>
 </resources>
