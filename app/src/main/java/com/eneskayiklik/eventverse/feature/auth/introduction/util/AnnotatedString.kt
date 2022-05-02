@@ -9,17 +9,20 @@ import androidx.compose.ui.unit.sp
 fun getIntroTitleString(
     onBackgroundColor: Color,
     primaryColor: Color,
-    subtitleColor: Color
+    subtitleColor: Color,
+    appName: String,
+    welcome: String,
+    desc: String
 ) = buildAnnotatedString {
     withStyle(SpanStyle(color = onBackgroundColor, fontSize = 24.sp)) {
-        append("Welcome to")
+        append(welcome)
     }
     append("\n")
     withStyle(SpanStyle(color = primaryColor, fontSize = 36.sp)) {
-        append("KOU Event")
+        append(appName)
     }
     append("\n")
     withStyle(SpanStyle(color = subtitleColor, fontSize = 16.sp)) {
-        append("A place where you can track all your expenses and incomes...")
+        append(desc)
     }
 }

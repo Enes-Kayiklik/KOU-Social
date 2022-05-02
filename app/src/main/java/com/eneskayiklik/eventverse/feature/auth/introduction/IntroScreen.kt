@@ -90,7 +90,10 @@ private fun IntroScreen(
                 text = getIntroTitleString(
                     MaterialTheme.colors.onBackground,
                     MaterialTheme.colors.primary,
-                    MaterialTheme.colors.onSurface
+                    MaterialTheme.colors.onSurface,
+                    stringResource(id = R.string.app_name),
+                    stringResource(id = R.string.welcome_to),
+                    stringResource(id = R.string.welcome_desc)
                 ), style = MaterialTheme.typography.h1
             )
             Spacer(modifier = Modifier.height(100.dp))

@@ -3,15 +3,8 @@
     <string name="app_logo">App logo</string>
     <string name="email">E-mail</string>
     <string name="password">Şifre</string>
-    <string name="login">Giriş yap</string>
     <string name="login_button">Giriş</string>
-    <string name="signup_button">Kayıt ol</string>
-    <string name="forget_password">Şifremi unuttum?</string>
     <string name="with_google">Google ile Devam</string>
-    <string name="or">veya</string>
-    <string name="password_error">Şifre en az 6 karakterden oluşmalı!</string>
-    <string name="email_error">Geçersiz email</string>
-    <string name="register_button">Kayıt ol</string>
     <string name="fullname">İsim Soyisim</string>
     <string name="ok">Tamam</string>
     <string name="create_event">Etkinlik Oluştur</string>
@@ -83,7 +76,7 @@
     <string name="no_meal_desc">Herhangi bir yemek bilgisi bulamadık. Bu hatayı gidermeye çalışıyoruz. Anlayışınız için teşekkürler.</string>
     <string name="select_department">Bölüm ekle</string>
     <string name="download_attach">İndir</string>
-    <string name="open_attach">Ek\'i Aç</string>
+    <string name="open_attach">Ek\'i Görüntüle</string>
     <string name="old_password_placeholder">Şu anki şifre</string>
     <string name="old_password">Şu anki şifre</string>
     <string name="new_password">Yeni şifre</string>
@@ -113,4 +106,6 @@
     <string name="follow_system">Sistem</string>
     <string name="no_event_title">Liste Boş</string>
     <string name="night_mode">Karanlık</string>
+    <string name="welcome_to">Hoşgeldiniz</string>
+    <string name="welcome_desc">Yemekhane yemek listesini, bölüm duyurularını ve etkinlikleri takip edebildiğiniz bir yer…</string>
 </resources>

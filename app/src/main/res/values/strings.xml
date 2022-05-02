@@ -3,16 +3,9 @@
     <string name="app_logo">App logo</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
-    <string name="login">Sign in</string>
     <string name="login_button">Login</string>
-    <string name="signup_button">Sign up</string>
-    <string name="forget_password">Forget Password?</string>
     <string name="with_google">Sign Up with Google</string>
-    <string name="or">OR</string>
-    <string name="password_error">You have to enter at least 6 digit!</string>
-    <string name="email_error">Invalid email</string>
-    <string name="register_button">Sign up</string>
-    <string name="fullname">Fullname</string>
+    <string name="fullname">Full name</string>
     <string name="ok">OK</string>
     <string name="create_event">Create Event</string>
     <string name="explore">Home</string>
@@ -113,4 +106,6 @@
     <string name="light_mode">Light</string>
     <string name="night_mode">Dark</string>
     <string name="follow_system">System</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="welcome_desc">A place where you can track events, school meal list and department announcements…</string>
 </resources>
