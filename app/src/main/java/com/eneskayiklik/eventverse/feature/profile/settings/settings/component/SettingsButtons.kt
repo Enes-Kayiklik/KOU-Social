@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.*
 import androidx.compose.ui.res.painterResource
@@ -22,8 +23,10 @@ import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.ui.theme.*
 import com.eneskayiklik.eventverse.core.ui.theme.Blue
 import com.eneskayiklik.eventverse.data.model.auth.User
+import com.eneskayiklik.eventverse.data.model.profile.DarkMode
 import com.eneskayiklik.eventverse.data.model.profile.Language
 import com.eneskayiklik.eventverse.data.model.profile.selectableLanguages
+import com.eneskayiklik.eventverse.data.model.profile.selectableModes
 import com.eneskayiklik.eventverse.feature.profile.profile.component.ProfileImage
 
 fun LazyListScope.editProfileButton(
@@ -90,6 +93,7 @@ fun LazyListScope.languageButton(
                 icon = R.drawable.ic_globe,
                 color = Orange,
                 isEndButtonActive = true,
+                isEndButtonDropdown = true,
                 modifier = Modifier.onGloballyPositioned {
                     val w = it.boundsInParent().topRight.x
                     dropdownOffset = DpOffset(w.dp - 24.dp, (-60).dp)
@@ -106,11 +110,21 @@ fun LazyListScope.languageButton(
                         expanded = expanded.not()
                         onLanguageSelected(i)
                     }) {
-                        Text(text = item.value, style = MaterialTheme.typography.h1.copy(
-                            fontSize = 16.sp,
-                            color = MaterialTheme.colors.onBackground
-                        ))
+                        Text(
+                            text = item.value, style = MaterialTheme.typography.h1.copy(
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colors.onBackground
+                            )
+                        )
                     }
+                    if (i != selectableLanguages.lastIndex)
+                        Divider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 10.dp)
+                                .height(1.dp)
+                                .background(MaterialTheme.colors.onSecondary.copy(alpha = .3F))
+                        )
                 }
             }
         }
@@ -118,21 +132,57 @@ fun LazyListScope.languageButton(
 }
 
 fun LazyListScope.darkModeButton(
-    isDarkModeEnabled: Boolean,
-    onToggle: (Boolean) -> Unit
+    activeMode: DarkMode,
+    onModeSelected: (Int) -> Unit
 ) {
     item {
-        SettingsButton(
-            onClick = { onToggle(isDarkModeEnabled.not()) },
-            title = stringResource(id = R.string.dark_mode),
-            subtitle = stringResource(id = R.string.settings_edit_profile),
-            icon = R.drawable.ic_moon,
-            color = Purple,
-            isEndButtonActive = false,
-            isToggleEnabled = true,
-            isChecked = isDarkModeEnabled,
-            onToggle = onToggle
-        )
+        var expanded by remember { mutableStateOf(false) }
+        var dropdownOffset by remember { mutableStateOf(DpOffset(0.dp, 0.dp)) }
+
+        Box {
+            SettingsButton(
+                onClick = { expanded = expanded.not() },
+                title = stringResource(id = R.string.dark_mode),
+                subtitle = stringResource(id = activeMode.title),
+                icon = R.drawable.ic_moon,
+                color = Purple,
+                isEndButtonActive = true,
+                isEndButtonDropdown = true,
+                modifier = Modifier.onGloballyPositioned {
+                    val w = it.boundsInParent().topRight.x
+                    dropdownOffset = DpOffset(w.dp - 24.dp, (-60).dp)
+                }
+            )
+
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = expanded.not() },
+                offset = dropdownOffset
+            ) {
+                selectableModes.forEachIndexed { i, item ->
+                    DropdownMenuItem(onClick = {
+                        expanded = expanded.not()
+                        onModeSelected(i)
+                    }) {
+                        Text(
+                            text = stringResource(id = item.title),
+                            style = MaterialTheme.typography.h1.copy(
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colors.onBackground
+                            )
+                        )
+                    }
+                    if (i != selectableModes.lastIndex)
+                        Divider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 10.dp)
+                                .height(1.dp)
+                                .background(MaterialTheme.colors.onSecondary.copy(alpha = .3F))
+                        )
+                }
+            }
+        }
     }
 }
 
@@ -222,9 +272,7 @@ private fun SettingsButton(
     color: Color,
     modifier: Modifier = Modifier,
     isEndButtonActive: Boolean = false,
-    isToggleEnabled: Boolean = false,
-    isChecked: Boolean = false,
-    onToggle: (Boolean) -> Unit = { }
+    isEndButtonDropdown: Boolean = false
 ) {
     Row(
         modifier = modifier
@@ -278,17 +326,7 @@ private fun SettingsButton(
                     RoundedCornerShape(15.dp)
                 )
                 .padding(8.dp)
+                .rotate(if (isEndButtonDropdown) 90F else 0F)
         )
-        if (isToggleEnabled) Switch(
-            checked = isChecked, onCheckedChange = onToggle, colors = SwitchDefaults.colors(
-                checkedThumbColor = MaterialTheme.colors.primary,
-                checkedTrackColor = MaterialTheme.colors.primary,
-                checkedTrackAlpha = .2F,
-                uncheckedThumbColor = MaterialTheme.colors.onSurface,
-                uncheckedTrackColor = MaterialTheme.colors.onSurface,
-                uncheckedTrackAlpha = .2F
-            )
-        )
-
     }
 }

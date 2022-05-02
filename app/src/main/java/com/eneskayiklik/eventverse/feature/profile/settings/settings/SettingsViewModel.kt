@@ -24,7 +24,7 @@ class SettingsViewModel @Inject constructor(
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state
 
-    val isDarkModeEnabled = dataStore.isDarkModeEnabled
+    val activeMode = dataStore.activeMode
     val activeLanguage = dataStore.activeLanguage
 
     private val _event = MutableSharedFlow<UiEvent>()
@@ -91,7 +91,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun toggleTheme(value: Boolean) {
+    fun toggleTheme(value: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStore.setDarkMode(value)
         }

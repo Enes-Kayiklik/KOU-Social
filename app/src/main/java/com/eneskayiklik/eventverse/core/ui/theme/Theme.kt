@@ -6,6 +6,7 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.eneskayiklik.eventverse.data.model.profile.DarkMode
 
 /*private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -37,7 +38,13 @@ private val LightColorPalette = lightColors(
 )*/
 
 @Composable
-fun EventverseTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun EventverseTheme(theme: DarkMode = DarkMode.FOLLOW_SYSTEM, content: @Composable () -> Unit) {
+    val darkTheme = when (theme) {
+        DarkMode.LIGHT -> false
+        DarkMode.DARK -> true
+        else -> isSystemInDarkTheme()
+    }
+
     // Animate colors on theme change
     val colors = Colors(
         primary = Purple200,

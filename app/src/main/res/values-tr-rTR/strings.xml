@@ -109,4 +109,8 @@
     <string name="no_explore_title">Liste Boş</string>
     <string name="no_explore_desc">"Herhangi bir post bulunamadı."</string>
     <string name="no_event_desc">Şu anda aktif etkinlik bulunmamakta</string>
+    <string name="light_mode">Aydınlık</string>
+    <string name="follow_system">Sistem</string>
+    <string name="no_event_title">Liste Boş</string>
+    <string name="night_mode">Karanlık</string>
 </resources>

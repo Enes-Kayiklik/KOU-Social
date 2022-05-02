@@ -39,6 +39,7 @@ import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.flow.collectLatest
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.component.InfoDialog
+import com.eneskayiklik.eventverse.data.model.profile.DarkMode
 import com.eneskayiklik.eventverse.data.model.profile.Language
 import com.eneskayiklik.eventverse.util.GOOGLE_LOGIN_KEY
 import com.eneskayiklik.eventverse.util.contract.GoogleLoginContract
@@ -62,7 +63,8 @@ private fun SettingsScreen(
     val context = LocalContext.current
     val accountTitle = stringResource(id = R.string.account)
     val settingsTitle = stringResource(id = R.string.settings)
-    val isDarkModeEnabled = viewModel.isDarkModeEnabled.collectAsState(false).value
+
+    val activeMode = viewModel.activeMode.collectAsState(DarkMode.FOLLOW_SYSTEM).value
     val activeLanguage = viewModel.activeLanguage.collectAsState(Language.UNDEFINED).value
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -156,7 +158,7 @@ private fun SettingsScreen(
                     modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
                 )
                 languageButton(activeLanguage, viewModel::updateLanguage)
-                darkModeButton(isDarkModeEnabled, viewModel::toggleTheme)
+                darkModeButton(activeMode, viewModel::toggleTheme)
                 item {
                     Divider(
                         modifier = Modifier

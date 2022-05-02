@@ -110,4 +110,7 @@
     <string name="no_explore_desc">"We can't find any post. "</string>
     <string name="no_event_desc">There is no available event at this time</string>
     <string name="no_event_title">List is Empty</string>
+    <string name="light_mode">Light</string>
+    <string name="night_mode">Dark</string>
+    <string name="follow_system">System</string>
 </resources>

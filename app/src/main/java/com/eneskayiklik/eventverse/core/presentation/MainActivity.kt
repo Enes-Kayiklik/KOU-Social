@@ -19,6 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.eneskayiklik.eventverse.core.component.BaseAnimatedNavigation
 import com.eneskayiklik.eventverse.core.component.BaseScaffold
 import com.eneskayiklik.eventverse.core.ui.theme.EventverseTheme
+import com.eneskayiklik.eventverse.data.model.profile.DarkMode
 import com.eneskayiklik.eventverse.data.model.profile.Language
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.data_store.AppDataStore
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val theme = dataStore.isDarkModeEnabled.collectAsState(initial = false).value
+            val theme = dataStore.activeMode.collectAsState(initial = DarkMode.FOLLOW_SYSTEM).value
             val language = dataStore.activeLanguage.collectAsState(initial = Language.UNDEFINED).value
             SetLanguage(language = language)
 
