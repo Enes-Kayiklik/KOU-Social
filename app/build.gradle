@@ -135,4 +135,7 @@ dependencies {
 
     // Lottie
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
+
+    // Rating bar
+    implementation 'com.github.a914-gowtham:compose-ratingbar:1.2.3'
 }

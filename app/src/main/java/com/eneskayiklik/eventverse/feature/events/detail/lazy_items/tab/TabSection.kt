@@ -8,8 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
-import com.eneskayiklik.eventverse.data.model.create.Event
+import com.eneskayiklik.eventverse.data.event.auth.event_detail.EventDetailEvent
 import com.eneskayiklik.eventverse.data.model.event_detail.EventDetailPage
+import com.eneskayiklik.eventverse.data.state.events.EventDetailState
 import com.eneskayiklik.eventverse.util.modifier.pagerTabIndicatorOffset
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -22,11 +23,13 @@ import kotlinx.coroutines.launch
     ExperimentalPagerApi::class
 )
 fun LazyListScope.tabSection(
-    event: Event,
+    state: EventDetailState,
+    onEvent: (EventDetailEvent) -> Unit,
     pagerState: PagerState,
     coroutineScope: CoroutineScope,
     pages: List<EventDetailPage>
 ) {
+    val event = state.event ?: return
     stickyHeader {
         TabRow(
             // Our selected tab is our current page
@@ -75,7 +78,11 @@ fun LazyListScope.tabSection(
         ) { page ->
             when (page) {
                 0 -> DetailPage(event.description)
-                1 -> CommentsPage()
+                1 -> CommentsPage(
+                    comment = state.userComment,
+                    comments = state.comments,
+                    onEvent = onEvent
+                )
             }
         }
     }

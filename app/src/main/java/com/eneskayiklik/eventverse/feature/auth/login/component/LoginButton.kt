@@ -15,7 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eneskayiklik.eventverse.R
 
-@ExperimentalAnimationApi
+@OptIn(
+    ExperimentalAnimationApi::class
+)
 @Composable
 fun LoginButton(
     modifier: Modifier = Modifier,

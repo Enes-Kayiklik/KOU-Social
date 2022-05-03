@@ -116,4 +116,7 @@
     <string name="going_count">%d people are going</string>
     <string name="event_detail_detail">Detail</string>
     <string name="event_detail_comments">Comments</string>
+    <string name="comment_title">What is your rate?</string>
+    <string name="comment_subtitle">Please share your opinion about this event</string>
+    <string name="share_review">Review</string>
 </resources>

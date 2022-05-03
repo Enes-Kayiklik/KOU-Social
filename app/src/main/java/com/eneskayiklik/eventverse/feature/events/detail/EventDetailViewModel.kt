@@ -3,6 +3,7 @@ package com.eneskayiklik.eventverse.feature.events.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eneskayiklik.eventverse.data.event.auth.event_detail.EventDetailEvent
 import com.eneskayiklik.eventverse.data.repository.events.EventDetailRepositoryImpl
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.UiEvent
@@ -28,9 +29,26 @@ class EventDetailViewModel @Inject constructor(
     private val _event = MutableSharedFlow<UiEvent>()
     val event: SharedFlow<UiEvent> = _event
 
+    private var eventId: String = _stateHandle.get<String>("eventId") ?: ""
+
     init {
-        val eventId = _stateHandle.get<String>("eventId") ?: ""
         getEventDetail(eventId)
+    }
+
+    fun onEvent(event: EventDetailEvent) = viewModelScope.launch {
+        when (event) {
+            is EventDetailEvent.OnComment -> _state.value = _state.value.copy(
+                userComment = _state.value.userComment.copy(
+                    comment = event.comment
+                )
+            )
+            is EventDetailEvent.OnRating -> _state.value = _state.value.copy(
+                userComment = _state.value.userComment.copy(
+                    rating = event.rating
+                )
+            )
+            EventDetailEvent.OnReview -> shareReview()
+        }
     }
 
     private fun getEventDetail(eventId: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -66,6 +84,27 @@ class EventDetailViewModel @Inject constructor(
         }
     }
 
+    private fun shareReview() = viewModelScope.launch(Dispatchers.IO) {
+        val currentReview = _state.value.userComment
+        val reviews = _state.value.comments.toMutableList()
+        val index = reviews.indexOfFirst { it.id == currentReview.id }
+        if (((currentReview.comment.isNotEmpty() && currentReview.rating >= 0F)
+                    || currentReview.rating > 0F).not()
+        ) return@launch
+        if (index >= 0) {
+            reviews.removeAt(index)
+            reviews.add(index, currentReview)
+            _event.emit(UiEvent.Toast("Successful!"))
+        } else {
+            reviews.add(0, currentReview)
+            _event.emit(UiEvent.Toast("Successful!"))
+        }
+        _state.value = _state.value.copy(
+            comments = reviews
+        )
+        eventDetailRepository.shareReview(eventId, currentReview.toDto())
+    }
+
     fun likeEvent(id: String) = viewModelScope.launch(Dispatchers.IO) {
         val event = _state.value.event ?: return@launch
 
@@ -75,5 +114,22 @@ class EventDetailViewModel @Inject constructor(
             )
         )
         eventDetailRepository.likeEvent(id, event.isLiked.not())
+    }
+
+    fun getReviews() = viewModelScope.launch(Dispatchers.IO) {
+        eventDetailRepository.getReviews(eventId).collectLatest {
+            when (it) {
+                is Resource.Error -> Unit
+                is Resource.Loading -> _state.value = _state.value.copy(
+                    isReviewsLoading = true
+                )
+                is Resource.Success -> {
+                    _state.value = _state.value.copy(
+                        isReviewsLoading = false,
+                        comments = it.data
+                    )
+                }
+            }
+        }
     }
 }

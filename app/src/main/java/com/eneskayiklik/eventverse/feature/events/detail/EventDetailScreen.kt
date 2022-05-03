@@ -2,6 +2,7 @@ package com.eneskayiklik.eventverse.feature.events.detail
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -11,10 +12,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -72,7 +70,17 @@ private fun EventDetailScreen(
                 }
                 is UiEvent.Navigate -> onNavigate(it.id)
                 UiEvent.ClearBackStack -> clearBackStack()
+                is UiEvent.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 else -> Unit
+            }
+        }
+    }
+
+    // Page selected callback
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            when (page) {
+                1 -> viewModel.getReviews()
             }
         }
     }
@@ -134,7 +142,7 @@ private fun EventDetailScreen(
                             .background(MaterialTheme.colors.secondary)
                     )
                 }
-                tabSection(event, pagerState, coroutineScope, pages)
+                tabSection(state, viewModel::onEvent, pagerState, coroutineScope, pages)
             }
         }
     }
