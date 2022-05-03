@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -75,6 +76,7 @@ fun LazyListScope.tabSection(
         HorizontalPager(
             count = pages.size,
             state = pagerState,
+            verticalAlignment = Alignment.Top,
         ) { page ->
             when (page) {
                 0 -> DetailPage(event.description)
