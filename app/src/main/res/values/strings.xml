@@ -111,4 +111,9 @@
     <string name="hour">Hour</string>
     <string name="minute">Minute</string>
     <string name="second">Second</string>
+    <string name="event_detail">Detail</string>
+    <string name="organized_by">Organized by</string>
+    <string name="going_count">%d people are going</string>
+    <string name="event_detail_detail">Detail</string>
+    <string name="event_detail_comments">Comments</string>
 </resources>

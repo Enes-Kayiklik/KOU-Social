@@ -6,7 +6,9 @@ data class EventDetailState(
     val event: Event? = null,
     val isLoading: Boolean = true,
     val date: RemainingDate = RemainingDate()
-)
+) {
+    val showTimer = isLoading.not() && date.second.isNotEmpty()
+}
 
 data class RemainingDate(
     val hour: List<Int> = emptyList(),

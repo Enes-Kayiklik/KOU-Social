@@ -5,8 +5,6 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,12 +20,11 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.data.state.events.RemainingDate
-import com.google.accompanist.insets.statusBarsPadding
 
 fun LazyListScope.detailImage(
     image: String,
     date: RemainingDate,
-    onBackPressed: () -> Unit
+    showTimer: Boolean
 ) {
     item {
         val itemsColor = if (image.isEmpty()) MaterialTheme.colors.onSecondary else Color.White
@@ -39,19 +35,12 @@ fun LazyListScope.detailImage(
                 .background(MaterialTheme.colors.secondary)
         ) {
             EventImage(image = image)
-            EventDate(date = date, modifier = Modifier.align(Alignment.Center), itemsColor = itemsColor)
-            IconButton(
-                onClick = onBackPressed,
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .statusBarsPadding()
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_back),
-                    contentDescription = null,
-                    tint = itemsColor
+            if (showTimer)
+                EventDate(
+                    date = date,
+                    modifier = Modifier.align(Alignment.Center),
+                    itemsColor = itemsColor
                 )
-            }
         }
     }
 }

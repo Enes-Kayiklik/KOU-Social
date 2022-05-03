@@ -13,7 +13,8 @@ data class Event(
     val attendee: List<PostUser> = emptyList(),
     val attendeePlusCount: Int = 0,
     val totalAttendeeCount: Int = 0,
-    val likedBy: List<PostUser> = emptyList(),
+    val likedBy: List<String> = emptyList(),
+    val isLiked: Boolean = false,
     val likedByPlusCount: Int = 0,
     val title: String = "",
     val description: String = "",
@@ -27,6 +28,10 @@ data class Event(
     val startTime: Date = Date()
 ) {
     val showIndicator = totalAttendeeCount > 0 && likedByPlusCount > 0
+    val dayMonth = "$month\n$day"
+
+    val showAttendeeCount = totalAttendeeCount > 0
+    val showUserHeads = attendee.isNotEmpty() && showAttendeeCount
 }
 
 data class EventDto(
@@ -67,6 +72,8 @@ data class EventDto(
         month = startTime.toDate().formatDate("MMM").uppercase(),
         day = startTime.toDate().formatDate("dd"),
         createdAt = createdAt,
+        likedBy = likedBy,
+        isLiked = Settings.currentUser.userId in likedBy,
         likedByPlusCount = likedBy.count(),
         startTime = startTime.toDate()
     )

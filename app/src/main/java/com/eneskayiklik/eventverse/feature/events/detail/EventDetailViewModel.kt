@@ -7,6 +7,7 @@ import com.eneskayiklik.eventverse.data.repository.events.EventDetailRepositoryI
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.UiEvent
 import com.eneskayiklik.eventverse.data.state.events.EventDetailState
+import com.eneskayiklik.eventverse.data.state.events.RemainingDate
 import com.eneskayiklik.eventverse.util.extension.formatDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -58,10 +59,21 @@ class EventDetailViewModel @Inject constructor(
     private fun startDateCounter(initial: Date) = viewModelScope.launch(Dispatchers.IO) {
         while (true) {
             val remaining = initial.time - System.currentTimeMillis()
-            _state.value =_state.value.copy(
-                date = remaining.formatDate()
+            _state.value = _state.value.copy(
+                date = if (remaining > 0) remaining.formatDate() else RemainingDate()
             )
             delay(1000L)
         }
+    }
+
+    fun likeEvent(id: String) = viewModelScope.launch(Dispatchers.IO) {
+        val event = _state.value.event ?: return@launch
+
+        _state.value = _state.value.copy(
+            event = _state.value.event?.copy(
+                isLiked = event.isLiked.not()
+            )
+        )
+        eventDetailRepository.likeEvent(id, event.isLiked.not())
     }
 }
