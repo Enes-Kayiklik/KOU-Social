@@ -17,7 +17,8 @@ import com.eneskayiklik.eventverse.feature.polls.pollsComposable
 import com.eneskayiklik.eventverse.feature.create.createComposable
 import com.eneskayiklik.eventverse.feature.explore.exploreComposable
 import com.eneskayiklik.eventverse.feature.announcement.announcementComposable
-import com.eneskayiklik.eventverse.feature.events.eventsComposable
+import com.eneskayiklik.eventverse.feature.events.detail.eventDetailComposable
+import com.eneskayiklik.eventverse.feature.events.list.eventsComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.edit_profile.editProfileComposable
 import com.eneskayiklik.eventverse.feature.meal.mealComposable
 import com.eneskayiklik.eventverse.feature.polls.create_poll.createPollComposable
@@ -62,6 +63,7 @@ fun BaseAnimatedNavigation(
         signupComposable(navigateClearWholeBackstack, navController::popBackStack, scaffoldState)
         exploreComposable(navigateSingleTop, navController::popBackStack)
         eventsComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
+        eventDetailComposable(navigateSingleTop, navController::popBackStack)
         pollsComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         createPollComposable(navigateSingleTop, navController::popBackStack)
         announcementComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)

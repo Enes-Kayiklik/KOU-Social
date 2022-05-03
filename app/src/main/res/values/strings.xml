@@ -108,4 +108,7 @@
     <string name="follow_system">System</string>
     <string name="welcome_to">Welcome to</string>
     <string name="welcome_desc">A place where you can track events, school meal list and department announcements…</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="second">Second</string>
 </resources>

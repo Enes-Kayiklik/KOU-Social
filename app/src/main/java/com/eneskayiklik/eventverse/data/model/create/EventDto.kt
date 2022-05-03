@@ -5,6 +5,7 @@ import com.eneskayiklik.eventverse.util.Settings
 import com.eneskayiklik.eventverse.util.extension.formatDate
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
+import java.util.*
 
 data class Event(
     val id: String = "",
@@ -22,7 +23,8 @@ data class Event(
     val coverImage: String = "",
     val createdAt: Timestamp = Timestamp.now(),
     val month: String = "",
-    val day: String = ""
+    val day: String = "",
+    val startTime: Date = Date()
 ) {
     val showIndicator = totalAttendeeCount > 0 && likedByPlusCount > 0
 }
@@ -65,6 +67,7 @@ data class EventDto(
         month = startTime.toDate().formatDate("MMM").uppercase(),
         day = startTime.toDate().formatDate("dd"),
         createdAt = createdAt,
-        likedByPlusCount = likedBy.count()
+        likedByPlusCount = likedBy.count(),
+        startTime = startTime.toDate()
     )
 }

@@ -15,6 +15,9 @@ sealed class Screen(val route: String) {
         fun route(isSelf: Boolean = false, userId: String = "") =
             if (isSelf) "profile/${Settings.currentUser.userId}" else "profile/$userId"
     }
+    object EventDetail : Screen("event/{eventId}") {
+        fun route(eventId: String = "") = "event/$eventId"
+    }
     object CreateEvent : Screen("create_event")
     object SettingsScreen : Screen("settings")
     object EditProfile : Screen("edit_profile")

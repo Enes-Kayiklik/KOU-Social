@@ -1,8 +1,9 @@
-package com.eneskayiklik.eventverse.feature.events
+package com.eneskayiklik.eventverse.feature.events.list
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -126,12 +127,16 @@ private fun BoxScope.ItemsContent(viewModel: EventsViewModel, onNavigate: (Strin
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp)
+                                .padding(bottom = 10.dp)
                                 .clip(RoundedCornerShape(10.dp))
                                 .border(
                                     1.5.dp,
                                     MaterialTheme.colors.secondary,
                                     RoundedCornerShape(10.dp)
                                 )
+                                .clickable {
+                                    onNavigate(Screen.EventDetail.route(currentItem.id))
+                                }
                         )
                         if (index == posts.lastIndex && state.hasNext) {
                             ListLoadingView {

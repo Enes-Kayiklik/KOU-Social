@@ -108,4 +108,7 @@
     <string name="night_mode">Karanlık</string>
     <string name="welcome_to">Hoşgeldiniz</string>
     <string name="welcome_desc">Yemekhane yemek listesini, bölüm duyurularını ve etkinlikleri takip edebildiğiniz bir yer…</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="second">Second</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.eneskayiklik.eventverse.feature.events
+package com.eneskayiklik.eventverse.feature.events.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
