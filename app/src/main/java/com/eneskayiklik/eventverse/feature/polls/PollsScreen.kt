@@ -96,6 +96,7 @@ private fun BoxScope.ItemsContent(viewModel: PollsViewModel, onNavigate: (String
                             poll = currentItem,
                             modifier = Modifier
                                 .fillMaxWidth(),
+                            onNavigate = onNavigate,
                             onOptionSelected = viewModel::onOptionSelected
                         )
                         if (index != polls.lastIndex) {

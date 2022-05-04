@@ -100,7 +100,7 @@ private fun BoxScope.ItemsContent(viewModel: ExploreViewModel, onNavigate: (Stri
                             modifier = Modifier
                                 .fillMaxWidth(),
                             onLike = { viewModel.likePost(currentItem.id) },
-                            onPostAction = { }
+                            onNavigate = onNavigate
                         )
                         if (index != posts.lastIndex) {
                             Divider(

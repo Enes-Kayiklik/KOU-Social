@@ -29,13 +29,14 @@ import com.eneskayiklik.eventverse.data.model.share.Post
 import com.eneskayiklik.eventverse.feature.polls.component.poll_view.UserSection
 import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.ui.theme.Red
+import com.eneskayiklik.eventverse.util.Screen
 
 @Composable
 fun SinglePostView(
     post: Post,
     modifier: Modifier = Modifier,
     onLike: () -> Unit,
-    onPostAction: () -> Unit
+    onNavigate: (String) -> Unit
 ) {
     Column(
         modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)
@@ -47,7 +48,7 @@ fun SinglePostView(
                 .padding(horizontal = 16.dp)
                 .padding(top = 16.dp)
         ) {
-
+            onNavigate(Screen.Profile.route(userId = post.fromUser.userId))
         }
         PostBody(
             body = post.body,
