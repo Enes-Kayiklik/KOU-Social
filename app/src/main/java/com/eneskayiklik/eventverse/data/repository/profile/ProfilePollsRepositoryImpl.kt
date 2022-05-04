@@ -4,7 +4,6 @@ import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.data.model.poll.PollDto
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.Settings
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,7 +26,7 @@ class ProfilePollsRepositoryImpl(
                 .whereEqualTo("userId", userId)
                 // We can't combine two different compare function see: https://firebase.google.com/docs/firestore/query-data/queries#kotlin+ktx_3
                 //.whereLessThan("createdAt", lastCreatedAt ?: Timestamp.now())
-                .orderBy("createdAt", Query.Direction.DESCENDING)
+                //.orderBy("createdAt", Query.Direction.DESCENDING)
                 .get().await().toObjects(PollDto::class.java)
                 .map { it.toPoll() }
             //lastCreatedAt = data.last().createdAt

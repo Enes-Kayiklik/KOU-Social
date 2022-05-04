@@ -50,4 +50,12 @@ object ProfileModule {
     @Singleton
     @Provides
     fun provideProfilePollsRepository(): ProfilePollsRepositoryImpl = ProfilePollsRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideProfileLikedEventsRepository(): ProfileLikedEventsRepositoryImpl = ProfileLikedEventsRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideProfileAttendedEventsRepository(): ProfileAttendedEventsRepositoryImpl = ProfileAttendedEventsRepositoryImpl()
 }

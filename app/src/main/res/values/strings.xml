@@ -135,4 +135,10 @@
     <string name="profile_attendee_desc">Attendee desc</string>
     <string name="profile_polls">Polls</string>
     <string name="empty_user_polls">This user don\'t have any poll yet</string>
+    <string name="profile_liked_events_toolbar">Liked Events</string>
+    <string name="profile_attended_events_toolbar">Attended Events</string>
+    <string name="empty_user_attended_events_title">List is empty</string>
+    <string name="empty_user_attended_events_desc">This user don\'t have any attended event</string>
+    <string name="empty_user_liked_events_desc">This user don\'t have any liked event</string>
+    <string name="empty_user_liked_events_title">List is empty</string>
 </resources>

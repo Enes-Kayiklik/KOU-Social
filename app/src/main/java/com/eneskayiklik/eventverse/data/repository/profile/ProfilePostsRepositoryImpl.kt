@@ -2,7 +2,6 @@ package com.eneskayiklik.eventverse.data.repository.profile
 
 import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.data.model.share.PostDto
-import com.eneskayiklik.eventverse.util.POST_PAGE_SIZE
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.Settings
 import com.google.firebase.firestore.*
@@ -25,7 +24,7 @@ class ProfilePostsRepositoryImpl(
                 .document("posts")
                 .collection("posts")
                 .whereEqualTo("userId", userId)
-                .orderBy("createdAt", Query.Direction.DESCENDING)
+                //.orderBy("createdAt", Query.Direction.DESCENDING)
                 //.limit(POST_PAGE_SIZE)
                 // We can't combine two different compare function see: https://firebase.google.com/docs/firestore/query-data/queries#kotlin+ktx_3
                 //.whereLessThan("createdAt", lastTimestamp ?: Timestamp.now())

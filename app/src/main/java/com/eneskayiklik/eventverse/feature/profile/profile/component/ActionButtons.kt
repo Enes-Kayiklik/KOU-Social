@@ -49,7 +49,7 @@ fun ActionButtons(
             subtitle = stringResource(id = R.string.profile_liked_events_desc),
             modifier = Modifier
                 .clickable {
-                    onNavigate(Screen.ProfilePosts.route(userId))
+                    onNavigate(Screen.LikedEvents.route(userId))
                 }
         )
         SingleButton(
@@ -59,7 +59,7 @@ fun ActionButtons(
             modifier = Modifier
                 .clip(RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp))
                 .clickable {
-                    onNavigate(Screen.ProfilePosts.route(userId))
+                    onNavigate(Screen.AttendedEvents.route(userId))
                 }
         )
     }

@@ -14,16 +14,28 @@ sealed class Screen(val route: String) {
     object ProfilePosts : Screen("posts/{userId}") {
         fun route(userId: String = "") = "posts/$userId"
     }
+
+    object AttendedEvents : Screen("attended_events/{userId}") {
+        fun route(userId: String = "") = "attended_events/$userId"
+    }
+
+    object LikedEvents : Screen("liked_events/{userId}") {
+        fun route(userId: String = "") = "liked_events/$userId"
+    }
+
     object ProfilePolls : Screen("polls/{userId}") {
         fun route(userId: String = "") = "polls/$userId"
     }
+
     object Profile : Screen("profile/{userId}") {
         fun route(isSelf: Boolean = false, userId: String = "") =
             if (isSelf) "profile/${Settings.currentUser.userId}" else "profile/$userId"
     }
+
     object EventDetail : Screen("event/{eventId}") {
         fun route(eventId: String = "") = "event/$eventId"
     }
+
     object CreateEvent : Screen("create_event")
     object SettingsScreen : Screen("settings")
     object EditProfile : Screen("edit_profile")
