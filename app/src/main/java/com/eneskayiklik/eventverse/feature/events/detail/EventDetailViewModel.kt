@@ -4,11 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.data.event.auth.event_detail.EventDetailEvent
+import com.eneskayiklik.eventverse.data.model.event_detail.Comment
 import com.eneskayiklik.eventverse.data.repository.events.EventDetailRepositoryImpl
 import com.eneskayiklik.eventverse.util.Resource
 import com.eneskayiklik.eventverse.util.UiEvent
 import com.eneskayiklik.eventverse.data.state.events.EventDetailState
 import com.eneskayiklik.eventverse.data.state.events.RemainingDate
+import com.eneskayiklik.eventverse.util.Settings
 import com.eneskayiklik.eventverse.util.extension.formatDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -124,9 +126,14 @@ class EventDetailViewModel @Inject constructor(
                     isReviewsLoading = true
                 )
                 is Resource.Success -> {
+                    val userId = Settings.currentUser.userId
                     _state.value = _state.value.copy(
                         isReviewsLoading = false,
-                        comments = it.data
+                        comments = it.data,
+                        userComment = it.data.firstOrNull { d -> d.id == userId } ?: Comment(
+                            id = Settings.currentUser.userId,
+                            user = Settings.currentUser.toPostUser()
+                        )
                     )
                 }
             }

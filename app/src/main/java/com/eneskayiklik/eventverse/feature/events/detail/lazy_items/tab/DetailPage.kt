@@ -11,19 +11,22 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DetailPage(
-    desc: String
+    desc: String,
+    showContent: Boolean
 ) {
-    Column(
-        modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = desc,
-            style = MaterialTheme.typography.h4.copy(
-                color = MaterialTheme.colors.onBackground,
-                fontSize = 16.sp
+    if (showContent) {
+        Column(
+            modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = desc,
+                style = MaterialTheme.typography.h4.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 16.sp
+                )
             )
-        )
+        }
     }
 }

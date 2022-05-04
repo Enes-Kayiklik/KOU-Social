@@ -30,79 +30,82 @@ import com.gowtham.ratingbar.StepSize
 fun CommentsPage(
     comment: Comment,
     comments: List<Comment>,
+    showContent: Boolean,
     onEvent: (EventDetailEvent) -> Unit
 ) {
-    Column(
-        modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = stringResource(id = R.string.comment_title),
-            style = MaterialTheme.typography.h1.copy(
-                color = MaterialTheme.colors.onBackground,
-                fontSize = 24.sp
-            ), modifier = Modifier.padding(horizontal = 24.dp)
-        )
-        RatingBar(
-            value = comment.rating,
-            config = RatingBarConfig()
-                .stepSize(StepSize.HALF)
-                .numStars(5)
-                .style(RatingBarStyle.HighLighted),
-            onValueChange = {
-                onEvent(EventDetailEvent.OnRating(it))
-            },
-            onRatingChanged = { }
-        )
-        Text(
-            text = stringResource(id = R.string.comment_subtitle),
-            style = MaterialTheme.typography.h1.copy(
-                color = MaterialTheme.colors.onBackground,
-                fontSize = 24.sp
-            ), textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 24.dp)
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .shadow(3.dp, RoundedCornerShape(10.dp))
-                .background(MaterialTheme.colors.surface)
-                .padding(16.dp)
+    if (showContent) {
+        Column(
+            modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            BasicTextField(
-                value = comment.comment,
+            Text(
+                text = stringResource(id = R.string.comment_title),
+                style = MaterialTheme.typography.h1.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 24.sp
+                ), modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            RatingBar(
+                value = comment.rating,
+                config = RatingBarConfig()
+                    .stepSize(StepSize.HALF)
+                    .numStars(5)
+                    .style(RatingBarStyle.HighLighted),
                 onValueChange = {
-                    onEvent(EventDetailEvent.OnComment(it))
+                    onEvent(EventDetailEvent.OnRating(it))
                 },
+                onRatingChanged = { }
+            )
+            Text(
+                text = stringResource(id = R.string.comment_subtitle),
+                style = MaterialTheme.typography.h1.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 24.sp
+                ), textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp),
-                textStyle = MaterialTheme.typography.h1.copy(
-                    color = MaterialTheme.colors.onBackground,
-                    fontSize = 16.sp
-                ), cursorBrush = SolidColor(MaterialTheme.colors.primary)
-            )
-            if (comment.comment.isEmpty())
-                Text(
-                    text = stringResource(id = R.string.share_write_desc),
-                    style = MaterialTheme.typography.h1.copy(
-                        color = MaterialTheme.colors.onSecondary,
+                    .clip(RoundedCornerShape(10.dp))
+                    .shadow(3.dp, RoundedCornerShape(10.dp))
+                    .background(MaterialTheme.colors.surface)
+                    .padding(16.dp)
+            ) {
+                BasicTextField(
+                    value = comment.comment,
+                    onValueChange = {
+                        onEvent(EventDetailEvent.OnComment(it))
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp),
+                    textStyle = MaterialTheme.typography.h1.copy(
+                        color = MaterialTheme.colors.onBackground,
                         fontSize = 16.sp
-                    )
+                    ), cursorBrush = SolidColor(MaterialTheme.colors.primary)
                 )
-        }
-        LoginButton(
-            text = stringResource(id = R.string.share_review),
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            onEvent(EventDetailEvent.OnReview)
-        }
+                if (comment.comment.isEmpty())
+                    Text(
+                        text = stringResource(id = R.string.share_write_desc),
+                        style = MaterialTheme.typography.h1.copy(
+                            color = MaterialTheme.colors.onSecondary,
+                            fontSize = 16.sp
+                        )
+                    )
+            }
+            LoginButton(
+                text = stringResource(id = R.string.share_review),
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                onEvent(EventDetailEvent.OnReview)
+            }
 
-        comments.forEach {
-            SingleCommentItem(comment = it)
+            comments.forEach {
+                SingleCommentItem(comment = it)
+            }
         }
     }
 }

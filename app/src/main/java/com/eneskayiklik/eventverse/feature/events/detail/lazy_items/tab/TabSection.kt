@@ -79,11 +79,15 @@ fun LazyListScope.tabSection(
             verticalAlignment = Alignment.Top,
         ) { page ->
             when (page) {
-                0 -> DetailPage(event.description)
+                0 -> DetailPage(
+                    desc = event.description,
+                    showContent = pagerState.currentPage == 0
+                )
                 1 -> CommentsPage(
                     comment = state.userComment,
                     comments = state.comments,
-                    onEvent = onEvent
+                    onEvent = onEvent,
+                    showContent = pagerState.currentPage == 1
                 )
             }
         }
