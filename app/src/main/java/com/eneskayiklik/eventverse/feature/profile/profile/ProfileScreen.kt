@@ -134,7 +134,9 @@ private fun ProfileScreen(
                         ActionButtons(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(16.dp),
+                            userId = state.userId,
+                            onNavigate = onNavigate
                         )
                     }
                 }

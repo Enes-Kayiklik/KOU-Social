@@ -10,13 +10,4 @@ data class PostsState(
 ) {
     val showInitialLoading = isLoading && posts.isEmpty()
     val showEmptyScreen = hasNext.not() && posts.isEmpty() && isLoading.not()
-
-    // This is for force update to state flow
-    override fun equals(other: Any?): Boolean {
-        return false
-    }
-
-    override fun hashCode(): Int {
-        return super.hashCode()
-    }
 }

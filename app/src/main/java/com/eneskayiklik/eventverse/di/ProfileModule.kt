@@ -41,5 +41,13 @@ object ProfileModule {
 
     @Singleton
     @Provides
-    fun verifyAccountRepository(): VerifyAccountRepositoryImpl = VerifyAccountRepositoryImpl()
+    fun provideVerifyAccountRepository(): VerifyAccountRepositoryImpl = VerifyAccountRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideProfilePostsRepository(): ProfilePostsRepositoryImpl = ProfilePostsRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideProfilePollsRepository(): ProfilePollsRepositoryImpl = ProfilePollsRepositoryImpl()
 }

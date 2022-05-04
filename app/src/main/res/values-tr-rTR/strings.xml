@@ -122,4 +122,16 @@
     <string name="join_event_title">Going to join?</string>
     <string name="join_button">Join</string>
     <string name="not_join_button">Give up</string>
+    <string name="empty_user_posts">This user didn\'t share any post yet.</string>
+    <string name="profile_posts">Posts</string>
+    <string name="profile_polls_title">Polls</string>
+    <string name="profile_polls_desc">Lorem ipsum dolar sit amet</string>
+    <string name="profile_posts_title">Posts</string>
+    <string name="profile_posts_desc">Posts Desc</string>
+    <string name="profile_liked_events_title">Liked Events</string>
+    <string name="profile_liked_events_desc">Liked events desc</string>
+    <string name="profile_attendee_title">Attendee</string>
+    <string name="profile_attendee_desc">Attendee desc</string>
+    <string name="profile_polls">Polls</string>
+    <string name="empty_user_polls">This user don\'t have any poll yet</string>
 </resources>

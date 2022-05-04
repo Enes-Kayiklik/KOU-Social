@@ -22,6 +22,8 @@ import com.eneskayiklik.eventverse.feature.events.list.eventsComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.edit_profile.editProfileComposable
 import com.eneskayiklik.eventverse.feature.meal.mealComposable
 import com.eneskayiklik.eventverse.feature.polls.create_poll.createPollComposable
+import com.eneskayiklik.eventverse.feature.profile.polls.profilePollsComposable
+import com.eneskayiklik.eventverse.feature.profile.posts.profilePostsComposable
 import com.eneskayiklik.eventverse.feature.profile.profile.profileComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.delete_account.deleteAccountComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.settings.settingsComposable
@@ -73,6 +75,11 @@ fun BaseAnimatedNavigation(
         settingsComposable(navigateSingleTop, navController::popBackStack)
         editProfileComposable(navigateSingleTop, navController::popBackStack)
         profileComposable(navigateSingleTop, navController::popBackStack)
+        profilePollsComposable(navigateSingleTop, navController::popBackStack)
+        profilePostsComposable(
+            navigateSingleTop,
+            navController::popBackStack
+        )
         updatePasswordComposable(navigateSingleTop, navController::popBackStack)
         deleteAccountComposable(navigateSingleTop, navController::popBackStack)
         verifyAccountComposable(navigateSingleTop, navController::popBackStack)

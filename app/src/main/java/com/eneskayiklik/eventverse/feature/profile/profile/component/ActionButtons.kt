@@ -2,6 +2,7 @@ package com.eneskayiklik.eventverse.feature.profile.profile.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -10,37 +11,56 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.util.Screen
 
 @Composable
 fun ActionButtons(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    userId: String,
+    onNavigate: (String) -> Unit
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
         SingleButton(
             icon = R.drawable.ic_poll,
-            title = "Polls",
-            subtitle = "Lorem ipsum dolar sit amet",
-            modifier = Modifier.clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
+            title = stringResource(id = R.string.profile_polls_title),
+            subtitle = stringResource(id = R.string.profile_polls_desc),
+            modifier = Modifier
+                .clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
+                .clickable {
+                    onNavigate(Screen.ProfilePolls.route(userId))
+                }
         )
         SingleButton(
             icon = R.drawable.ic_pen,
-            title = "Posts",
-            subtitle = "Lorem ipsum dolar sit amet",
+            title = stringResource(id = R.string.profile_posts_title),
+            subtitle = stringResource(id = R.string.profile_posts_desc),
+            modifier = Modifier
+                .clickable {
+                    onNavigate(Screen.ProfilePosts.route(userId))
+                }
         )
         SingleButton(
-            icon = R.drawable.ic_reviews,
-            title = "Reviews",
-            subtitle = "Lorem ipsum dolar sit amet",
+            icon = R.drawable.ic_like,
+            title = stringResource(id = R.string.profile_liked_events_title),
+            subtitle = stringResource(id = R.string.profile_liked_events_desc),
+            modifier = Modifier
+                .clickable {
+                    onNavigate(Screen.ProfilePosts.route(userId))
+                }
         )
         SingleButton(
             icon = R.drawable.ic_attendee,
-            title = "Attendee",
-            subtitle = "Lorem ipsum dolar sit amet",
-            modifier = Modifier.clip(RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp))
-
+            title = stringResource(id = R.string.profile_attendee_title),
+            subtitle = stringResource(id = R.string.profile_attendee_desc),
+            modifier = Modifier
+                .clip(RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp))
+                .clickable {
+                    onNavigate(Screen.ProfilePosts.route(userId))
+                }
         )
     }
 }
