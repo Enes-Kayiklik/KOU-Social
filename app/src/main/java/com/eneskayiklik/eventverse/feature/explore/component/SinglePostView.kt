@@ -57,7 +57,7 @@ fun SinglePostView(
                 .padding(horizontal = 16.dp)
                 .padding(top = 5.dp)
         )
-        PostInteractions(isLiked = post.isUserLike, likeCount = post.likeCount, onLike = onLike)
+        //PostInteractions(isLiked = post.isUserLike, likeCount = post.likeCount, onLike = onLike)
     }
 }
 

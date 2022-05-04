@@ -17,9 +17,14 @@ fun Long.formatDate(): RemainingDate {
 
     val second = delta.toInt()
 
-    val hours = hour.numbersAsList()
+    val hours = hour.numbersAsList().toMutableList()
     val minutes = minute.numbersAsList().toMutableList()
     val seconds = second.numbersAsList().toMutableList()
+
+    if (2 - hours.count() >= 0)
+        repeat(2 - hours.count()) {
+            hours.add(0)
+        }
 
     repeat(2 - minutes.count()) {
         minutes.add(0)

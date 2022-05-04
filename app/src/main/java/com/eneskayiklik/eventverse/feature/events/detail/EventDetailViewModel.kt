@@ -80,7 +80,11 @@ class EventDetailViewModel @Inject constructor(
         while (true) {
             val remaining = initial.time - System.currentTimeMillis()
             _state.value = _state.value.copy(
-                date = if (remaining > 0) remaining.formatDate() else RemainingDate()
+                date = if (remaining > 0) remaining.formatDate() else RemainingDate(
+                    hour = listOf(0, 0),
+                    minute = listOf(0, 0),
+                    second = listOf(0, 0)
+                )
             )
             delay(1000L)
         }
