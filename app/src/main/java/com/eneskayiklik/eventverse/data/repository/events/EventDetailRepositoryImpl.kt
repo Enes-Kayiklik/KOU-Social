@@ -32,8 +32,10 @@ class EventDetailRepositoryImpl(
     }
 
     suspend fun attendeeEvent(
-        eventId: String
+        eventId: String,
+        attend: Boolean
     ) {
+        val userId = Settings.currentUser.userId
         try {
             db.collection(BuildConfig.FIREBASE_REFERENCE)
                 .document("events")
@@ -41,7 +43,8 @@ class EventDetailRepositoryImpl(
                 .document(eventId)
                 .update(
                     "attendee",
-                    FieldValue.arrayUnion(Settings.currentUser.userId)
+                    if (attend) FieldValue.arrayUnion(userId)
+                    else FieldValue.arrayRemove(userId)
                 ).await()
         } catch (e: Exception) {
             e.printStackTrace()

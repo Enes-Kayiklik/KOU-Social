@@ -5,7 +5,7 @@ import com.eneskayiklik.eventverse.data.model.event_detail.Comment
 import com.eneskayiklik.eventverse.util.Settings
 
 data class EventDetailState(
-    val event: Event? = null,
+    val event: Event = Event(),
     val comments: List<Comment> = emptyList(),
     val userComment: Comment = Comment(
         id = Settings.currentUser.userId,

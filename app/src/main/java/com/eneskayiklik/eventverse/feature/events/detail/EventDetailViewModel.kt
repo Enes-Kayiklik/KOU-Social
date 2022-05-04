@@ -68,9 +68,9 @@ class EventDetailViewModel @Inject constructor(
                 is Resource.Success -> {
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        event = it.data
+                        event = it.data ?: return@collectLatest
                     )
-                    startDateCounter(it.data?.startTime ?: return@collectLatest)
+                    startDateCounter(it.data.startTime)
                 }
             }
         }
@@ -108,14 +108,25 @@ class EventDetailViewModel @Inject constructor(
     }
 
     fun likeEvent(id: String) = viewModelScope.launch(Dispatchers.IO) {
-        val event = _state.value.event ?: return@launch
+        val event = _state.value.event
 
         _state.value = _state.value.copy(
-            event = _state.value.event?.copy(
+            event = _state.value.event.copy(
                 isLiked = event.isLiked.not()
             )
         )
         eventDetailRepository.likeEvent(id, event.isLiked.not())
+    }
+
+    fun attendEvent(id: String) = viewModelScope.launch(Dispatchers.IO) {
+        val event = _state.value.event
+
+        _state.value = _state.value.copy(
+            event = _state.value.event.copy(
+                isAttended = event.isAttended.not()
+            )
+        )
+        eventDetailRepository.attendeeEvent(id, event.isAttended.not())
     }
 
     fun getReviews() = viewModelScope.launch(Dispatchers.IO) {

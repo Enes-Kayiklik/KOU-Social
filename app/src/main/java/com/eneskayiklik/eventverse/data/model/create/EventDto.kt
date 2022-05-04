@@ -15,6 +15,7 @@ data class Event(
     val totalAttendeeCount: Int = 0,
     val likedBy: List<String> = emptyList(),
     val isLiked: Boolean = false,
+    val isAttended: Boolean = false,
     val likedByPlusCount: Int = 0,
     val title: String = "",
     val description: String = "",
@@ -74,6 +75,7 @@ data class EventDto(
         createdAt = createdAt,
         likedBy = likedBy,
         isLiked = Settings.currentUser.userId in likedBy,
+        isAttended = Settings.currentUser.userId in attendee,
         likedByPlusCount = likedBy.count(),
         startTime = startTime.toDate()
     )

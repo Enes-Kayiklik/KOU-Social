@@ -6,21 +6,22 @@ import android.widget.Toast
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.eneskayiklik.eventverse.R
 import com.eneskayiklik.eventverse.core.presentation.MainActivity
 import com.eneskayiklik.eventverse.data.model.event_detail.pages
 import com.eneskayiklik.eventverse.feature.events.component.EventDetailToolbar
@@ -112,9 +113,9 @@ private fun EventDetailScreen(
                 onStartIconClick = clearBackStack,
             )
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(bottom = 84.dp)
             ) {
-                if (event == null) return@LazyColumn
                 detailImage(event.coverImage, state.date, state.showTimer)
                 item { Spacer(modifier = Modifier.height(20.dp)) }
                 eventTitle(event.title, event.isLiked, event.dayMonth) {
@@ -143,6 +144,35 @@ private fun EventDetailScreen(
                     )
                 }
                 tabSection(state, viewModel::onEvent, pagerState, coroutineScope, pages)
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .border(1.5.dp, MaterialTheme.colors.secondary)
+                .background(MaterialTheme.colors.background)
+                .padding(vertical = 20.dp, horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = if (event.isAttended) stringResource(id = R.string.not_join_event_title)
+                else stringResource(id = R.string.join_event_title),
+                style = MaterialTheme.typography.h1.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 20.sp
+                )
+            )
+            Spacer(modifier = Modifier.weight(1F))
+            Button(onClick = { viewModel.attendEvent(event.id) }) {
+                Text(
+                    text = if (event.isAttended) stringResource(id = R.string.not_join_button)
+                    else stringResource(id = R.string.join_button),
+                    style = MaterialTheme.typography.h4.copy(
+                        color = MaterialTheme.colors.onPrimary,
+                        fontSize = 16.sp
+                    )
+                )
             }
         }
     }

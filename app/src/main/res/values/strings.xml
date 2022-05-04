@@ -119,4 +119,8 @@
     <string name="comment_title">What is your rate?</string>
     <string name="comment_subtitle">Please share your opinion about this event</string>
     <string name="share_review">Review</string>
+    <string name="join_event_title">Going to join?</string>
+    <string name="join_button">Join</string>
+    <string name="not_join_button">Give up</string>
+    <string name="not_join_event_title">Changed your desicion?</string>
 </resources>
