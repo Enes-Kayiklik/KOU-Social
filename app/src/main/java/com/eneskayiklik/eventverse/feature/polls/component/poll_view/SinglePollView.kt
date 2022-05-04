@@ -17,7 +17,7 @@ import com.eneskayiklik.eventverse.data.model.auth.PostUser
 import com.eneskayiklik.eventverse.data.model.poll.Poll
 import com.eneskayiklik.eventverse.feature.profile.profile.component.ProfileImage
 import com.eneskayiklik.eventverse.R
-import com.eneskayiklik.eventverse.core.ui.theme.SuccessGreen
+import com.eneskayiklik.eventverse.core.ui.theme.Blue
 import com.eneskayiklik.eventverse.util.Screen
 
 @Composable
@@ -92,7 +92,7 @@ fun UserSection(
                         painter = painterResource(id = R.drawable.ic_verify),
                         contentDescription = null,
                         modifier = Modifier.size(8.dp),
-                        tint = SuccessGreen
+                        tint = Blue
                     )
             }
             Text(
