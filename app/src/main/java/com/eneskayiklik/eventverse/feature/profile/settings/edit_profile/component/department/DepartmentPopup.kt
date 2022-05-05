@@ -12,9 +12,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,7 +36,7 @@ fun DepartmentPopup(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.8F)
-                .background(Color.White, shape = RoundedCornerShape(5.dp))
+                .background(MaterialTheme.colors.background, shape = RoundedCornerShape(5.dp))
                 .padding(10.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -48,17 +48,23 @@ fun DepartmentPopup(
                         stickyHeader {
                             Text(
                                 text = it.name,
-                                style = MaterialTheme.typography.h2,
+                                style = MaterialTheme.typography.h1.copy(
+                                    color = MaterialTheme.colors.primary,
+                                    fontSize = 14.sp
+                                ),
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color.White)
+                                    .background(MaterialTheme.colors.surface)
                             )
                         }
                         items(it.departments.count()) { index ->
                             Text(
                                 text = it.departments[index].departmentName,
-                                style = MaterialTheme.typography.h1,
+                                style = MaterialTheme.typography.h2.copy(
+                                    color = MaterialTheme.colors.onBackground,
+                                    fontSize = 16.sp
+                                ),
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
