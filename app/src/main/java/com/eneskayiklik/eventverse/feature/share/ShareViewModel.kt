@@ -1,6 +1,5 @@
 package com.eneskayiklik.eventverse.feature.share
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.core.data.event.CropperEvent
@@ -46,7 +45,6 @@ class ShareViewModel @Inject constructor(
         when (event) {
             is CropperEvent.OnCropFinish -> {
                 val uri = event.context.getImageUri(event.bitmap)
-                Log.e("TAG", "onCropperEvent: $uri", )
                 _state.value = _state.value.copy(
                     postImage = uri.toString(),
                     selectedImage = ""

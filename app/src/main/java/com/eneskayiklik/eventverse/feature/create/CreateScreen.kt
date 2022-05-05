@@ -1,5 +1,6 @@
 package com.eneskayiklik.eventverse.feature.create
 
+import android.net.Uri
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import com.eneskayiklik.eventverse.R
+import com.eneskayiklik.eventverse.core.component.cropper.CropperView
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.UiEvent
 import com.eneskayiklik.eventverse.util.anim.ScreensAnim.enterTransition
@@ -113,6 +115,17 @@ private fun CreateScreen(
         ) {
             viewModel.onCreateState(CreateState.OnCreate)
         }
+    }
+    AnimatedVisibility(visible = state.cropperImage.isNotEmpty(),
+        enter = slideInHorizontally(initialOffsetX = { it }),
+        exit = slideOutHorizontally(targetOffsetX = { it })
+    ) {
+        CropperView(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background),
+            uri = Uri.parse(state.cropperImage),
+            ratio = listOf(16, 9),
+            onCropEvent = viewModel::onCropperEvent)
     }
 }
 

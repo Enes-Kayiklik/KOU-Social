@@ -148,6 +148,7 @@ private fun SettingsScreen(
             .fillMaxSize()
             .background(MaterialTheme.colors.background),
             uri = Uri.parse(state.cropperImage),
+            ratio = listOf(1, 1),
             onCropEvent = viewModel::onCropperEvent)
     }
 }

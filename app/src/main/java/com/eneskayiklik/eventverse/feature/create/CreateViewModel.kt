@@ -2,10 +2,12 @@ package com.eneskayiklik.eventverse.feature.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eneskayiklik.eventverse.core.data.event.CropperEvent
 import com.eneskayiklik.eventverse.util.UiEvent
 import com.eneskayiklik.eventverse.data.repository.create.CreateEventUseCase
 import com.eneskayiklik.eventverse.feature.create.util.CreateSectionState
 import com.eneskayiklik.eventverse.feature.create.util.CreateState
+import com.eneskayiklik.eventverse.util.extension.getImageUri
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -63,11 +65,27 @@ class CreateViewModel @Inject constructor(
                 startTime = data.time
             )
             is CreateState.OnImageSelected -> _state.value = _state.value.copy(
-                coverImage = data.uri
+                cropperImage = data.uri.toString()
             )
             is CreateState.OnCreate -> {
                 createEvent()
             }
+        }
+    }
+
+    fun onCropperEvent(event: CropperEvent) {
+        when (event) {
+            is CropperEvent.OnCropFinish -> {
+                val uri = event.context.getImageUri(event.bitmap)
+                _state.value = _state.value.copy(
+                    coverImage = uri,
+                    cropperImage = ""
+                )
+            }
+            CropperEvent.OnCropCancel -> _state.value = _state.value.copy(
+                cropperImage = "",
+            )
+            else -> Unit
         }
     }
 

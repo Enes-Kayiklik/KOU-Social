@@ -15,7 +15,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -32,6 +31,7 @@ fun CropperView(
     viewModel: CropperViewModel = hiltViewModel(),
     bitmap: Bitmap? = null,
     uri: Uri? = null,
+    ratio: List<Int>? = null,
     onCropEvent: (CropperEvent) -> Unit,
 ) {
     val state = viewModel.cropperState.collectAsState().value
@@ -60,6 +60,9 @@ fun CropperView(
                         if (bitmap != null) setImageBitmap(bitmap) else if (uri != null) setImageUriAsync(
                             uri
                         )
+                        if (ratio?.getOrNull(0) != null && ratio.getOrNull(1) != null) {
+                            setAspectRatio(ratio[0], ratio[1])
+                        }
                     })
 
                 }

@@ -20,6 +20,7 @@ data class CreateSectionState(
     val startTime: LocalTime = LocalTime.now(),
     val endTime: LocalTime = LocalTime.now(),
     val coverImage: Uri? = null,
+    val cropperImage: String = ""
 ) {
     val formattedStartDate: String = startDate.format(
         DateTimeFormatter.ofPattern("dd.MM.yyyy")

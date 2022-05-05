@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.data.event.auth.event_detail.EventDetailEvent
@@ -35,7 +34,7 @@ fun LazyListScope.tabSection(
         TabRow(
             // Our selected tab is our current page
             selectedTabIndex = pagerState.currentPage,
-            backgroundColor = Color.White,
+            backgroundColor = MaterialTheme.colors.background,
             // Override the indicator, using the provided pagerTabIndicatorOffset modifier
             indicator = { tabPositions ->
                 TabRowDefaults.Indicator(

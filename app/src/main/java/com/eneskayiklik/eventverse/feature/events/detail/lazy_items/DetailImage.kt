@@ -31,7 +31,7 @@ fun LazyListScope.detailImage(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp)
+                .aspectRatio(16/9F)
                 .background(MaterialTheme.colors.secondary)
         ) {
             EventImage(image = image)
