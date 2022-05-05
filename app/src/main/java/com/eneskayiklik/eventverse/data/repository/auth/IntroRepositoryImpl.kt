@@ -21,11 +21,12 @@ class IntroRepositoryImpl(
         try {
             emit(Resource.Loading())
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
             val result = auth.signInWithCredential(credential).await()
             if (result.additionalUserInfo?.isNewUser == true)
                 saveUserToDb(
                     result.user?.email ?: "",
-                    account.displayName ?: "",
+                    result.user?.displayName ?: "",
                     result.user?.uid
                 )
             else getUser()

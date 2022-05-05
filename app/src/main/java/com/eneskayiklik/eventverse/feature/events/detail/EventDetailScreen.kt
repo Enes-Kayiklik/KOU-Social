@@ -139,7 +139,7 @@ private fun EventDetailScreen(
                     Spacer(modifier = Modifier.height(10.dp))
                     Divider(
                         modifier = Modifier
-                            .height(20.dp)
+                            .height(1.dp)
                             .background(MaterialTheme.colors.secondary)
                     )
                 }
