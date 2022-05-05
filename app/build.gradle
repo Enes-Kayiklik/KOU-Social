@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 def localProperties = new Properties()
@@ -94,14 +95,20 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.40.5"
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
-    // Firebase
+    // BoM
+    // Since we are using BoM we do not need to specify version to firebase dependencies
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
 
     // Firestore
-    // Since we are using BoM we do not need to specify version
     implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    // Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     // Auth
     implementation 'com.google.firebase:firebase-auth-ktx'
+
     // Storage
     implementation 'com.google.firebase:firebase-storage-ktx'
 

@@ -2,6 +2,7 @@ package com.eneskayiklik.eventverse.di
 
 import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.data.remote.meal.MealAPI
+import com.eneskayiklik.eventverse.data.repository.meal.MealRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +27,10 @@ object MealApiModule {
     fun provideMealApi(
         retrofit: Retrofit
     ): MealAPI = retrofit.create(MealAPI::class.java)
+
+    @Singleton
+    @Provides
+    fun provideMealRepository(
+        mealAPI: MealAPI
+    ): MealRepository = MealRepository(mealAPI)
 }
