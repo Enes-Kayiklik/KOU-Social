@@ -145,4 +145,8 @@ dependencies {
 
     // Rating bar
     implementation 'com.github.a914-gowtham:compose-ratingbar:1.2.3'
+
+    // Zoomable Image
+    implementation 'com.github.MikeOrtiz:TouchImageView:3.1.1'
+
 }

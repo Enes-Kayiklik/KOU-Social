@@ -54,7 +54,8 @@ fun SinglePostView(
             body = post.body,
             image = post.image,
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp),
+            onNavigate = onNavigate
         )
         //PostInteractions(isLiked = post.isUserLike, likeCount = post.likeCount, onLike = onLike)
     }
@@ -64,7 +65,8 @@ fun SinglePostView(
 private fun PostBody(
     body: String,
     image: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigate: (String) -> Unit
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)) {
         if (body.isNotEmpty())
@@ -90,6 +92,9 @@ private fun PostBody(
                     .fillMaxWidth()
                     .height(200.dp)
                     .clip(RoundedCornerShape(10.dp))
+                    .clickable {
+                        onNavigate(Screen.ImageDetail.route(image))
+                    }
             )
         }
     }

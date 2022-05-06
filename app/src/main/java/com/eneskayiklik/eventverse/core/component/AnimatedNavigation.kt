@@ -19,6 +19,7 @@ import com.eneskayiklik.eventverse.feature.explore.exploreComposable
 import com.eneskayiklik.eventverse.feature.announcement.announcementComposable
 import com.eneskayiklik.eventverse.feature.events.detail.eventDetailComposable
 import com.eneskayiklik.eventverse.feature.events.list.eventsComposable
+import com.eneskayiklik.eventverse.feature.image_detail.imageDetailComposable
 import com.eneskayiklik.eventverse.feature.profile.settings.edit_profile.editProfileComposable
 import com.eneskayiklik.eventverse.feature.meal.mealComposable
 import com.eneskayiklik.eventverse.feature.polls.create_poll.createPollComposable
@@ -84,5 +85,6 @@ fun BaseAnimatedNavigation(
         updatePasswordComposable(navigateSingleTop, navController::popBackStack)
         deleteAccountComposable(navigateSingleTop, navController::popBackStack)
         verifyAccountComposable(navigateSingleTop, navController::popBackStack)
+        imageDetailComposable(navController::popBackStack)
     }
 }

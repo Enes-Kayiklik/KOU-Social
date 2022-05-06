@@ -1,5 +1,9 @@
 package com.eneskayiklik.eventverse.util
 
+import android.util.Base64
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+
 sealed class Screen(val route: String) {
     object Splash : Screen("splash")
     object Intro : Screen("intro")
@@ -16,15 +20,15 @@ sealed class Screen(val route: String) {
     }
 
     object AttendedEvents : Screen("attended_events/{userId}") {
-        fun route(userId: String = "") = "attended_events/$userId"
+        fun route(userId: String) = "attended_events/$userId"
     }
 
     object LikedEvents : Screen("liked_events/{userId}") {
-        fun route(userId: String = "") = "liked_events/$userId"
+        fun route(userId: String) = "liked_events/$userId"
     }
 
     object ProfilePolls : Screen("polls/{userId}") {
-        fun route(userId: String = "") = "polls/$userId"
+        fun route(userId: String) = "polls/$userId"
     }
 
     object Profile : Screen("profile/{userId}") {
@@ -33,7 +37,17 @@ sealed class Screen(val route: String) {
     }
 
     object EventDetail : Screen("event/{eventId}") {
-        fun route(eventId: String = "") = "event/$eventId"
+        fun route(eventId: String) = "event/$eventId"
+    }
+
+    object ImageDetail : Screen("image/{imageUrl}") {
+        fun route(imageUrl: String): String {
+            // We need to encode URL see: https://stackoverflow.com/questions/68950770/passing-url-as-a-parameter-to-jetpack-compose-navigation
+            val byte = imageUrl.toByteArray()
+            val encodedUrl = Base64.encodeToString(byte, Base64.DEFAULT)
+            val encodedByte = URLEncoder.encode(encodedUrl, StandardCharsets.UTF_8.toString())
+            return "image/$encodedByte"
+        }
     }
 
     object CreateEvent : Screen("create_event")
