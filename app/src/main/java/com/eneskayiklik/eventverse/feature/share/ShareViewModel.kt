@@ -32,11 +32,13 @@ class ShareViewModel @Inject constructor(
                 is ShareEvent.OnImage -> _state.value = _state.value.copy(
                     selectedImage = event.uri.toString()
                 )
-                is ShareEvent.OnBody -> _state.value = _state.value.copy(
-                    bodyState = _state.value.bodyState.copy(
-                        text = event.text
+                is ShareEvent.OnBody -> if (event.text.count() <= 250) {
+                    _state.value = _state.value.copy(
+                        bodyState = _state.value.bodyState.copy(
+                            text = event.text
+                        )
                     )
-                )
+                }
             }
         }
     }

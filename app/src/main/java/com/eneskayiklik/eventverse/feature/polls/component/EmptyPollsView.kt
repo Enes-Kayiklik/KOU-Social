@@ -32,7 +32,7 @@ fun EmptyPollsView(
                 .size(100.dp), tint = MaterialTheme.colors.primary
         )
         Text(
-            text = stringResource(id = R.string.no_meal_title),
+            text = stringResource(id = R.string.no_poll_title),
             style = MaterialTheme.typography.h1.copy(
                 color = MaterialTheme.colors.onBackground,
                 fontSize = 18.sp,
@@ -41,7 +41,7 @@ fun EmptyPollsView(
         )
 
         Text(
-            text = stringResource(id = R.string.no_meal_desc),
+            text = stringResource(id = R.string.no_poll_desc),
             style = MaterialTheme.typography.h1.copy(
                 color = MaterialTheme.colors.onSurface,
                 fontSize = 14.sp,

@@ -141,4 +141,6 @@
     <string name="empty_user_attended_events_title">List is empty</string>
     <string name="empty_user_liked_events_desc">This user don\'t have any liked event</string>
     <string name="empty_user_liked_events_title">List is empty</string>
+    <string name="no_poll_title">Poll list is empty</string>
+    <string name="no_poll_desc">We can\'t find any poll. If you want to create poll click + button.</string>
 </resources>

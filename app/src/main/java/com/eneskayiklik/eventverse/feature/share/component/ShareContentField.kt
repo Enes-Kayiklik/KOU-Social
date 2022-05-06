@@ -2,6 +2,7 @@ package com.eneskayiklik.eventverse.feature.share.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -10,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eneskayiklik.eventverse.R
 
@@ -18,14 +20,14 @@ fun ShareContentField(
     text: String,
     onValueChange: (String) -> Unit
 ) {
-    Box(contentAlignment = Alignment.CenterStart) {
+    Box(contentAlignment = Alignment.TopStart) {
         BasicTextField(
             value = text,
             onValueChange = onValueChange,
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = MaterialTheme.typography.h1.copy(
+            modifier = Modifier.fillMaxWidth().height(400.dp),
+            textStyle = MaterialTheme.typography.h4.copy(
                 color = MaterialTheme.colors.onBackground,
-                fontSize = 16.sp
+                fontSize = 14.sp
             ), cursorBrush = SolidColor(MaterialTheme.colors.primary)
         )
         if (text.isEmpty())

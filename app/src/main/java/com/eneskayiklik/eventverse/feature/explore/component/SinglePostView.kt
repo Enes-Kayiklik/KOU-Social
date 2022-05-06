@@ -39,14 +39,14 @@ fun SinglePostView(
     onNavigate: (String) -> Unit
 ) {
     Column(
-        modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)
+        modifier = modifier.padding(vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         UserSection(
             post.fromUser,
             post.formattedDate,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .padding(top = 16.dp)
         ) {
             onNavigate(Screen.Profile.route(userId = post.fromUser.userId))
         }
@@ -55,7 +55,6 @@ fun SinglePostView(
             image = post.image,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .padding(top = 5.dp)
         )
         //PostInteractions(isLiked = post.isUserLike, likeCount = post.likeCount, onLike = onLike)
     }
@@ -68,12 +67,13 @@ private fun PostBody(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)) {
-        Text(
-            text = body, style = MaterialTheme.typography.h1.copy(
-                color = MaterialTheme.colors.onBackground,
-                fontSize = 16.sp
-            ), maxLines = 3, overflow = TextOverflow.Ellipsis
-        )
+        if (body.isNotEmpty())
+            Text(
+                text = body, style = MaterialTheme.typography.h4.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 14.sp
+                ), overflow = TextOverflow.Ellipsis
+            )
 
         if (image.isNotEmpty()) {
             SubcomposeAsyncImage(
