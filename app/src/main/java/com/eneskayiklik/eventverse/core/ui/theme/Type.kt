@@ -28,6 +28,11 @@ val Typography = Typography(
         letterSpacing = 0.15.sp,
         fontSize = 14.sp
     ),
+    h4 = TextStyle(
+        fontFamily = NunitoSansLight,
+        letterSpacing = 0.15.sp,
+        fontSize = 14.sp
+    ),
     subtitle1 = TextStyle(
         fontFamily = NunitoSansLight,
         letterSpacing = 0.sp,

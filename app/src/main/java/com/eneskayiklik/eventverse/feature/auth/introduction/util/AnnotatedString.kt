@@ -3,8 +3,11 @@ package com.eneskayiklik.eventverse.feature.auth.introduction.util
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
+import com.eneskayiklik.eventverse.R
 
 fun getIntroTitleString(
     onBackgroundColor: Color,
@@ -22,7 +25,14 @@ fun getIntroTitleString(
         append(appName)
     }
     append("\n")
-    withStyle(SpanStyle(color = subtitleColor, fontSize = 16.sp)) {
+    withStyle(
+        SpanStyle(
+            color = subtitleColor,
+            fontSize = 16.sp,
+            fontFamily = FontFamily(Font(R.font.nunito_sans_light))
+
+    )
+    ) {
         append(desc)
     }
 }

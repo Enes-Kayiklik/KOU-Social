@@ -26,9 +26,9 @@ fun IntroductionText(
         )
         Text(
             text = subtitle,
-            style = MaterialTheme.typography.h2.copy(
+            style = MaterialTheme.typography.h4.copy(
                 fontSize = 16.sp,
-                color = MaterialTheme.colors.onSurface,
+                color = MaterialTheme.colors.onSecondary,
                 lineHeight = 20.sp
             ), modifier = Modifier.padding(end = 16.dp)
         )

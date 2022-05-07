@@ -42,6 +42,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 private fun IntroScreen(
     onNavigate: (String) -> Unit,
+    onNavigateClearBackStack: (String) -> Unit,
     clearBackStack: () -> Unit,
     viewModel: IntroViewModel = hiltViewModel()
 ) {
@@ -60,7 +61,10 @@ private fun IntroScreen(
         viewModel.uiEvent.collectLatest {
             when (it) {
                 is UiEvent.ShowSnackbar -> Unit
-                is UiEvent.Navigate -> onNavigate(it.id)
+                is UiEvent.Navigate -> {
+                    if (it.id.contains("home")) onNavigateClearBackStack(it.id)
+                    else onNavigate(it.id)
+                }
                 UiEvent.ClearBackStack -> clearBackStack()
                 else -> Unit
             }
@@ -90,7 +94,7 @@ private fun IntroScreen(
                 text = getIntroTitleString(
                     MaterialTheme.colors.onBackground,
                     MaterialTheme.colors.primary,
-                    MaterialTheme.colors.onSurface,
+                    MaterialTheme.colors.onSecondary,
                     stringResource(id = R.string.app_name),
                     stringResource(id = R.string.welcome_to),
                     stringResource(id = R.string.welcome_desc)
@@ -140,6 +144,7 @@ private fun IntroScreen(
 @ExperimentalAnimationApi
 fun NavGraphBuilder.introComposable(
     onNavigate: (String) -> Unit,
+    onNavigateClearBackStack: (String) -> Unit,
     clearBackStack: () -> Unit,
 ) {
     composable(
@@ -149,6 +154,6 @@ fun NavGraphBuilder.introComposable(
         popEnterTransition = { popEnterTransition() },
         enterTransition = { enterTransition() },
     ) {
-        IntroScreen(onNavigate, clearBackStack)
+        IntroScreen(onNavigate, onNavigateClearBackStack, clearBackStack)
     }
 }

@@ -64,7 +64,7 @@ fun BaseAnimatedNavigation(
         startDestination = Screen.Splash.route
     ) {
         splashComposable(navigateClearWholeBackstack, navController::popBackStack)
-        introComposable(navigateSingleTop, navController::popBackStack)
+        introComposable(navigateSingleTop, navigateClearWholeBackstack, navController::popBackStack)
         loginComposable(navigateClearWholeBackstack, navController::popBackStack)
         signupComposable(navigateClearWholeBackstack, navController::popBackStack, scaffoldState)
         verifyEmailComposable(navigateClearWholeBackstack, navController::popBackStack, scaffoldState)
