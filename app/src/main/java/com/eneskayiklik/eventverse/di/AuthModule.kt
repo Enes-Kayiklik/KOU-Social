@@ -26,4 +26,8 @@ object AuthModule {
     @Singleton
     @Provides
     fun provideIntroRepository(): IntroRepositoryImpl = IntroRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideVerifyEmailRepository(): VerifyEmailRepositoryImpl = VerifyEmailRepositoryImpl()
 }

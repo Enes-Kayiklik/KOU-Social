@@ -143,4 +143,10 @@
     <string name="empty_user_liked_events_title">List is empty</string>
     <string name="no_poll_title">Poll list is empty</string>
     <string name="no_poll_desc">We can\'t find any poll. If you want to create poll click + button.</string>
+    <string name="verify_email_title">Check Your Email</string>
+    <string name="verify_email_subtitle">We\'ve sent the code to the email on your device. Click that link to verify your account.</string>
+    <string name="verify_email_button">Continue</string>
+    <string name="did_not_received_email">Didn\'t received email?</string>
+    <string name="resend">Resend</string>
+    <string name="in_second">in %ds</string>
 </resources>

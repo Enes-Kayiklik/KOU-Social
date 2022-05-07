@@ -33,6 +33,9 @@ fun ProfileImage(
             loading = {
                 EmptyImageBox(modifier)
             },
+            error = {
+                EmptyImageBox(modifier, showProgress = false)
+            },
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = modifier

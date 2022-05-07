@@ -17,6 +17,7 @@ import com.eneskayiklik.eventverse.feature.polls.pollsComposable
 import com.eneskayiklik.eventverse.feature.create.createComposable
 import com.eneskayiklik.eventverse.feature.explore.exploreComposable
 import com.eneskayiklik.eventverse.feature.announcement.announcementComposable
+import com.eneskayiklik.eventverse.feature.auth.signup.verify_email.verifyEmailComposable
 import com.eneskayiklik.eventverse.feature.events.detail.eventDetailComposable
 import com.eneskayiklik.eventverse.feature.events.list.eventsComposable
 import com.eneskayiklik.eventverse.feature.image_detail.imageDetailComposable
@@ -66,6 +67,7 @@ fun BaseAnimatedNavigation(
         introComposable(navigateSingleTop, navController::popBackStack)
         loginComposable(navigateClearWholeBackstack, navController::popBackStack)
         signupComposable(navigateClearWholeBackstack, navController::popBackStack, scaffoldState)
+        verifyEmailComposable(navigateClearWholeBackstack, navController::popBackStack, scaffoldState)
         exploreComposable(navigateSingleTop, navController::popBackStack)
         eventsComposable(navigateSingleTop, navController::popBackStack, viewModelStoreOwner)
         eventDetailComposable(navigateSingleTop, navController::popBackStack)

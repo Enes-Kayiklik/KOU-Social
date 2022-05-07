@@ -50,24 +50,4 @@ class SignupRepositoryImpl(
             e.printStackTrace()
         }
     }
-
-    suspend fun checkEmailVerified(): Boolean {
-        return try {
-            auth.currentUser?.reload()?.await()
-            auth.currentUser?.isEmailVerified == true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
-        }
-    }
-
-    suspend fun resendMail(): Boolean {
-        return try {
-            auth.currentUser?.sendEmailVerification()?.await()
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
-        }
-    }
 }

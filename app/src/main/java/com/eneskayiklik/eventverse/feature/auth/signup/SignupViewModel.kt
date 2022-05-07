@@ -2,7 +2,6 @@ package com.eneskayiklik.eventverse.feature.auth.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eneskayiklik.eventverse.core.data.model.ErrorState
 import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.UiEvent
 import com.eneskayiklik.eventverse.util.extension.isValidEmail
@@ -26,8 +25,6 @@ class SignupViewModel @Inject constructor(
 
     private val _event = MutableSharedFlow<UiEvent>()
     val event: SharedFlow<UiEvent> = _event
-
-    private var _canResend: Boolean = true
 
     fun onSignupEvent(
         data: SignupEvent
@@ -71,19 +68,6 @@ class SignupViewModel @Inject constructor(
                     isFacultyPopupActive = _state.value.isFacultyPopupActive.not()
                 )
             }
-            is SignupEvent.SelectDepartment -> {
-                if (data.department.departmentName.isNotEmpty()) {
-                    _state.value = _state.value.copy(
-                        selectedDepartment = data.department,
-                        isFacultyPopupActive = false
-                    )
-                } else {
-                    _state.value = _state.value.copy(
-                        isFacultyPopupActive = false
-                    )
-                }
-            }
-            else -> Unit
         }
     }
 
@@ -124,50 +108,8 @@ class SignupViewModel @Inject constructor(
                     isLoading = false
                 )
             } else {
-                showVerificationDialog()
+                _event.emit(UiEvent.Navigate(Screen.VerifyEmail.route(true)))
             }
-        }
-    }
-
-    private fun showVerificationDialog() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _state.value = _state.value.copy(
-                isLoading = false,
-                dialogState = ErrorState(
-                    title = "Verify Account",
-                    subTitle = "Please click on the link that has just been sent to your email account to verify your email.",
-                    firstButtonText = "Resend",
-                    secondButtonText = "Continue",
-                    firstButtonClick = { resendMail() },
-                    secondButtonClick = { checkEmailVerified() }
-                )
-            )
-        }
-    }
-
-    private fun resendMail() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (_canResend && signupRepository.resendMail()) {
-                _event.emit(UiEvent.Toast("Resend Successful!"))
-            } else {
-                _event.emit(UiEvent.Toast("You can not resend!"))
-            }
-        }
-    }
-
-    private fun checkEmailVerified() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (signupRepository.checkEmailVerified()) {
-                _event.emit(UiEvent.Navigate(Screen.Home.route))
-            } else {
-                _event.emit(UiEvent.Toast("Not Verified"))
-            }
-        }
-    }
-
-    private fun loginWithGoogle() {
-        viewModelScope.launch {
-
         }
     }
 }

@@ -3,7 +3,6 @@ package com.eneskayiklik.eventverse.feature.auth.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eneskayiklik.eventverse.core.data.model.ErrorState
-import com.eneskayiklik.eventverse.util.Screen
 import com.eneskayiklik.eventverse.util.UiEvent
 import com.eneskayiklik.eventverse.util.extension.isValidEmail
 import com.eneskayiklik.eventverse.util.extension.isValidPassword
@@ -28,8 +27,6 @@ class LoginViewModel @Inject constructor(
 
     private val _event = MutableSharedFlow<UiEvent>()
     val event: SharedFlow<UiEvent> = _event
-
-    private var _canResend: Boolean = true
 
     fun onLoginState(
         data: LoginEvent
@@ -80,7 +77,6 @@ class LoginViewModel @Inject constructor(
             when (val event = loginRepository.loginWithEmail(email, password)) {
                 is LoginEvent.OnNavigate -> _event.emit(UiEvent.Navigate(event.route))
                 LoginEvent.ShowErrorPopup -> showErrorDialog()
-                LoginEvent.ShowVerifyPopup -> showVerificationDialog()
                 LoginEvent.PasswordError -> _state.value = _state.value.copy(
                     isLoading = false,
                     password = _state.value.password.copy(error = "Wrong password"),
@@ -91,22 +87,6 @@ class LoginViewModel @Inject constructor(
                 )
                 else -> Unit
             }
-        }
-    }
-
-    private fun showVerificationDialog() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _state.value = _state.value.copy(
-                isLoading = false,
-                dialogState = ErrorState(
-                    title = "Verify Account",
-                    subTitle = "Please click on the link that has just been sent to your email account to verify your email.",
-                    firstButtonText = "Resend",
-                    secondButtonText = "Continue",
-                    firstButtonClick = { resendMail() },
-                    secondButtonClick = { checkEmailVerified() }
-                )
-            )
         }
     }
 
@@ -121,26 +101,6 @@ class LoginViewModel @Inject constructor(
                     secondButtonClick = { _state.value = _state.value.copy(dialogState = null) }
                 )
             )
-        }
-    }
-
-    private fun resendMail() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (_canResend && loginRepository.resendMail()) {
-                _event.emit(UiEvent.Toast("Resend Successful!"))
-            } else {
-                _event.emit(UiEvent.Toast("You can not resend!"))
-            }
-        }
-    }
-
-    private fun checkEmailVerified() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (loginRepository.checkEmailVerified()) {
-                _event.emit(UiEvent.Navigate(Screen.Home.route))
-            } else {
-                _event.emit(UiEvent.Toast("Not Verified"))
-            }
         }
     }
 }

@@ -2,7 +2,6 @@ package com.eneskayiklik.eventverse.data.event.auth
 
 sealed class LoginEvent {
     data class OnNavigate(val route: String) : LoginEvent()
-    object ShowVerifyPopup : LoginEvent()
     object ShowErrorPopup : LoginEvent()
     object PasswordError : LoginEvent()
     object UserError : LoginEvent()

@@ -22,7 +22,7 @@ class LoginRepositoryImpl(
         return try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
             if (result.user?.isEmailVerified == false) {
-                LoginEvent.ShowVerifyPopup
+                LoginEvent.OnNavigate(Screen.VerifyEmail.route)
             } else {
                 getUser()
                 LoginEvent.OnNavigate(Screen.Home.route)
@@ -49,29 +49,6 @@ class LoginRepositoryImpl(
             Settings.currentUser = user?.toAppUser() ?: return
         } catch (e: Exception) {
             e.printStackTrace()
-        }
-    }
-
-    suspend fun checkEmailVerified(): Boolean {
-        return try {
-            auth.currentUser?.reload()?.await()
-            if (auth.currentUser?.isEmailVerified == true) {
-                getUser()
-                true
-            } else false
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
-        }
-    }
-
-    suspend fun resendMail(): Boolean {
-        return try {
-            auth.currentUser?.sendEmailVerification()?.await()
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
         }
     }
 }

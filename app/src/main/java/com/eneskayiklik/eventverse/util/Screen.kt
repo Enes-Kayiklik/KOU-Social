@@ -9,6 +9,10 @@ sealed class Screen(val route: String) {
     object Intro : Screen("intro")
     object Login : Screen("login")
     object Signup : Screen("signup")
+    object VerifyEmail : Screen("verify_email?initialTime={initialTime}") {
+        fun route(initialTime: Boolean = false) = "verify_email?initialTime=$initialTime"
+    }
+
     object Home : Screen("home")
     object Events : Screen("events")
     object Polls : Screen("polls")
