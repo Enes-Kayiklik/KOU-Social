@@ -147,34 +147,35 @@ private fun EventDetailScreen(
             }
         }
 
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .border(1.5.dp, MaterialTheme.colors.secondary)
-                .background(MaterialTheme.colors.background)
-                .padding(vertical = 20.dp, horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = if (event.isAttended) stringResource(id = R.string.not_join_event_title)
-                else stringResource(id = R.string.join_event_title),
-                style = MaterialTheme.typography.h1.copy(
-                    color = MaterialTheme.colors.onBackground,
-                    fontSize = 20.sp
-                )
-            )
-            Spacer(modifier = Modifier.weight(1F))
-            Button(onClick = { viewModel.attendEvent(event.id) }) {
+        if (event.isStarted.not())
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .border(1.5.dp, MaterialTheme.colors.secondary)
+                    .background(MaterialTheme.colors.background)
+                    .padding(vertical = 20.dp, horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
-                    text = if (event.isAttended) stringResource(id = R.string.not_join_button)
-                    else stringResource(id = R.string.join_button),
-                    style = MaterialTheme.typography.h4.copy(
-                        color = MaterialTheme.colors.onPrimary,
-                        fontSize = 16.sp
+                    text = if (event.isAttended) stringResource(id = R.string.not_join_event_title)
+                    else stringResource(id = R.string.join_event_title),
+                    style = MaterialTheme.typography.h1.copy(
+                        color = MaterialTheme.colors.onBackground,
+                        fontSize = 20.sp
                     )
                 )
+                Spacer(modifier = Modifier.weight(1F))
+                Button(onClick = { viewModel.attendEvent(event.id) }) {
+                    Text(
+                        text = if (event.isAttended) stringResource(id = R.string.not_join_button)
+                        else stringResource(id = R.string.join_button),
+                        style = MaterialTheme.typography.h4.copy(
+                            color = MaterialTheme.colors.onPrimary,
+                            fontSize = 16.sp
+                        )
+                    )
+                }
             }
-        }
     }
 }
 

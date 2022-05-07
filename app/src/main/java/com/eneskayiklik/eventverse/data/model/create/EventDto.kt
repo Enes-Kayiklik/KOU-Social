@@ -33,6 +33,7 @@ data class Event(
 
     val showAttendeeCount = totalAttendeeCount > 0
     val showUserHeads = attendee.isNotEmpty() && showAttendeeCount
+    val isStarted = Date(System.currentTimeMillis()) >= startTime
 }
 
 data class EventDto(
