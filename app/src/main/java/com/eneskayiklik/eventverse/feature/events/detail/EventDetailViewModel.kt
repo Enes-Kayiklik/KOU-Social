@@ -134,6 +134,8 @@ class EventDetailViewModel @Inject constructor(
     }
 
     fun getReviews() = viewModelScope.launch(Dispatchers.IO) {
+        // Make request if list is empty
+        if (_state.value.comments.isNotEmpty()) return@launch
         eventDetailRepository.getReviews(eventId).collectLatest {
             when (it) {
                 is Resource.Error -> Unit

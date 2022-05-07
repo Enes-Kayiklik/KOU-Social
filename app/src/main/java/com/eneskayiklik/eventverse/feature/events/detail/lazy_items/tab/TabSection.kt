@@ -29,7 +29,7 @@ fun LazyListScope.tabSection(
     coroutineScope: CoroutineScope,
     pages: List<EventDetailPage>
 ) {
-    val event = state.event ?: return
+    val event = state.event
     stickyHeader {
         TabRow(
             // Our selected tab is our current page
@@ -63,7 +63,7 @@ fun LazyListScope.tabSection(
                     selected = pagerState.currentPage == index,
                     onClick = {
                         coroutineScope.launch {
-                            pagerState.scrollToPage(index)
+                            pagerState.animateScrollToPage(index)
                         }
                     },
                 )

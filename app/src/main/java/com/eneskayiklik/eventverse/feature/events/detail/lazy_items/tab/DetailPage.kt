@@ -1,6 +1,7 @@
 package com.eneskayiklik.eventverse.feature.events.detail.lazy_items.tab
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,13 +21,15 @@ fun DetailPage(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = desc,
-                style = MaterialTheme.typography.h4.copy(
-                    color = MaterialTheme.colors.onBackground,
-                    fontSize = 16.sp
+            SelectionContainer {
+                Text(
+                    text = desc,
+                    style = MaterialTheme.typography.h4.copy(
+                        color = MaterialTheme.colors.onBackground,
+                        fontSize = 16.sp
+                    )
                 )
-            )
+            }
         }
     }
 }
