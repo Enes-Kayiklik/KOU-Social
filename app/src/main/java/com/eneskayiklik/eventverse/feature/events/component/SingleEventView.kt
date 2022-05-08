@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
@@ -29,7 +30,11 @@ fun SingleEventView(
         verticalAlignment = Alignment.CenterVertically
     ) {
         EventImage(image = event.coverImage, month = event.month, day = event.day)
-        Column(verticalArrangement = Arrangement.spacedBy(0.dp)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(0.dp), modifier = Modifier.padding(
+                end = 10.dp
+            )
+        ) {
             Text(
                 text = event.startDate, style = MaterialTheme.typography.h1.copy(
                     color = MaterialTheme.colors.onSecondary,
@@ -39,8 +44,8 @@ fun SingleEventView(
             Text(
                 text = event.title, style = MaterialTheme.typography.h1.copy(
                     color = MaterialTheme.colors.onBackground,
-                    fontSize = 18.sp
-                )
+                    fontSize = 16.sp
+                ), maxLines = 2, overflow = TextOverflow.Ellipsis
             )
 
             Row(

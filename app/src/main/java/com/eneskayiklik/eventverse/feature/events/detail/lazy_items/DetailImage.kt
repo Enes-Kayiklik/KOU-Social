@@ -31,16 +31,23 @@ fun LazyListScope.detailImage(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(16/9F)
+                .aspectRatio(16 / 9F)
                 .background(MaterialTheme.colors.secondary)
         ) {
             EventImage(image = image)
-            if (showTimer)
+            if (showTimer) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(16 / 9F)
+                        .background(Color.Black.copy(alpha = 0.3F))
+                )
                 EventDate(
                     date = date,
                     modifier = Modifier.align(Alignment.Center),
                     itemsColor = itemsColor
                 )
+            }
         }
     }
 }

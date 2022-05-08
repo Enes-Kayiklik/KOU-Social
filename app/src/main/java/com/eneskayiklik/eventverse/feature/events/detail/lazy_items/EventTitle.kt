@@ -31,16 +31,24 @@ fun LazyListScope.eventTitle(
     onLike: () -> Unit
 ) {
     item {
-        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = title, style = MaterialTheme.typography.h1.copy(
                     color = MaterialTheme.colors.onBackground,
                     fontSize = 24.sp
-                ), modifier = Modifier.padding(end = 10.dp)
+                ), modifier = Modifier
+                    .padding(end = 10.dp)
+                    .weight(9F)
             )
             Spacer(modifier = Modifier.weight(1F))
             Box(
                 modifier = Modifier
+                    .padding(end = 10.dp)
                     .size(50.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .border(1.dp, MaterialTheme.colors.secondary, RoundedCornerShape(10.dp))
@@ -62,7 +70,6 @@ fun LazyListScope.eventTitle(
                         .scale(scaleAnim)
                 )
             }
-            Spacer(modifier = Modifier.width(10.dp))
             Box(
                 modifier = Modifier
                     .size(50.dp)
