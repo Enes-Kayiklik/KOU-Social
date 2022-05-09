@@ -57,7 +57,7 @@ private fun SingleDetailItem(
             text = title, style = MaterialTheme.typography.h4.copy(
                 color = MaterialTheme.colors.onBackground,
                 fontSize = 14.sp
-            )
+            ), modifier = Modifier.padding(end = 16.dp)
         )
     }
 }
@@ -71,7 +71,8 @@ private fun UserHeadList(
         horizontalArrangement = Arrangement.spacedBy(-(12.dp))
     ) {
         users.forEach {
-            ProfileImage(picUrl = it.profilePic,
+            ProfileImage(
+                picUrl = it.profilePic,
                 modifier = Modifier
                     .size(32.dp)
                     .border(1.5.dp, MaterialTheme.colors.background, CircleShape)
