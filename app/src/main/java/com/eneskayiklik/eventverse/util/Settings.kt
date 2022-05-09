@@ -4,6 +4,7 @@ import com.eneskayiklik.eventverse.BuildConfig
 import com.eneskayiklik.eventverse.data.model.auth.AppUser
 import com.eneskayiklik.eventverse.data.model.auth.PostUser
 import com.eneskayiklik.eventverse.data.model.auth.User
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -16,7 +17,18 @@ object Settings {
             Firebase.crashlytics.setUserId(field.userId)
             field = value
         }
+        get() {
+            if (field.userId.isEmpty()) {
+                field = field.copy(
+                    userId = Firebase.auth.currentUser?.uid
+                        ?: throw NullPointerException("Settings user must not be null")
+                )
+            }
+            return field
+        }
+
     var userStorage: List<PostUser> = emptyList()
+
     suspend fun getAllUsers(db: FirebaseFirestore) {
         try {
             userStorage = db.collection(BuildConfig.FIREBASE_REFERENCE)
