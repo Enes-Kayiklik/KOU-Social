@@ -37,7 +37,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "FIREBASE_REFERENCE", "\"dev\""
+            buildConfigField "String", "FIREBASE_REFERENCE", "\"prod\""
         }
     }
 
