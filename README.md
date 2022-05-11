@@ -23,6 +23,25 @@ by [Enes](https://github.com/Enes-Kayiklik)*
 ## Beautiful icon pack 📦
 ***[Pela Icon](https://www.figma.com/community/file/990314173893326792) by [PelaTeam](https://www.figma.com/@pelateam)***
 
+## Architecture 🗼
+
+- Single Activity No Fragment
+- MVVM Pattern
+
+**View:** Renders UI and delegates user actions to ViewModel
+
+**ViewModel:** Can have simple UI logic but most of the time just gets the data from UseCase.
+
+**UseCase:** Contains all business rules and they written in the manner of single responsibility
+principle.
+
+**Repository:** Single source of data. Responsible to get data from one or more data sources.
+
+**For more information you can
+check [Guide to app architecture](https://developer.android.com/jetpack/guide?gclid=CjwKCAiA_omPBhBBEiwAcg7smXcfbEYneoLKFD_4Tyw0OgVQkpZL_XIr5TPXT0mncuQhgDIBBvLhbBoCEx0QAvD_BwE&gclsrc=aw.ds#mobile-app-ux)**
+
+<img src="screenshots/architecture.png">
+
 ## Screens 🖼
 
 <table style="width:100%">
@@ -48,34 +67,36 @@ by [Enes](https://github.com/Enes-Kayiklik)*
 
 ## Prerequisites
 
-- #### API Key
+- #### Local Properties Setup
+  inside **local.properties** file add this three below line and Rebuild project.
+  - `` apiPath="meallist/meal_list/main/b69b930d.json" ``
+  - `` baseUrl="https://raw.githubusercontent.com/" ``
 
-To run the application, an API key from [Unsplash](https://unsplash.com/developers) should be
-supplied.
+  - `` clientId="YOUR CLIENT ID HERE" ``
+    - You can get this client id from [Google Cloud Console](https://console.cloud.google.com/)
+      1. First create Firebase Application
+      2. Open cloud console and select your account where you created the Firebase application
+      3. When you select your account your application should automatically show up on top left corner. If it's not then select your applicaiton by clicking `Select a project` button
+      4. Create OAuth 2 Web Credential from `Credentials` section
+      5. Copy `Client id` and paste it
+      6. For more information follow the [Guideline](https://developers.google.com/identity/sign-in/android/start-integrating) 
 
-inside **local.properties** file add this line and Rebuild project.
-`` apiKey="Your API Key Here" ``
 
-How to store API key? - [Stackoverflow](https://stackoverflow.com/a/70244128/13447094)
+- #### Firebase Setup
 
-## Architecture 🗼
+  - Enable Firebase Features
+    1. Create applicaiton using [Firebase Console](https://console.firebase.google.com/)
+    2. Enable email and Google login from `Authenticaiton -> Sign in provider` section
+    3. Enable Firestore Database
+    4. Enable Storage
+  - Setup Project
+    1. Add your debug and release SHA-1 key from Project Settings section
+    2. Download google_services.json and paste to your project directory
 
-- Single Activity No Fragment
-- MVVM Pattern
 
-**View:** Renders UI and delegates user actions to ViewModel
-
-**ViewModel:** Can have simple UI logic but most of the time just gets the data from UseCase.
-
-**UseCase:** Contains all business rules and they written in the manner of single responsibility
-principle.
-
-**Repository:** Single source of data. Responsible to get data from one or more data sources.
-
-**For more information you can
-check [Guide to app architecture](https://developer.android.com/jetpack/guide?gclid=CjwKCAiA_omPBhBBEiwAcg7smXcfbEYneoLKFD_4Tyw0OgVQkpZL_XIr5TPXT0mncuQhgDIBBvLhbBoCEx0QAvD_BwE&gclsrc=aw.ds#mobile-app-ux)**
-
-<img src="screenshots/architecture.png">
+- #### Useful Links
+  - How to store API key? - [Stackoverflow](https://stackoverflow.com/a/70244128/13447094)
+  - How to add SHA-1 Key to Firebase - [Stackoverflow](https://stackoverflow.com/a/39144864/13447094)  
 
 ## Libraries 📚
 
@@ -87,6 +108,7 @@ check [Guide to app architecture](https://developer.android.com/jetpack/guide?gc
 - [Accompanist](https://github.com/google/accompanist) - A collection of extension libraries for Jetpack Compose.
   - [Pager](https://github.com/google/accompanist/tree/main/pager) - Pager composable for Jetpack Compose.
   - [Navigation Animation](https://github.com/google/accompanist/tree/main/navigation-animation) - Animated Navigation for Jetpack Compose.
+  - [Swipe to Refresh](https://github.com/google/accompanist/tree/main/swiperefresh) - Swipe Refresh layout for Jetpack Compose.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - For asynchronous
   and more..
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) -
