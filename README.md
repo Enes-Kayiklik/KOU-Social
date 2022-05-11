@@ -97,6 +97,7 @@ check [Guide to app architecture](https://developer.android.com/jetpack/guide?gc
 - #### Useful Links
   - How to store API key? - [Stackoverflow](https://stackoverflow.com/a/70244128/13447094)
   - How to add SHA-1 Key to Firebase - [Stackoverflow](https://stackoverflow.com/a/39144864/13447094)  
+  - Firebase Documentaton - [Firebase](https://firebase.google.com/docs/build)
 
 ## Libraries 📚
 
@@ -123,9 +124,10 @@ check [Guide to app architecture](https://developer.android.com/jetpack/guide?gc
   hood. It hides from you the non-type-safe and boilerplate code you would otherwise have to write.
 - [Firebase](https://firebase.google.com/) - Firebase is an app development platform that helps you build and grow apps and games users love. Backed by Google and trusted by millions of businesses around the world.
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
-- [Dagger - Hilt](https://dagger.dev/hilt/) - Dependency Injection Framework
+- [Dagger - Hilt](https://dagger.dev/hilt/) - Dependency Injection Framework.
 - [Coil](https://coil-kt.github.io/coil/compose/) - Coroutine image loader library.
 - [Jsoup](https://jsoup.org/) - HTML parser library.
+- [Compressor](https://github.com/zetbaitsu/Compressor) - An android image compression library.
 
 ## Package Structure 🗂
 
