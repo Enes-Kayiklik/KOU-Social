@@ -123,7 +123,7 @@ private fun BoxScope.ItemsContent(viewModel: MealViewModel, onNavigate: (String)
                             selected = pagerState.currentPage == index,
                             onClick = {
                                 scope.launch {
-                                    pagerState.scrollToPage(index)
+                                    pagerState.animateScrollToPage(index)
                                 }
                             },
                             title = title.day,
