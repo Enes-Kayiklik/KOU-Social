@@ -15,11 +15,13 @@ data class EventDetailState(
     val isReviewsLoading: Boolean = false,
     val date: RemainingDate = RemainingDate()
 ) {
-    val showTimer = isLoading.not() && date.second.isNotEmpty()
+    val showTimer = isLoading.not() && date.isZeros().not()
 }
 
 data class RemainingDate(
     val hour: List<Int> = emptyList(),
     val minute: List<Int> = emptyList(),
     val second: List<Int> = emptyList()
-)
+) {
+    fun isZeros() = hour.all { it == 0 } && minute.all { it == 0 } && second.all { it == 0 }
+}
