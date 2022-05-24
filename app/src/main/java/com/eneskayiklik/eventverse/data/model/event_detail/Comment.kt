@@ -21,6 +21,7 @@ data class Comment(
     )
 
     val formattedDate: String = createdAt.toDate().formatDate("MMMM dd, yyyy")
+    val shouldShowComment: Boolean = comment.isNotEmpty()
 }
 
 data class CommentDto(

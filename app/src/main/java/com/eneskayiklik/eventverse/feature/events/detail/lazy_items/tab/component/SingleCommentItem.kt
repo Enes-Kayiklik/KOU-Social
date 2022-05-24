@@ -62,11 +62,12 @@ fun SingleCommentItem(
                 )
             )
         }
-        Text(
-            text = comment.comment, style = MaterialTheme.typography.h4.copy(
-                color = MaterialTheme.colors.onBackground,
-                fontSize = 16.sp
+        if (comment.shouldShowComment)
+            Text(
+                text = comment.comment, style = MaterialTheme.typography.h4.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontSize = 16.sp
+                )
             )
-        )
     }
 }
